@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5259d209269426b88b45e6b6a684954, type: 3}
+  m_Name: GameConfigSO
+  m_EditorClassIdentifier: 
+  MusicSoundConfig: {fileID: 11400000, guid: 031fb1f303b86cc4e97bf6a558c7d049, type: 2}
+  PlayerSoundConfig: {fileID: 11400000, guid: 38e8fbae820b8b34f88847cb4fc6f742, type: 2}
+  SoundConfig: {fileID: 11400000, guid: 3617cc8a17d39ed40ae08d9618d7abc1, type: 2}
+  InfoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
+  PlayerConfig: {fileID: 11400000, guid: de6ea13a9cc69904681760bbbc648a33, type: 2}
+  AllLevelConfig: {fileID: 11400000, guid: e9fa8098056ca1f498621c82179325c1, type: 2}
