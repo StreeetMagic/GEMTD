@@ -1,6 +1,7 @@
 ﻿using Games;
 using InfastuctureCore.Services.StateMachineServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Infrastructure.States
 {
@@ -17,12 +18,17 @@ namespace Infrastructure.States
         {
             Debug.Log("Entered Bootstrap State");
 
-            _gameStateMachine.Enter<LoadLevelState, string>(Constants.Scenes.Gameloop);
+            EnterNextState();
         }
 
         public void Exit()
         {
             Debug.Log("Exited Bootstrap State");
         }
+
+        private void EnterNextState() =>
+            _gameStateMachine.Enter<LoadLevelState, string>(SceneManager.GetActiveScene().name == Constants.Scenes.InitialScene
+                ? Constants.Scenes.Gameloop
+                : SceneManager.GetActiveScene().name);
     }
 }

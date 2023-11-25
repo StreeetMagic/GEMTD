@@ -20,19 +20,21 @@ namespace Infrastructure.States
 
         public void Enter()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Entered LoadLevelState");
+
+            _sceneLoader.Load(EnterState);
         }
 
         public void Enter(string sceneName)
         {
             Debug.Log("Entered LoadLevelState");
 
-            _sceneLoader.Load(sceneName, OnLoaded);
+            _sceneLoader.Load(sceneName, EnterState);
+        }
 
-            void OnLoaded(string name)
-            {
-                _gameStateMachine.Enter<GameLoopState>();
-            }
+        private void EnterState(string name)
+        {
+            _gameStateMachine.Enter<GameLoopState>();
         }
 
         public void Exit()
@@ -41,3 +43,4 @@ namespace Infrastructure.States
         }
     }
 }
+
