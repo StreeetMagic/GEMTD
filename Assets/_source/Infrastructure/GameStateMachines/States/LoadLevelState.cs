@@ -1,7 +1,9 @@
 using System;
 using Games;
 using InfastuctureCore.SceneLoaders;
+using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
+using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;
 
 namespace Infrastructure.States
@@ -22,17 +24,17 @@ namespace Infrastructure.States
         {
             Debug.Log("Entered LoadLevelState");
 
-            _sceneLoader.Load(EnterState);
+            _sceneLoader.Load(OnSceneLoaded);
         }
 
         public void Enter(string sceneName)
         {
             Debug.Log("Entered LoadLevelState");
 
-            _sceneLoader.Load(sceneName, EnterState);
+            _sceneLoader.Load(sceneName, OnSceneLoaded);
         }
 
-        private void EnterState(string name)
+        private void OnSceneLoaded(string name)
         {
             _gameStateMachine.Enter<GameLoopState>();
         }
@@ -43,4 +45,3 @@ namespace Infrastructure.States
         }
     }
 }
-

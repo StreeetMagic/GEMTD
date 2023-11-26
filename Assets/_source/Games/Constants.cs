@@ -8,5 +8,18 @@ namespace Games
             public const string MainMenuScene = "01_MainMenu";
             public const string Gameloop = "02_Gameloop";
         }
+
+        public class AssetsPath
+        {
+            public class Prefabs
+            {
+                public const string BlockGrid = "BlockGrid";
+            }
+
+            public class Configs
+            {
+                public const string GameConfig = "GameConfigSO";
+            }
+        }
     }
 }
