@@ -1,34 +1,28 @@
-﻿using InfastuctureCore.Services;
+﻿using System.Collections.Generic;
+using Gameplay.BlockGrids.Walls;
+using InfastuctureCore.Services;
 using InfastuctureCore.Services.AssetProviderServices;
 using Infrastructure.Services.CurrentDataServices;
+using Infrastructure.Services.GameFactoryServices.Factories;
+using Infrastructure.Services.StaticDataServices;
 
 namespace Infrastructure.Services.GameFactoryServices
 {
     public interface IGameFactoryService : IService
     {
-        void CreateBlockGrid();
+        BlockGridFactory BlockGridFactory { get; }
+        LabyrinthFactory LabyrinthFactory { get; }
     }
 
-    class GameFactoryService : IGameFactoryService
+    public class GameFactoryService : IGameFactoryService
     {
-        private readonly IAssetProviderService _assetProviderService;
-        private readonly IStaticDataService _staticDataService;
-        private readonly ICurrentDataService _currentDataService;
-
-        private readonly BlockGridFactory _blockGridFactory;
-
         public GameFactoryService(IAssetProviderService assetProviderService, IStaticDataService staticDataService, ICurrentDataService currentDataService)
         {
-            _assetProviderService = assetProviderService;
-            _staticDataService = staticDataService;
-            _currentDataService = currentDataService;
-
-            _blockGridFactory = new BlockGridFactory(assetProviderService, staticDataService, currentDataService);
+            BlockGridFactory = new BlockGridFactory(assetProviderService, staticDataService, currentDataService);
+            LabyrinthFactory = new LabyrinthFactory(assetProviderService, staticDataService, currentDataService, BlockGridFactory);
         }
 
-        public void CreateBlockGrid()
-        {
-            _blockGridFactory.CreateBlockGrid();
-        }
+        public BlockGridFactory BlockGridFactory { get; }
+        public LabyrinthFactory LabyrinthFactory { get; }
     }
 }

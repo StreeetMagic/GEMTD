@@ -1,23 +1,32 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Gameplay.BlockGrids.Cells;
+using Gameplay.BlockGrids.CellsContainers;
+using Gameplay.BlockGrids.Checkpoints;
+using InfastuctureCore.ServiceLocators;
 using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;
 
-public class BlockGridView : MonoBehaviour
+namespace Gameplay.BlockGrids
 {
-    private BlockGridData _blockGridData;
-
-    private void Awake()
+    public class BlockGridView : MonoBehaviour
     {
-        CellsContainer = GetComponentInChildren<CellsContainer>();
-    }
+        private BlockGridData _blockGridData;
+        private CellView[] _cellViews;
 
-    public void Init(BlockGridData blockGridData, CellView[] cellViews)
-    {
-        _blockGridData = blockGridData;
-        CellsContainer.Init(cellViews);
-    }
+        private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
 
-    public CellsContainer CellsContainer { get; private set; }
+        public CellsContainer CellsContainer { get; private set; }
+
+        private void Awake()
+        {
+            CellsContainer = GetComponentInChildren<CellsContainer>();
+        }
+
+        public void Init(BlockGridData blockGridData)
+        {
+            _blockGridData = blockGridData;
+            _cellViews = _blockGridData.CellDatas.Select(cellData => GameFactoryService.BlockGridFactory.CreateCellView(cellData, CellsContainer.transform)).ToArray();
+        }
+    }
 }

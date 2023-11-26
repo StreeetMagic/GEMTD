@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using Games;
-using InfastuctureCore.SceneLoaders;
+﻿using Games;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,7 +16,7 @@ namespace InfastuctureCore.GameBootstrappers
             DontDestroyOnLoad(this);
 
             string initialSceneName = SceneManager.GetActiveScene().name;
-            new Game(this, initialSceneName);
+            var game = new Game(this, initialSceneName);
         }
     }
 }

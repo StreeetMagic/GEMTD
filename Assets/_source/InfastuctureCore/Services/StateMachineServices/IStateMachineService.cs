@@ -1,3 +1,5 @@
+using InfastuctureCore.Services.StateMachineServices.States;
+
 namespace InfastuctureCore.Services.StateMachineServices
 {
     public interface IStateMachineService<TData> : IService where TData : class

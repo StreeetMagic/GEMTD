@@ -1,9 +1,9 @@
 using InfastuctureCore.SceneLoaders;
 using InfastuctureCore.Services.StateMachineServices;
-using Infrastructure.States;
+using Infrastructure.GameStateMachines.States;
 using UnityEngine;
 
-namespace Games
+namespace Infrastructure.GameStateMachines
 {
     public class GameStateMachineData
     {

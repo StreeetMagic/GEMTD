@@ -1,6 +1,6 @@
 ﻿using InfastuctureCore.Services;
 
-namespace Infrastructure.Services.GameFactoryServices
+namespace Infrastructure.Services.StaticDataServices
 {
     public interface IStaticDataService : IService
     {

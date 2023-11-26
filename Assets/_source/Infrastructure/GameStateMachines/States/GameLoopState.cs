@@ -1,26 +1,27 @@
-using Games;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
+using InfastuctureCore.Services.StateMachineServices.States;
 using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;
 
-namespace Infrastructure.States
+namespace Infrastructure.GameStateMachines.States
 {
     public class GameLoopState : IState
     {
-        private readonly IStateMachineService<GameStateMachineData> _gameStateMachine;
-        
+        //  private readonly IStateMachineService<GameStateMachineData> _gameStateMachine;
+
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
 
         public GameLoopState(IStateMachineService<GameStateMachineData> gameStateMachine)
         {
-            _gameStateMachine = gameStateMachine;
+            // _gameStateMachine = gameStateMachine;
         }
 
         public void Enter()
         {
             Debug.Log("Entered GameLoop State");
-            GameFactoryService.CreateBlockGrid();
+            GameFactoryService.BlockGridFactory.CreateBlockGridData();
+            GameFactoryService.LabyrinthFactory.CreateStartingLabyrinth();
         }
 
         public void Exit()

@@ -1,12 +1,9 @@
-using System;
-using Games;
 using InfastuctureCore.SceneLoaders;
-using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
-using Infrastructure.Services.GameFactoryServices;
+using InfastuctureCore.Services.StateMachineServices.States;
 using UnityEngine;
 
-namespace Infrastructure.States
+namespace Infrastructure.GameStateMachines.States
 {
     public class LoadLevelState : IState, IPayloadedState<string>
     {

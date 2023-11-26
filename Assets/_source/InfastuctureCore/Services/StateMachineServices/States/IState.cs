@@ -1,4 +1,4 @@
-namespace InfastuctureCore.Services.StateMachineServices
+namespace InfastuctureCore.Services.StateMachineServices.States
 {
     public interface IState : IExitableState
     {

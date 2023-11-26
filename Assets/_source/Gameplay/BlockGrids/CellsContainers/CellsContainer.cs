@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+using Gameplay.BlockGrids.Cells;
 using UnityEngine;
 
-public class CellsContainer : MonoBehaviour
+namespace Gameplay.BlockGrids.CellsContainers
 {
-    private CellView[] _cellViews;
-
-    public void Init(CellView[] cellViews)
+    public class CellsContainer : MonoBehaviour
     {
-        _cellViews = cellViews;
+        private CellView[] _cellViews;
+
+        public void Init(CellView[] cellViews)
+        {
+            _cellViews = cellViews;
+        }
     }
 }
