@@ -1,4 +1,5 @@
-﻿using InfastuctureCore.Services.StateMachineServices.States;
+﻿using InfastuctureCore.ServiceLocators;
+using InfastuctureCore.Services.StateMachineServices.States;
 
 namespace InfastuctureCore.Services.StateMachineServices
 {
@@ -33,12 +34,12 @@ namespace InfastuctureCore.Services.StateMachineServices
 
         public TState Get<TState>() where TState : class, IExitableState
         {
-            return Implementation<TState>.StateInstance;
+            return Implementation<TState>.TInstance;
         }
 
         public TState Register<TState>(TState implementation) where TState : IState
         {
-            return Implementation<TState>.StateInstance = implementation;
+            return Implementation<TState>.TInstance = implementation;
         }
 
         private TState ChangeState<TState>() where TState : class, IExitableState
@@ -47,11 +48,6 @@ namespace InfastuctureCore.Services.StateMachineServices
             var state = Get<TState>();
             _activeState = state;
             return state;
-        }
-
-        private class Implementation<TState>
-        {
-            public static TState StateInstance;
         }
     }
 }

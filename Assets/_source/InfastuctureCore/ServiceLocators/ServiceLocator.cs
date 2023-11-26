@@ -10,18 +10,12 @@ namespace InfastuctureCore.ServiceLocators
 
         public TService Register<TService>(TService implementation) where TService : IService
         {
-            return Implementation<TService>.ServiceInstance = implementation;
+            return Implementation<TService>.TInstance = implementation;
         }
 
         public TService Get<TService>() where TService : IService
         {
-            return Implementation<TService>.ServiceInstance;
-        }
-
-        // ReSharper disable once ClassNeverInstantiated.Local
-        private class Implementation<TService> where TService : IService
-        {
-            public static TService ServiceInstance;
+            return Implementation<TService>.TInstance;
         }
     }
 }
