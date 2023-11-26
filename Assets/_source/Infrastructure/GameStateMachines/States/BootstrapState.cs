@@ -46,8 +46,8 @@ namespace Infrastructure.GameStateMachines.States
             var locator = ServiceLocator.Instance;
 
             var staticData = locator.Register<IStaticDataService>(new StaticDataService()); 
-            // var assetProvider = locator.Register<IAssetProviderService>(new AssetProviderService());
-            // var currentData = locator.Register<ICurrentDataService>(new CurrentDataService());
+            var assetProvider = locator.Register<IAssetProviderService>(new AssetProviderService());
+            var currentData = locator.Register<ICurrentDataService>(new CurrentDataService());
             locator.Register(_gameStateMachine);
             locator.Register<IPoolRepositoryService>(new PoolRepositoryService());
             locator.Register<IGameFactoryService>(new GameFactoryService(assetProvider, staticData, currentData));

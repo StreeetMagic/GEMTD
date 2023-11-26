@@ -15,4 +15,20 @@ namespace Infrastructure.Services.CurrentDataServices
             return Implementation<TData>.TInstance;
         }
     }
+
+    public interface ICurrentDataService : IStorageService
+    {
+    }
+
+    public class CurrentDataService : ICurrentDataService
+    {
+    }
+
+    public interface IStaticDataService : IStorageService
+    {
+    }
+
+    class StaticDataService : IStaticDataService
+    {
+    }
 }

@@ -1,7 +1,7 @@
 using System.Linq;
 using Gameplay.BlockGrids.Cells;
 using InfastuctureCore.ServiceLocators;
-using Infrastructure.Services.StaticDataServices;
+using Infrastructure.Services.CurrentDataServices;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
