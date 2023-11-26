@@ -5,6 +5,12 @@ namespace Infrastructure.Services.CurrentDataServices
 {
     public interface IStorageService : IService
     {
+        TData Register<TData>(TData implementation);
+        TData Get<TData>();
+    }
+
+    public abstract class StorageService : IStorageService
+    {
         public TData Register<TData>(TData implementation)
         {
             return Implementation<TData>.TInstance = implementation;
@@ -20,7 +26,7 @@ namespace Infrastructure.Services.CurrentDataServices
     {
     }
 
-    public class CurrentDataService : ICurrentDataService
+    public class CurrentDataService : StorageService, ICurrentDataService
     {
     }
 
@@ -28,7 +34,9 @@ namespace Infrastructure.Services.CurrentDataServices
     {
     }
 
-    class StaticDataService : IStaticDataService
+    class StaticDataService : StorageService, IStaticDataService
     {
     }
+    
+    
 }
