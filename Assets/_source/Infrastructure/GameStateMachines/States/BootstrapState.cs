@@ -1,5 +1,6 @@
 ﻿using Gameplay.BlockGrids;
 using Gameplay.BlockGrids.Checkpoints;
+using Gameplay.BlockGrids.Labytinths;
 using Games;
 using Games.Config.Resources;
 using InfastuctureCore.ServiceLocators;

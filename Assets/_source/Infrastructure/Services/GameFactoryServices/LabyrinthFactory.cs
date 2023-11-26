@@ -1,5 +1,6 @@
 ﻿using Gameplay.BlockGrids;
 using Gameplay.BlockGrids.Cells;
+using Gameplay.BlockGrids.Labytinths;
 using InfastuctureCore.Services.AssetProviderServices;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices.Factories;
