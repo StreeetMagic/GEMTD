@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using Gameplay.BlockGrids.Walls;
-using InfastuctureCore.Services;
+﻿using InfastuctureCore.Services;
 using InfastuctureCore.Services.AssetProviderServices;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices.Factories;
-using Infrastructure.Services.StaticDataServices;
 
 namespace Infrastructure.Services.GameFactoryServices
 {
