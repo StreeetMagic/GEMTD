@@ -13,12 +13,12 @@
     public struct Coordinates
     {
         public int X;
-        public int Y;
+        public int Z;
 
-        public Coordinates(int x, int y)
+        public Coordinates(int x, int z)
         {
             X = x;
-            Y = y;
+            Z = z;
         }
     }
 }

@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class CellView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private BlockView _block;
 
-    // Update is called once per frame
-    void Update()
+    public void Init(BlockView block)
     {
-        
+        _block = block;
     }
 }

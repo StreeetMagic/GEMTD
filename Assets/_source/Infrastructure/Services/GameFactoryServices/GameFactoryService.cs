@@ -3,6 +3,7 @@ using Games.Config.Resources;
 using InfastuctureCore.Services;
 using InfastuctureCore.Services.AssetProviderServices;
 using Infrastructure.Services.CurrentDataServices;
+using UnityEngine;
 
 namespace Infrastructure.Services.GameFactoryServices
 {
@@ -27,7 +28,34 @@ namespace Infrastructure.Services.GameFactoryServices
         public void CreateBlockGrid()
         {
             BlockGridData blockGridData = _currentDataService.Register(CreateBlockGridData());
-            _assetProviderService.Instantiate<BlockGridView>(Constants.AssetsPath.Prefabs.BlockGrid).Init(blockGridData);
+            var blockGridView = _assetProviderService.Instantiate<BlockGridView>(Constants.AssetsPath.Prefabs.BlockGrid);
+            CellView[] cellViews = CreateBlockCells(blockGridData.CellDatas, blockGridView.CellsContainer.transform);
+            blockGridView.Init(blockGridData, cellViews);
+        }
+
+        private CellView[] CreateBlockCells(CellData[] cellDatas, Transform parent)
+        {
+            CellView[] cellViews = new CellView[cellDatas.Length];
+
+            for (int i = 0; i < cellDatas.Length; i++)
+            {
+                CellData cellData = cellDatas[i];
+                var position = new Vector3(cellData.Coordinates.X, 0, cellData.Coordinates.Z);
+                var cellView = _assetProviderService.Instantiate<CellView>(Constants.AssetsPath.Prefabs.Cell, position);
+                cellView.transform.SetParent(parent);
+                cellViews[i] = cellView;
+                var block = CreateBlock(position, cellView.transform);
+                cellView.Init(block);
+            }
+
+            return cellViews;
+        }
+
+        private BlockView CreateBlock(Vector3 at, Transform parent)
+        {
+            var blockView = _assetProviderService.Instantiate<BlockView>(Constants.AssetsPath.Prefabs.Block, at);
+            blockView.transform.SetParent(parent);
+            return blockView;
         }
 
         private BlockGridData CreateBlockGridData()
@@ -42,10 +70,7 @@ namespace Infrastructure.Services.GameFactoryServices
             for (int i = 0; i < xSize; i++)
             {
                 for (int j = 0; j < ySize; j++)
-                {
-                    count++;
-                    cellDatas[count] = new CellData(new Coordinates(i, j));
-                }
+                    cellDatas[count++] = new CellData(new Coordinates(i, j));
             }
 
             return new BlockGridData(cellDatas);

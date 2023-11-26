@@ -14,6 +14,8 @@ namespace Games
             public class Prefabs
             {
                 public const string BlockGrid = "BlockGrid";
+                public const string Cell = "Cell"; 
+                public const string Block = "Block"; 
             }
 
             public class Configs

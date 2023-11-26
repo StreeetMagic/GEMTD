@@ -11,9 +11,9 @@ namespace InfastuctureCore.Services.AssetProviderServices
         {
             if (_assets.TryGetValue(path, out GameObject prefab))
                 return Object.Instantiate(prefab, at, Quaternion.identity);
-            
+
             _assets[path] = Resources.Load<GameObject>(path);
-            
+
             return Object.Instantiate(_assets[path], at, Quaternion.identity);
         }
 
@@ -21,9 +21,9 @@ namespace InfastuctureCore.Services.AssetProviderServices
         {
             if (_assets.TryGetValue(path, out GameObject prefab))
                 return Object.Instantiate(prefab);
-            
+
             _assets[path] = Resources.Load<GameObject>(path);
-            
+
             return Object.Instantiate(_assets[path]);
         }
 
@@ -31,9 +31,19 @@ namespace InfastuctureCore.Services.AssetProviderServices
         {
             if (_assets.TryGetValue(path, out GameObject prefab))
                 return Object.Instantiate(prefab).GetComponent<T>();
-            
+
             _assets[path] = Resources.Load<GameObject>(path);
-            
+
+            return Object.Instantiate(_assets[path]).GetComponent<T>();
+        }
+
+        public T Instantiate<T>(string path, Vector3 at) where T : Object
+        {
+            if (_assets.TryGetValue(path, out GameObject prefab))
+                return Object.Instantiate(prefab, at, Quaternion.identity).GetComponent<T>();
+
+            _assets[path] = Resources.Load<GameObject>(path);
+
             return Object.Instantiate(_assets[path]).GetComponent<T>();
         }
     }
