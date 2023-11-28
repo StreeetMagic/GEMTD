@@ -1,14 +1,13 @@
-﻿using Gameplay.BlockGrids;
-using Gameplay.BlockGrids.Blocks;
-using Gameplay.BlockGrids.Cells;
-using Gameplay.BlockGrids.Checkpoints;
-using Gameplay.BlockGrids.Walls;
+﻿using Gameplay.Fields;
+using Gameplay.Fields.Blocks;
+using Gameplay.Fields.Cells;
+using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.Walls;
 using Games;
 using InfastuctureCore.Services.AssetProviderServices;
 using Infrastructure.Services.CurrentDataServices;
 using UnityEngine;
-using BlockGridData = Gameplay.BlockGrids.BlockGridData;
-using IStaticDataService = Infrastructure.Services.StaticDataServices.IStaticDataService;
+using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticDataService;
 
 namespace Infrastructure.Services.GameFactoryServices.Factories
 {
@@ -25,17 +24,18 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             _currentDataService = currentDataService;
         }
 
-        public BlockGridData CreateBlockGridData()
+        public FieldData CreateBlockGridData()
         {
-            int xSize = _staticDataService.Get<BlockGridConfig>().FieldXSize;
-            int ySize = _staticDataService.Get<BlockGridConfig>().FieldYSize;
+            int xSize = _staticDataService.Get<FieldConfig>().FieldXSize;
+            int ySize = _staticDataService.Get<FieldConfig>().FieldYSize;
 
             CellData[] cellDatas = CreateCellDatas(xSize, ySize);
 
-            var blockGridData = new BlockGridData(cellDatas);
-            _currentDataService.BlockGridData = blockGridData; 
+            var blockGridData = new FieldData(cellDatas);
+            _currentDataService.FieldData = blockGridData; 
             CreateBlockGridView(blockGridData);
             CreateCheckpointsDatas();
+            
             return blockGridData;
         }
 
@@ -82,10 +82,10 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             }
         }
 
-        private void CreateBlockGridView(BlockGridData blockGridData)
+        private void CreateBlockGridView(FieldData fieldData)
         {
-            var blockGridView = _assetProviderService.Instantiate<BlockGridView>(Constants.AssetsPath.Prefabs.BlockGrid);
-            blockGridView.Init(blockGridData);
+            var blockGridView = _assetProviderService.Instantiate<FieldView>(Constants.AssetsPath.Prefabs.Field);
+            blockGridView.Init(fieldData);
         }
 
         private CellData[] CreateCellDatas(int xSize, int ySize)
@@ -105,7 +105,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
 
         private CellData GetCellDataByCoordinates(Coordinates coordinates)
         {
-            CellData[] allCellDatas = _currentDataService.BlockGridData.CellDatas; 
+            CellData[] allCellDatas = _currentDataService.FieldData.CellDatas; 
 
             foreach (CellData cellData in allCellDatas)
             {

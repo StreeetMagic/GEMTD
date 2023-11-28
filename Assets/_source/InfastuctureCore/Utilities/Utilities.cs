@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace InfastuctureCore.ServiceLocators.Utilities
+﻿namespace InfastuctureCore.Utilities
 {
     public class Utilities
     {

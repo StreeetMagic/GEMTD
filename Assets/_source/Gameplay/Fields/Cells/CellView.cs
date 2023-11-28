@@ -1,12 +1,12 @@
-using System;
-using Gameplay.BlockGrids.Blocks;
-using Gameplay.BlockGrids.Checkpoints;
+using Gameplay.Fields.Blocks;
+using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.Walls;
 using InfastuctureCore.ServiceLocators;
 using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Gameplay.BlockGrids.Cells
+namespace Gameplay.Fields.Cells
 {
     public class CellView : MonoBehaviour, IPointerDownHandler
     {

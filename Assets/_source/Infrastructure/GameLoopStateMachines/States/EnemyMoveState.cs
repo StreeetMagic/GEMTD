@@ -1,6 +1,6 @@
 ﻿using InfastuctureCore.Services.StateMachineServices.States;
 
-namespace Infrastructure.GameLoopStateMachines
+namespace Infrastructure.GameLoopStateMachines.States
 {
     public class EnemyMoveState : IState
     {

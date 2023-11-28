@@ -2,7 +2,7 @@
 using InfastuctureCore.Services.AssetProviderServices;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices.Factories;
-using IStaticDataService = Infrastructure.Services.StaticDataServices.IStaticDataService;
+using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticDataService;
 
 namespace Infrastructure.Services.GameFactoryServices
 {

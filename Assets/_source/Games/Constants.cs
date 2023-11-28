@@ -13,7 +13,7 @@ namespace Games
         {
             public class Prefabs
             {
-                public const string BlockGrid = "BlockGrid";
+                public const string Field = "Field";
                 public const string Cell = "Cell";
                 public const string Block = "Block";
                 public const string Checkpoint = "Checkpoint";
@@ -23,7 +23,7 @@ namespace Games
             public class Configs
             {
                 public const string GameConfig = "GameConfigSO";
-                public const string BlockGridConfig = "BlockGridConfigSO";
+                public const string FieldConfig = "FieldConfigSO";
                 public const string CheckpointsConfig = "CheckpointsConfigSO";
                 public const string MapWallsConfig = "MapWallsConfigSO";
                 public const string StartingLabyrinthConfig = "StartingLabyrinthConfigSO";

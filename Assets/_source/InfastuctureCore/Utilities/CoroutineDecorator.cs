@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace InfastuctureCore.ServiceLocators.Utilities
+namespace InfastuctureCore.Utilities
 {
     public class CoroutineDecorator
     {
@@ -34,6 +34,4 @@ namespace InfastuctureCore.ServiceLocators.Utilities
             _coroutine = null;
         }
     }
-
-
 }

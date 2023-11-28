@@ -1,106 +1,106 @@
-using System.Collections;
-using System.Collections.Generic;
-using Gameplay.BlockGrids.Cells;
-using Gameplay.BlockGrids.Walls;
+using Gameplay.Fields.Cells;
 using Games;
 using InfastuctureCore.ServiceLocators;
 using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ClickDetector : MonoBehaviour
+namespace GameDesign
 {
-    private Camera _camera;
-    private CellView _highlightedCellView;
-    private Material _highlightedMaterial;
-
-    private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
-
-    private void Awake()
+    public class ClickDetector : MonoBehaviour
     {
-        _camera = Camera.main;
-        _highlightedMaterial = Resources.Load<Material>(Constants.AssetsPath.Materials.Highlighted);
-    }
+        private Camera _camera;
+        private CellView _highlightedCellView;
+        private Material _highlightedMaterial;
 
-    private void Update()
-    {
-        if (EventSystem.current.IsPointerOverGameObject())
+        private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
+
+        private void Awake()
         {
-            if (_highlightedCellView != null)
-                _highlightedCellView.UnHighlight();
-
-            return;
+            _camera = Camera.main;
+            _highlightedMaterial = Resources.Load<Material>(Constants.AssetsPath.Materials.Highlighted);
         }
 
-        HighlightCellViewByCursor();
-        ClickOnCell();
-    }
-
-    private void HighlightCellViewByCursor()
-    {
-        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit[] results = Physics.RaycastAll(ray);
-
-        foreach (RaycastHit hit in results)
+        private void Update()
         {
-            if (hit.transform.TryGetComponent(out CellView cellView) == false)
-                continue;
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                if (_highlightedCellView != null)
+                    _highlightedCellView.UnHighlight();
 
-            if (_highlightedCellView == cellView)
                 return;
+            }
 
-            if (_highlightedCellView != null)
-                _highlightedCellView.UnHighlight();
-
-            _highlightedCellView = cellView;
-            _highlightedCellView.Highlight(_highlightedMaterial);
-
-            return;
+            HighlightCellViewByCursor();
+            ClickOnCell();
         }
-    }
 
-    private void ClickOnCell()
-    {
-        if (Input.GetMouseButton(0))
+        private void HighlightCellViewByCursor()
         {
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit[] results = Physics.RaycastAll(ray);
 
             foreach (RaycastHit hit in results)
             {
-                if (hit.transform.TryGetComponent(out CellView cellView))
-                {
-                    CellData celLData = cellView.CelLData;
+                if (hit.transform.TryGetComponent(out CellView cellView) == false)
+                    continue;
 
-                    if (celLData.IsEmpty)
-                    {
-                        celLData.SetWallData(GameFactoryService.BlockGridFactory.CreateWall(celLData));
-                        return;
-                    }
-
+                if (_highlightedCellView == cellView)
                     return;
-                }
+
+                if (_highlightedCellView != null)
+                    _highlightedCellView.UnHighlight();
+
+                _highlightedCellView = cellView;
+                _highlightedCellView.Highlight(_highlightedMaterial);
+
+                return;
             }
         }
 
-        if (Input.GetMouseButton(1))
+        private void ClickOnCell()
         {
-            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit[] results = Physics.RaycastAll(ray);
-
-            foreach (RaycastHit hit in results)
+            if (Input.GetMouseButton(0))
             {
-                if (hit.transform.TryGetComponent(out CellView cellView))
-                {
-                    CellData celLData = cellView.CelLData;
+                Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit[] results = Physics.RaycastAll(ray);
 
-                    if (celLData.HasWall)
+                foreach (RaycastHit hit in results)
+                {
+                    if (hit.transform.TryGetComponent(out CellView cellView))
                     {
-                        celLData.RemoveWallData();
+                        CellData celLData = cellView.CelLData;
+
+                        if (celLData.IsEmpty)
+                        {
+                            celLData.SetWallData(GameFactoryService.BlockGridFactory.CreateWall(celLData));
+                            return;
+                        }
+
                         return;
                     }
+                }
+            }
 
-                    return;
+            if (Input.GetMouseButton(1))
+            {
+                Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit[] results = Physics.RaycastAll(ray);
+
+                foreach (RaycastHit hit in results)
+                {
+                    if (hit.transform.TryGetComponent(out CellView cellView))
+                    {
+                        CellData celLData = cellView.CelLData;
+
+                        if (celLData.HasWall)
+                        {
+                            celLData.RemoveWallData();
+                            return;
+                        }
+
+                        return;
+                    }
                 }
             }
         }

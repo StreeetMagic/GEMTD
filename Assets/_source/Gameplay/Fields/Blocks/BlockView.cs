@@ -1,8 +1,6 @@
-using System;
-using Games;
 using UnityEngine;
 
-namespace Gameplay.BlockGrids.Blocks
+namespace Gameplay.Fields.Blocks
 {
     public class BlockView : MonoBehaviour
     {

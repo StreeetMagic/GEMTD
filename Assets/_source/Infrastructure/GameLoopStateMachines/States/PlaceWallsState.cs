@@ -1,7 +1,7 @@
 ﻿using InfastuctureCore.Services.StateMachineServices.States;
 using UnityEngine;
 
-namespace Infrastructure.GameLoopStateMachines
+namespace Infrastructure.GameLoopStateMachines.States
 {
     public class PlaceWallsState : IState
     {

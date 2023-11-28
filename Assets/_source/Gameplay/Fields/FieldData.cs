@@ -1,14 +1,13 @@
 ﻿using System.Linq;
-using Gameplay.BlockGrids.Cells;
-using Gameplay.BlockGrids.Checkpoints;
+using Gameplay.Fields.Cells;
 
-namespace Gameplay.BlockGrids
+namespace Gameplay.Fields
 {
-    public class BlockGridData
+    public class FieldData
     {
         private readonly CellData[] _cellDatas;
 
-        public BlockGridData(CellData[] cellDatas)
+        public FieldData(CellData[] cellDatas)
         {
             _cellDatas = cellDatas;
         }

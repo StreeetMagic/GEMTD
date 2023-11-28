@@ -1,6 +1,4 @@
-﻿using InfastuctureCore.Services;
-
-namespace Infrastructure.Services.StaticDataServices
+﻿namespace InfastuctureCore.Services.StaticDataServices
 {
     public interface IStaticDataService
     {

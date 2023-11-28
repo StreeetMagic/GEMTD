@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 2338882830228985800}
   - component: {fileID: 9101958703618862953}
   m_Layer: 0
-  m_Name: BlockGrid
+  m_Name: Field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

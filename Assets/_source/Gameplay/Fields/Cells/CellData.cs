@@ -1,10 +1,10 @@
 ﻿using System;
-using Gameplay.BlockGrids.Blocks;
-using Gameplay.BlockGrids.Checkpoints;
-using Gameplay.BlockGrids.Walls;
+using Gameplay.Fields.Blocks;
+using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.Walls;
 using UnityEngine;
 
-namespace Gameplay.BlockGrids.Cells
+namespace Gameplay.Fields.Cells
 {
     public class CellData
     {

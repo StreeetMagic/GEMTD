@@ -1,14 +1,13 @@
 using System.Linq;
 using GameDesign;
-using Gameplay.BlockGrids.Cells;
+using Gameplay.Fields.Cells;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services;
-using Infrastructure.Services.CurrentDataServices;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using IStaticDataService = Infrastructure.Services.StaticDataServices.IStaticDataService;
+using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticDataService;
 
-namespace Gameplay.BlockGrids.Labytinths
+namespace Gameplay.Fields.Labytinths
 {
     [CreateAssetMenu(menuName = "Configs/Starting Labyrinth Config", fileName = "StartingLabyrinthConfigSO")]
     public class StartingLabyrinthConfig : ScriptableObject, IStaticData

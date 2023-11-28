@@ -1,4 +1,4 @@
-﻿namespace Gameplay.BlockGrids.Blocks
+﻿namespace Gameplay.Fields.Blocks
 {
     public class BlockData
     {
