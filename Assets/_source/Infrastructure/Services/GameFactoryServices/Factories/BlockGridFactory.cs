@@ -6,9 +6,9 @@ using Gameplay.BlockGrids.Walls;
 using Games;
 using InfastuctureCore.Services.AssetProviderServices;
 using Infrastructure.Services.CurrentDataServices;
-using Infrastructure.Services.StaticDataServices;
 using UnityEngine;
 using BlockGridData = Gameplay.BlockGrids.BlockGridData;
+using IStaticDataService = Infrastructure.Services.StaticDataServices.IStaticDataService;
 
 namespace Infrastructure.Services.GameFactoryServices.Factories
 {
@@ -33,7 +33,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             CellData[] cellDatas = CreateCellDatas(xSize, ySize);
 
             var blockGridData = new BlockGridData(cellDatas);
-            _currentDataService.Register(blockGridData);
+            _currentDataService.BlockGridData = blockGridData; 
             CreateBlockGridView(blockGridData);
             CreateCheckpointsDatas();
             return blockGridData;
@@ -105,7 +105,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
 
         private CellData GetCellDataByCoordinates(Coordinates coordinates)
         {
-            CellData[] allCellDatas = _currentDataService.Get<BlockGridData>().CellDatas;
+            CellData[] allCellDatas = _currentDataService.BlockGridData.CellDatas; 
 
             foreach (CellData cellData in allCellDatas)
             {

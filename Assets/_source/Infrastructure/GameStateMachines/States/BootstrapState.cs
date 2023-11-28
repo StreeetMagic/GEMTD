@@ -1,4 +1,5 @@
-﻿using Gameplay.BlockGrids;
+﻿using GameDesign;
+using Gameplay.BlockGrids;
 using Gameplay.BlockGrids.Checkpoints;
 using Gameplay.BlockGrids.Labytinths;
 using Games;
@@ -13,6 +14,8 @@ using Infrastructure.Services.GameFactoryServices;
 using Infrastructure.Services.StaticDataServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using IStaticDataService = Infrastructure.Services.StaticDataServices.IStaticDataService;
+using StaticDataService = Infrastructure.Services.StaticDataServices.StaticDataService;
 
 namespace Infrastructure.GameStateMachines.States
 {
