@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace InfastuctureCore.ServiceLocators.Utilities.UniExt
+namespace InfastuctureCore.Utilities
 {
     [Serializable]
     public struct DictEntry<TKey, TValue>

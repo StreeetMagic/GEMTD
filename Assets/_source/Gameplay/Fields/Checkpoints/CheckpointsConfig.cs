@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Gameplay.BlockGrids.Cells;
+using Gameplay.Fields.Cells;
 using InfastuctureCore.Services;
 using UnityEngine;
 
-namespace Gameplay.BlockGrids.Checkpoints
+namespace Gameplay.Fields.Checkpoints
 {
     [CreateAssetMenu(menuName = "Configs/Checkpoints Config", fileName = "CheckpointsConfigSO")]
     public class CheckpointsConfig : ScriptableObject, IStaticData

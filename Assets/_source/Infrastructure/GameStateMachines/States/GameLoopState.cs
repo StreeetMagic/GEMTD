@@ -1,8 +1,8 @@
 using System.Collections;
 using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.ServiceLocators.Utilities;
 using InfastuctureCore.Services.StateMachineServices;
 using Infrastructure.GameLoopStateMachines;
+using Infrastructure.GameLoopStateMachines.States;
 using Infrastructure.Services.GameFactoryServices;
 using Unity.VisualScripting;
 using UnityEngine;

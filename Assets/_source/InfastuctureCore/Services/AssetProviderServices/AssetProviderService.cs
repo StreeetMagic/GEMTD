@@ -5,46 +5,22 @@ namespace InfastuctureCore.Services.AssetProviderServices
 {
     public class AssetProviderService : IAssetProviderService
     {
-        private Dictionary<string, GameObject> _assets = new();
+        public GameObject Instantiate(string path) =>
+            Object.Instantiate((GameObject)Resources.Load(path));
 
-        public GameObject Instantiate(string path, Vector3 at)
-        {
-            if (_assets.TryGetValue(path, out GameObject prefab))
-                return Object.Instantiate(prefab, at, Quaternion.identity);
+        public GameObject Instantiate(string path, Vector3 at) =>
+            Object.Instantiate((GameObject)Resources.Load(path), at, Quaternion.identity);
 
-            _assets[path] = Resources.Load<GameObject>(path);
+        public T Instantiate<T>() where T : Object =>
+            Object.Instantiate((GameObject)Resources.Load(typeof(T).Name)).GetComponent<T>();
 
-            return Object.Instantiate(_assets[path], at, Quaternion.identity);
-        }
+        public T Instantiate<T>(string path) where T : Object =>
+            Object.Instantiate((GameObject)Resources.Load(path)).GetComponent<T>();
 
-        public GameObject Instantiate(string path)
-        {
-            if (_assets.TryGetValue(path, out GameObject prefab))
-                return Object.Instantiate(prefab);
+        public T Instantiate<T>(string path, Vector3 at) where T : Object =>
+            Object.Instantiate((GameObject)Resources.Load(path), at, Quaternion.identity).GetComponent<T>();
 
-            _assets[path] = Resources.Load<GameObject>(path);
-
-            return Object.Instantiate(_assets[path]);
-        }
-
-        public T Instantiate<T>(string path) where T : Object
-        {
-            if (_assets.TryGetValue(path, out GameObject prefab))
-                return Object.Instantiate(prefab).GetComponent<T>();
-
-            _assets[path] = Resources.Load<GameObject>(path);
-
-            return Object.Instantiate(_assets[path]).GetComponent<T>();
-        }
-
-        public T Instantiate<T>(string path, Vector3 at) where T : Object
-        {
-            if (_assets.TryGetValue(path, out GameObject prefab))
-                return Object.Instantiate(prefab, at, Quaternion.identity).GetComponent<T>();
-
-            _assets[path] = Resources.Load<GameObject>(path);
-
-            return Object.Instantiate(_assets[path]).GetComponent<T>();
-        }
+        public T InstantiateScriptableObject<T>() where T : Object =>
+            Resources.Load<T>(typeof(T).Name + "SO");
     }
 }

@@ -1,28 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using GameDesign;
-using Gameplay.BlockGrids.Cells;
+using Gameplay.Fields.Cells;
+using Gameplay.Fields.Walls;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class LevelDesignTools : MonoBehaviour
+namespace GameDesign
 {
-    public MapWallsConfig MapWallsConfig;
-
-    [Button]
-    public void GetWallCoordinates()
+    public class LevelDesignTools : MonoBehaviour
     {
-        WallView[] wallViews = FindObjectsOfType<WallView>();
+        public MapWallsConfig MapWallsConfig;
 
-        Coordinates[] coordinates = new Coordinates[wallViews.Length];
-
-        for (int i = 0; i < wallViews.Length; i++)
+        [Button]
+        public void GetWallCoordinates()
         {
-            WallView wallView = wallViews[i];
-            coordinates[i] = wallView.GetComponentInParent<CellView>().CelLData.Coordinates;
-        }
+            WallView[] wallViews = FindObjectsOfType<WallView>();
 
-        MapWallsConfig.Coordinates = coordinates.ToList();
+            Coordinates[] coordinates = new Coordinates[wallViews.Length];
+
+            for (int i = 0; i < wallViews.Length; i++)
+            {
+                WallView wallView = wallViews[i];
+                coordinates[i] = wallView.GetComponentInParent<CellView>().CelLData.Coordinates;
+            }
+
+            MapWallsConfig.Coordinates = coordinates.ToList();
+        }
     }
 }

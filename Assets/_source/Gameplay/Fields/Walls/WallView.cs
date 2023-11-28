@@ -1,7 +1,6 @@
-﻿using Gameplay.BlockGrids.Walls;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Gameplay.BlockGrids.Cells
+namespace Gameplay.Fields.Walls
 {
     public class WallView : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay.BlockGrids.Checkpoints
+namespace Gameplay.Fields.Checkpoints
 {
     public class CheckpointView : MonoBehaviour
     {

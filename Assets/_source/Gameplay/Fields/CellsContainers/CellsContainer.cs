@@ -1,7 +1,7 @@
-using Gameplay.BlockGrids.Cells;
+using Gameplay.Fields.Cells;
 using UnityEngine;
 
-namespace Gameplay.BlockGrids.CellsContainers
+namespace Gameplay.Fields.CellsContainers
 {
     public class CellsContainer : MonoBehaviour
     {

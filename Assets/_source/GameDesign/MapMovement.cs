@@ -1,59 +1,62 @@
 ﻿using UnityEngine;
 
-public class CameraMovement : MonoBehaviour
+namespace GameDesign
 {
-    private bool _isDragging = false;
-    private Vector3 _dragOrigin;
-    private float _dragSpeed = 2.0f;
-    public float movementSpeed = 250f;
-    public float zoomSpeed = 10f;
-
-    void Update()
+    public class CameraMovement : MonoBehaviour
     {
-        MoveWithMouseWheel();
-        MoveWithKeys();
-        ChangeHeightWithMouseWheel();
-    }
+        private bool _isDragging = false;
+        private Vector3 _dragOrigin;
+        private float _dragSpeed = 2.0f;
+        public float movementSpeed = 250f;
+        public float zoomSpeed = 10f;
 
-    private void ChangeHeightWithMouseWheel()
-    {
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-
-        transform.Translate(Vector3.down * scroll * zoomSpeed, Space.World);
-    }
-
-    private void MoveWithKeys()
-    {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        Vector3 movement = new Vector3(horizontal, 0.0f, vertical) * (movementSpeed * Time.deltaTime);
-        transform.Translate(movement, Space.World);
-    }
-
-    private void MoveWithMouseWheel()
-    {
-        if (Input.GetMouseButtonDown(2))
+        void Update()
         {
-            _isDragging = true;
-            _dragOrigin = Input.mousePosition;
+            MoveWithMouseWheel();
+            MoveWithKeys();
+            ChangeHeightWithMouseWheel();
         }
 
-        if (Input.GetMouseButtonUp(2))
+        private void ChangeHeightWithMouseWheel()
         {
-            _isDragging = false;
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+            transform.Translate(Vector3.down * scroll * zoomSpeed, Space.World);
         }
 
-        if (_isDragging)
+        private void MoveWithKeys()
         {
-            Vector3 currentPosition = Input.mousePosition;
-            Vector3 difference = (currentPosition - _dragOrigin) * (_dragSpeed * Time.deltaTime);
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
 
-            difference = new Vector3(-difference.x, 0, -difference.y);
+            Vector3 movement = new Vector3(horizontal, 0.0f, vertical) * (movementSpeed * Time.deltaTime);
+            transform.Translate(movement, Space.World);
+        }
 
-            transform.Translate(difference, Space.World);
+        private void MoveWithMouseWheel()
+        {
+            if (Input.GetMouseButtonDown(2))
+            {
+                _isDragging = true;
+                _dragOrigin = Input.mousePosition;
+            }
 
-            _dragOrigin = currentPosition;
+            if (Input.GetMouseButtonUp(2))
+            {
+                _isDragging = false;
+            }
+
+            if (_isDragging)
+            {
+                Vector3 currentPosition = Input.mousePosition;
+                Vector3 difference = (currentPosition - _dragOrigin) * (_dragSpeed * Time.deltaTime);
+
+                difference = new Vector3(-difference.x, 0, -difference.y);
+
+                transform.Translate(difference, Space.World);
+
+                _dragOrigin = currentPosition;
+            }
         }
     }
 }

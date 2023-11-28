@@ -1,7 +1,4 @@
-using InfastuctureCore;
-using InfastuctureCore.Services;
-
-namespace Infrastructure.Services.StaticDataServices
+namespace InfastuctureCore.Services.StaticDataServices
 {
     public class StaticDataService : IStaticDataService
     {

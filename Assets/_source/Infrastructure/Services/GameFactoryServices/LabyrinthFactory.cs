@@ -1,11 +1,9 @@
-﻿using Gameplay.BlockGrids;
-using Gameplay.BlockGrids.Cells;
-using Gameplay.BlockGrids.Labytinths;
+﻿using Gameplay.Fields.Cells;
+using Gameplay.Fields.Labytinths;
 using InfastuctureCore.Services.AssetProviderServices;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices.Factories;
-using Infrastructure.Services.StaticDataServices;
-using IStaticDataService = Infrastructure.Services.StaticDataServices.IStaticDataService;
+using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticDataService;
 
 namespace Infrastructure.Services.GameFactoryServices
 {
@@ -26,7 +24,7 @@ namespace Infrastructure.Services.GameFactoryServices
 
         public void CreateStartingLabyrinth()
         {
-            var blockGridData = _currentDataService.BlockGridData;
+            var blockGridData = _currentDataService.FieldData;
             Coordinates[] coordinates = _staticDataService.Get<StartingLabyrinthConfig>().Coordinates;
 
             foreach (Coordinates coordinate in coordinates)

@@ -1,7 +1,7 @@
 ﻿using GameDesign;
-using Gameplay.BlockGrids;
-using Gameplay.BlockGrids.Checkpoints;
-using Gameplay.BlockGrids.Labytinths;
+using Gameplay.Fields;
+using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.Labytinths;
 using Games;
 using Games.Config.Resources;
 using InfastuctureCore.ServiceLocators;
@@ -11,11 +11,10 @@ using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StateMachineServices.States;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
-using Infrastructure.Services.StaticDataServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using IStaticDataService = Infrastructure.Services.StaticDataServices.IStaticDataService;
-using StaticDataService = Infrastructure.Services.StaticDataServices.StaticDataService;
+using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticDataService;
+using StaticDataService = InfastuctureCore.Services.StaticDataServices.StaticDataService;
 
 namespace Infrastructure.GameStateMachines.States
 {
@@ -35,7 +34,7 @@ namespace Infrastructure.GameStateMachines.States
             Debug.Log("Entered Bootstrap State");
 
             RegisterServices();
-            RegisterConfigs();
+            RegisterConfigs(ServiceLocator.Instance.Get<IAssetProviderService>());
             EnterNextState();
         }
 
@@ -48,7 +47,7 @@ namespace Infrastructure.GameStateMachines.States
         {
             var locator = ServiceLocator.Instance;
 
-            var staticData = locator.Register<IStaticDataService>(new StaticDataService()); 
+            var staticData = locator.Register<IStaticDataService>(new StaticDataService());
             var assetProvider = locator.Register<IAssetProviderService>(new AssetProviderService());
             var currentData = locator.Register<ICurrentDataService>(new CurrentDataService());
             locator.Register(_gameStateMachine);
@@ -56,13 +55,13 @@ namespace Infrastructure.GameStateMachines.States
             locator.Register<IGameFactoryService>(new GameFactoryService(assetProvider, staticData, currentData));
         }
 
-        private void RegisterConfigs()
+        private void RegisterConfigs(IAssetProviderService assetProvider)
         {
-            StaticDataService.Register(Resources.Load<GameConfig>(Constants.AssetsPath.Configs.GameConfig));
-            StaticDataService.Register(Resources.Load<BlockGridConfig>(Constants.AssetsPath.Configs.BlockGridConfig));
-            StaticDataService.Register(Resources.Load<CheckpointsConfig>(Constants.AssetsPath.Configs.CheckpointsConfig));
-            StaticDataService.Register(Resources.Load<MapWallsConfig>(Constants.AssetsPath.Configs.MapWallsConfig));
-            StaticDataService.Register(Resources.Load<StartingLabyrinthConfig>(Constants.AssetsPath.Configs.StartingLabyrinthConfig));
+            StaticDataService.Register(assetProvider.InstantiateScriptableObject<GameConfig>());
+            StaticDataService.Register(assetProvider.InstantiateScriptableObject<FieldConfig>());
+            StaticDataService.Register(assetProvider.InstantiateScriptableObject<CheckpointsConfig>());
+            StaticDataService.Register(assetProvider.InstantiateScriptableObject<MapWallsConfig>());
+            StaticDataService.Register(assetProvider.InstantiateScriptableObject<StartingLabyrinthConfig>());
         }
 
         private void EnterNextState() =>
