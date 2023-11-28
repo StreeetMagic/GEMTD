@@ -5,6 +5,7 @@ using InfastuctureCore.Services.AssetProviderServices;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices.Factories;
 using Infrastructure.Services.StaticDataServices;
+using IStaticDataService = Infrastructure.Services.StaticDataServices.IStaticDataService;
 
 namespace Infrastructure.Services.GameFactoryServices
 {
@@ -25,7 +26,7 @@ namespace Infrastructure.Services.GameFactoryServices
 
         public void CreateStartingLabyrinth()
         {
-            var blockGridData = _currentDataService.Get<BlockGridData>();
+            var blockGridData = _currentDataService.BlockGridData;
             Coordinates[] coordinates = _staticDataService.Get<StartingLabyrinthConfig>().Coordinates;
 
             foreach (Coordinates coordinate in coordinates)

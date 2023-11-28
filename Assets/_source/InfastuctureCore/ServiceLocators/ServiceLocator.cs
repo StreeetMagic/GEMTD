@@ -3,9 +3,15 @@ using Infrastructure.Services.CurrentDataServices;
 
 namespace InfastuctureCore.ServiceLocators
 {
-    public class ServiceLocator : StorageService
+    public class ServiceLocator
     {
-        private static IStorageService s_instance;
-        public static IStorageService Instance => s_instance ??= new ServiceLocator();
+        public static ServiceLocator Instance => s_instance ??= new ServiceLocator();
+        private static ServiceLocator s_instance;
+
+        public TService Register<TService>(TService implementation) => 
+            Implementation<TService>.Instance = implementation;
+
+        public TService Get<TService>() => 
+            Implementation<TService>.Instance;
     }
 }

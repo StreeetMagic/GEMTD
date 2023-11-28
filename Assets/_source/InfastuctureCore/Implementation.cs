@@ -1,9 +1,7 @@
-using InfastuctureCore.Services;
-
-namespace InfastuctureCore.ServiceLocators
+namespace InfastuctureCore
 {
     public class Implementation<T>
     {
-        public static T TInstance;
+        public static T Instance;
     }
 }

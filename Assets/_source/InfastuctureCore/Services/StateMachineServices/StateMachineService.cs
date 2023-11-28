@@ -34,12 +34,12 @@ namespace InfastuctureCore.Services.StateMachineServices
 
         public TState Get<TState>() where TState : class, IExitableState
         {
-            return Implementation<TState>.TInstance;
+            return Implementation<TState>.Instance;
         }
 
         public TState Register<TState>(TState implementation) where TState : IState
         {
-            return Implementation<TState>.TInstance = implementation;
+            return Implementation<TState>.Instance = implementation;
         }
 
         private TState ChangeState<TState>() where TState : class, IExitableState
