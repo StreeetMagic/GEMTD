@@ -25,7 +25,8 @@ namespace Infrastructure.GameStateMachines.States
         public void Enter()
         {
             Debug.Log("Entered GameLoop State");
-            GameFactoryService.BlockGridFactory.CreateBlockGridData();
+            GameFactoryService.BlockGridFactory.CreateFieldData();
+            GameFactoryService.BlockGridFactory.PaintBlocks();
             GameFactoryService.LabyrinthFactory.CreateStartingLabyrinth();
             _gameLoopStateMachine = CreateGameLoopStateMachine();
             _gameLoopStateMachine.Enter<PlaceWallsState>();

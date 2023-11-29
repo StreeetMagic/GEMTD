@@ -18,10 +18,12 @@ namespace Gameplay.Fields.Cells
         public event Action WallDataSet;
         public event Action WallDataRemoved;
 
+
         public Coordinates Coordinates { get; }
         public CheckpointData CheckpointData { get; private set; }
         public WallData WallData { get; private set; }
         public BlockData BlockData { get; private set; }
+
 
         public bool IsEmpty => CheckpointData == null && WallData == null;
         public bool HasWall => WallData != null;
@@ -49,6 +51,8 @@ namespace Gameplay.Fields.Cells
             WallData = null;
             WallDataRemoved?.Invoke();
         }
+
+
     }
 
     [Serializable]

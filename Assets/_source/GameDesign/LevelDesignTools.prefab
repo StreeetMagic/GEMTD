@@ -45,3 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapWallsConfig: {fileID: 11400000, guid: b51cd296656e14349b79d93f5eb4a0e5, type: 2}
+  PaintedBlockConfig: {fileID: 11400000, guid: fe74f3bce86e69e42a30c5432c529fe7, type: 2}
+  StartingLabyrinthConfig: {fileID: 11400000, guid: ab480a0ba8f08de4297239cae12c7baa, type: 2}

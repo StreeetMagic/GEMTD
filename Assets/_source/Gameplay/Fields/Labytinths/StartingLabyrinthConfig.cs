@@ -17,10 +17,9 @@ namespace Gameplay.Fields.Labytinths
         private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
         private MapWallsConfig MapWallsConfig => StaticDataService.Get<MapWallsConfig>();
 
-        [Button]
-        public void SetCoordinates()
+        public void SetCoordinates(Coordinates[] coordinates)
         {
-            _coordinates = MapWallsConfig.Coordinates.ToArray();
+            _coordinates = coordinates;
         }
 
         public Coordinates[] Coordinates => _coordinates.ToArray();

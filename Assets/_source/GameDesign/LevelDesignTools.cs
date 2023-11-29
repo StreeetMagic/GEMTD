@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Fields.Cells;
+using Gameplay.Fields.Labytinths;
 using Gameplay.Fields.Walls;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,10 +11,13 @@ namespace GameDesign
     public class LevelDesignTools : MonoBehaviour
     {
         public MapWallsConfig MapWallsConfig;
+        public PaintedBlockConfig PaintedBlockConfig;
+        public StartingLabyrinthConfig StartingLabyrinthConfig;
 
         [Button]
-        public void GetWallCoordinates()
+        public void SaveWallCoordinates()
         {
+            MapWallsConfig.Coordinates = new List<Coordinates>();
             WallView[] wallViews = FindObjectsOfType<WallView>();
 
             Coordinates[] coordinates = new Coordinates[wallViews.Length];
@@ -24,6 +29,27 @@ namespace GameDesign
             }
 
             MapWallsConfig.Coordinates = coordinates.ToList();
+        }
+
+        [Button]
+        public void SetWallCoordinates()
+        {
+            StartingLabyrinthConfig.SetCoordinates(MapWallsConfig.Coordinates.ToArray());
+        }
+
+        [Button]
+        public void SavePaintedBlockCoordinates()
+        {
+            PaintedBlockConfig.Coordinates = new List<Coordinates>();
+            List<CellView> cellViews = FindObjectsOfType<CellView>().ToList();
+
+            foreach (var cellView in cellViews)
+            {
+                if (cellView.IsPainted)
+                {
+                    PaintedBlockConfig.Coordinates.Add(cellView.CelLData.Coordinates);
+                }
+            }
         }
     }
 }

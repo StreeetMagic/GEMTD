@@ -20,18 +20,10 @@ namespace Games
                 public const string Wall = "Wall";
             }
 
-            public class Configs
-            {
-                public const string GameConfig = "GameConfigSO";
-                public const string FieldConfig = "FieldConfigSO";
-                public const string CheckpointsConfig = "CheckpointsConfigSO";
-                public const string MapWallsConfig = "MapWallsConfigSO";
-                public const string StartingLabyrinthConfig = "StartingLabyrinthConfigSO";
-            }
-
             public class Materials
             {
                 public const string Highlighted = "Highlighted";
+                public const string Painted = "Painted";
             }
         }
     }
