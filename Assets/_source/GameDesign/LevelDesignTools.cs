@@ -10,9 +10,10 @@ namespace GameDesign
 {
     public enum GameDesignMode
     {
-        WallsPlacing = 0,
+        StartingWallsPlacing = 0,
         PaintingBlocks = 1,
-        HighlightingCells = 2
+        HighlightingCells = 2,
+        WallPacersSetup = 3
     }
     
     public class LevelDesignTools : MonoBehaviour

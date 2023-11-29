@@ -1,4 +1,6 @@
 using Gameplay.Fields.Cells;
+using Gameplay.Fields.WallPlacers;
+using Gameplay.Fields.Walls;
 using Games;
 using InfastuctureCore.ServiceLocators;
 using Infrastructure.Services.GameFactoryServices;
@@ -12,7 +14,8 @@ namespace GameDesign
     public class ClickDetector : MonoBehaviour
     {
         public LevelDesignTools LevelDesignTools;
-        
+        public WallPlacerConfig WallPlacerConfig;
+
         public GameDesignMode GameDesignMode => LevelDesignTools.GameDesignMode;
 
         private Camera _camera;
@@ -37,8 +40,9 @@ namespace GameDesign
 
             switch (GameDesignMode)
             {
-                case GameDesignMode.WallsPlacing:
-                    PlaceWall();
+                case GameDesignMode.StartingWallsPlacing:
+                    PlaceWall(out var cellData);
+                    RemoveWall(out var removedCellData);
                     break;
 
                 case GameDesignMode.PaintingBlocks:
@@ -48,6 +52,27 @@ namespace GameDesign
                 case GameDesignMode.HighlightingCells:
                     HighlightCellViewByCursor();
                     break;
+
+                case GameDesignMode.WallPacersSetup:
+                    PlaceWallForPlacer();
+                    RemoveWallForPlacer();
+                    break;
+            }
+        }
+
+        private void PlaceWallForPlacer()
+        {
+            if (PlaceWall(out var cellData))
+            {
+                WallPlacerConfig.AddPlacedTower(cellData.Coordinates);
+            }
+        }
+
+        private void RemoveWallForPlacer()
+        {
+            if (RemoveWall(out var removedCellData))
+            {
+                WallPlacerConfig.RemovePlacedTower(removedCellData.Coordinates);
             }
         }
 
@@ -120,8 +145,10 @@ namespace GameDesign
             }
         }
 
-        private void PlaceWall()
+        private bool PlaceWall(out CellData cellData)
         {
+            cellData = null;
+
             if (InputService.LeftMouseButtonIsPressed)
             {
                 Ray ray = _camera.ScreenPointToRay(InputService.MousePosition);
@@ -136,14 +163,18 @@ namespace GameDesign
                         if (celLData.IsEmpty)
                         {
                             celLData.SetWallData(GameFactoryService.BlockGridFactory.CreateWall(celLData));
-                            return;
+                            cellData = celLData;
+                            return true;
                         }
-
-                        return;
                     }
                 }
             }
 
+            return false;
+        }
+
+        private bool RemoveWall(out CellData cellData)
+        {
             if (InputService.RightMouseButtonIsPressed)
             {
                 Ray ray = _camera.ScreenPointToRay(InputService.MousePosition);
@@ -158,13 +189,15 @@ namespace GameDesign
                         if (celLData.HasWall)
                         {
                             celLData.RemoveWallData();
-                            return;
+                            cellData = celLData;
+                            return true;
                         }
-
-                        return;
                     }
                 }
             }
+
+            cellData = null;
+            return false;
         }
     }
 }
