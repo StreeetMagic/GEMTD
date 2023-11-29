@@ -9,16 +9,11 @@ using UnityEngine.InputSystem;
 
 namespace GameDesign
 {
-    public enum GameDesignMode
-    {
-        WallsPlacing = 0,
-        PaintingBlocks = 1,
-        HighlightingCells = 2
-    }
-
     public class ClickDetector : MonoBehaviour
     {
-        public GameDesignMode GameDesignMode;
+        public LevelDesignTools LevelDesignTools;
+        
+        public GameDesignMode GameDesignMode => LevelDesignTools.GameDesignMode;
 
         private Camera _camera;
         private CellView _highlightedCellView;
@@ -49,7 +44,7 @@ namespace GameDesign
                 case GameDesignMode.PaintingBlocks:
                     PaintBlock();
                     break;
-                
+
                 case GameDesignMode.HighlightingCells:
                     HighlightCellViewByCursor();
                     break;
