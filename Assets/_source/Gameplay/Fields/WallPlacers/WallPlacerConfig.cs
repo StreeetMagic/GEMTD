@@ -15,15 +15,21 @@ namespace Gameplay.Fields.WallPlacers
 
         public void AddPlacedTower(Coordinates coordinates)
         {
-            var lastWallSettingsPerRound = WallSettingsPerRounds.LastOrDefault();
+            if (WallSettingsPerRounds.Count == 0)
+            {
+                WallSettingsPerRounds.Add(new WallSettingsPerRound());
+            }
+
+            WallSettingsPerRound lastWallSettingsPerRound = WallSettingsPerRounds.LastOrDefault();
 
             if (lastWallSettingsPerRound.PlaceCount >= towerPerRound)
             {
                 WallSettingsPerRounds.Add(new WallSettingsPerRound());
-                lastWallSettingsPerRound = WallSettingsPerRounds.Last();
             }
-
-            lastWallSettingsPerRound.PlaceList.Add(coordinates);
+            else
+            {
+                lastWallSettingsPerRound.PlaceList.Add(coordinates);
+            }
         }
 
         public void RemovePlacedTower(Coordinates coordinates)
