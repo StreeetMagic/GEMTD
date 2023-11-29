@@ -3,6 +3,7 @@ using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
 using Infrastructure.GameLoopStateMachines;
 using Infrastructure.GameLoopStateMachines.States;
+using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -37,6 +38,8 @@ namespace Infrastructure.GameStateMachines.States
             var gameLoopStateMachineData = new GameLoopStateMachineData();
             var gameLoopStateMachine = new StateMachineService<GameLoopStateMachineData>(gameLoopStateMachineData);
             gameLoopStateMachineData.RegisterStates(gameLoopStateMachine);
+            ServiceLocator.Instance.Register<IStateMachineService<GameLoopStateMachineData>>(gameLoopStateMachine);
+
             return gameLoopStateMachine;
         }
 
