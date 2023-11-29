@@ -381,6 +381,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 50
   _scrollPower: 1
+--- !u!114 &2044830566 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1276912101892514981, guid: de457f968bb3aac4eafba8213736d49e, type: 3}
+  m_PrefabInstance: {fileID: 1108575920191395276}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23547fe66795d38489aa6b02290d226f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &184797949133600817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -503,6 +514,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 438292244269863036, guid: e4141fb9a24516a428534ae911bc08cb, type: 3}
+      propertyPath: LevelDesignTools
+      value: 
+      objectReference: {fileID: 2044830566}
     - target: {fileID: 2195538965589325744, guid: e4141fb9a24516a428534ae911bc08cb, type: 3}
       propertyPath: m_Name
       value: ClickDetercor

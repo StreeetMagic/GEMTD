@@ -8,11 +8,19 @@ using UnityEngine;
 
 namespace GameDesign
 {
+    public enum GameDesignMode
+    {
+        WallsPlacing = 0,
+        PaintingBlocks = 1,
+        HighlightingCells = 2
+    }
+    
     public class LevelDesignTools : MonoBehaviour
     {
         public MapWallsConfig MapWallsConfig;
         public PaintedBlockConfig PaintedBlockConfig;
         public StartingLabyrinthConfig StartingLabyrinthConfig;
+        public GameDesignMode GameDesignMode;
 
         [Button]
         public void SaveWallCoordinates()
