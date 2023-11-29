@@ -2,6 +2,7 @@
 using Gameplay.Fields;
 using Gameplay.Fields.Checkpoints;
 using Gameplay.Fields.Labytinths;
+using Gameplay.Fields.WallPlacers;
 using Games;
 using Games.Config.Resources;
 using InfastuctureCore.ServiceLocators;
@@ -65,6 +66,7 @@ namespace Infrastructure.GameStateMachines.States
             StaticDataService.Register(assetProvider.InstantiateScriptableObject<MapWallsConfig>());
             StaticDataService.Register(assetProvider.InstantiateScriptableObject<StartingLabyrinthConfig>());
             StaticDataService.Register(assetProvider.InstantiateScriptableObject<PaintedBlockConfig>());
+            StaticDataService.Register(assetProvider.InstantiateScriptableObject<WallPlacerConfig>());
         }
 
         private void EnterNextState() =>
