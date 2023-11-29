@@ -11,6 +11,7 @@ using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StateMachineServices.States;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
+using Infrastructure.Services.InputServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticDataService;
@@ -51,6 +52,7 @@ namespace Infrastructure.GameStateMachines.States
             var assetProvider = locator.Register<IAssetProviderService>(new AssetProviderService());
             var currentData = locator.Register<ICurrentDataService>(new CurrentDataService());
             locator.Register(_gameStateMachine);
+            locator.Register<IInputService>(new InputService());
             locator.Register<IPoolRepositoryService>(new PoolRepositoryService());
             locator.Register<IGameFactoryService>(new GameFactoryService(assetProvider, staticData, currentData));
         }
