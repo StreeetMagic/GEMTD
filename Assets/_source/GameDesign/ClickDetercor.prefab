@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cbc4b046dfdc2040a286eee65533ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameDesignMode: 1
+  LevelDesignTools: {fileID: 0}
+  WallPlacerConfig: {fileID: 11400000, guid: c17e82f4c7287e44aa3fbc13973201e0, type: 2}
