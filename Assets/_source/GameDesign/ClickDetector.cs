@@ -149,7 +149,7 @@ namespace GameDesign
         {
             cellData = null;
 
-            if (InputService.LeftMouseButtonIsPressed)
+            if (InputService.LeftMouseButtonWasPressedThisFrame)
             {
                 Ray ray = _camera.ScreenPointToRay(InputService.MousePosition);
                 RaycastHit[] results = Physics.RaycastAll(ray);
@@ -175,7 +175,7 @@ namespace GameDesign
 
         private bool RemoveWall(out CellData cellData)
         {
-            if (InputService.RightMouseButtonIsPressed)
+            if (InputService.RightMouseButtonWasPressedThisFrame)
             {
                 Ray ray = _camera.ScreenPointToRay(InputService.MousePosition);
                 RaycastHit[] results = Physics.RaycastAll(ray);

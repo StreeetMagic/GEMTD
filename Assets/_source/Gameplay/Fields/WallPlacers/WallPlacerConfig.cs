@@ -25,11 +25,10 @@ namespace Gameplay.Fields.WallPlacers
             if (lastWallSettingsPerRound.PlaceCount >= towerPerRound)
             {
                 WallSettingsPerRounds.Add(new WallSettingsPerRound());
+                lastWallSettingsPerRound = WallSettingsPerRounds.Last();
             }
-            else
-            {
-                lastWallSettingsPerRound.PlaceList.Add(coordinates);
-            }
+            
+            lastWallSettingsPerRound.PlaceList.Add(coordinates);
         }
 
         public void RemovePlacedTower(Coordinates coordinates)
