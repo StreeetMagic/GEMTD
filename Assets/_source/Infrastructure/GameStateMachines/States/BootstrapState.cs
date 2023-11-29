@@ -64,6 +64,7 @@ namespace Infrastructure.GameStateMachines.States
             StaticDataService.Register(assetProvider.InstantiateScriptableObject<CheckpointsConfig>());
             StaticDataService.Register(assetProvider.InstantiateScriptableObject<MapWallsConfig>());
             StaticDataService.Register(assetProvider.InstantiateScriptableObject<StartingLabyrinthConfig>());
+            StaticDataService.Register(assetProvider.InstantiateScriptableObject<PaintedBlockConfig>());
         }
 
         private void EnterNextState() =>

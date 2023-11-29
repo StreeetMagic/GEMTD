@@ -14,6 +14,7 @@ namespace Gameplay.Fields.Cells
         public BlockView BlockView { get; private set; }
         public CheckpointView CheckpointView { get; private set; }
         public WallView WallView { get; private set; }
+        public bool IsPainted { get; set; }
 
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
 
@@ -56,6 +57,7 @@ namespace Gameplay.Fields.Cells
         public void UnHighlight()
         {
             BlockView.UnHighlight();
+            IsPainted = false;
         }
 
         public void Highlight(Material material)
@@ -72,6 +74,12 @@ namespace Gameplay.Fields.Cells
         {
             Destroy(WallView.gameObject);
             WallView = null;
+        }
+
+        public void PaintBlock(Material material)
+        {
+            BlockView.PaintBlock(material);
+            IsPainted = true;
         }
     }
 }

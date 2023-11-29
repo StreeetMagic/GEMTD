@@ -24,7 +24,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             _currentDataService = currentDataService;
         }
 
-        public FieldData CreateBlockGridData()
+        public FieldData CreateFieldData()
         {
             int xSize = _staticDataService.Get<FieldConfig>().FieldXSize;
             int ySize = _staticDataService.Get<FieldConfig>().FieldYSize;
@@ -132,6 +132,20 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             WallData wallData = new WallData();
             cellData.SetWallData(wallData);
             return wallData;
+        }
+
+        public void PaintBlocks()
+        {
+            FieldData fieldData = _currentDataService.FieldData;
+            PaintedBlockConfig config = _staticDataService.Get<PaintedBlockConfig>();
+
+            for (int i = 0; i < config.Coordinates.Count; i++)
+            {
+                var coordinates = config.Coordinates[i];
+                
+                CellData cellData = fieldData.GetCellDataByCoordinates(coordinates);
+                cellData.BlockData.Paint();
+            }
         }
     }
 }

@@ -1,3 +1,8 @@
+using System;
+using Games;
+using InfastuctureCore.ServiceLocators;
+using InfastuctureCore.Services.AssetProviderServices;
+using InfastuctureCore.Services.StaticDataServices;
 using UnityEngine;
 
 namespace Gameplay.Fields.Blocks
@@ -5,6 +10,7 @@ namespace Gameplay.Fields.Blocks
     public class BlockView : MonoBehaviour
     {
         private Material _defaultMaterial;
+        private Material _paintedMaterial;
         private Renderer _renderer;
 
         public BlockData BlockData { get; private set; }
@@ -13,11 +19,31 @@ namespace Gameplay.Fields.Blocks
         {
             _renderer = GetComponentInChildren<Renderer>();
             _defaultMaterial = _renderer.material;
+            _paintedMaterial = Resources.Load<Material>(Constants.AssetsPath.Materials.Painted);
+        }
+
+        private void OnBlockUnPainted()
+        {
+            PaintBlock(_defaultMaterial);
+        }
+
+        private void OnBlockPainted()
+        {
+            PaintBlock(_paintedMaterial);
+        }
+
+        public void OnDestroy()
+        {
+            BlockData.Painted -= OnBlockPainted;
+            BlockData.UnPainted -= OnBlockUnPainted;
         }
 
         public void Init(BlockData blockData)
         {
             BlockData = blockData;
+
+            BlockData.Painted += OnBlockPainted;
+            BlockData.UnPainted += OnBlockUnPainted;
         }
 
         public void UnHighlight()
@@ -26,6 +52,11 @@ namespace Gameplay.Fields.Blocks
         }
 
         public void Highlight(Material material)
+        {
+            _renderer.material = material;
+        }
+
+        public void PaintBlock(Material material)
         {
             _renderer.material = material;
         }
