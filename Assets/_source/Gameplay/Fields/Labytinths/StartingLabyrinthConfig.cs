@@ -12,7 +12,7 @@ namespace Gameplay.Fields.Labytinths
     [CreateAssetMenu(menuName = "Configs/Starting Labyrinth Config", fileName = "StartingLabyrinthConfigSO")]
     public class StartingLabyrinthConfig : ScriptableObject, IStaticData
     {
-        [ShowInInspector] private Coordinates[] _coordinates;
+        public Coordinates[] _coordinates;
 
         private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
         private MapWallsConfig MapWallsConfig => StaticDataService.Get<MapWallsConfig>();
