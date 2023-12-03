@@ -14,7 +14,7 @@ namespace Gameplay.Fields
 
         public CellData[] CellDatas => _cellDatas.ToArray();
 
-        public CellData GetCellDataByCoordinates(Coordinates coordinate)
+        public CellData GetCellData(Coordinates coordinate)
         {
             foreach (CellData cellData in _cellDatas)
             {

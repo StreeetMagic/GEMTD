@@ -1,10 +1,13 @@
-﻿using Gameplay.Fields;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Gameplay.Fields;
 using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Checkpoints;
 using Gameplay.Fields.Walls;
 using Games;
 using InfastuctureCore.Services.AssetProviderServices;
+using InfastuctureCore.Utilities;
 using Infrastructure.Services.CurrentDataServices;
 using UnityEngine;
 using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticDataService;
@@ -24,51 +27,37 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             _currentDataService = currentDataService;
         }
 
-        public FieldData CreateFieldData()
-        {
-            int xSize = _staticDataService.Get<FieldConfig>().FieldXSize;
-            int ySize = _staticDataService.Get<FieldConfig>().FieldYSize;
+        public FieldData CreateFieldData() =>
+            new(CreateCellDatas());
 
-            CellData[] cellDatas = CreateCellDatas(xSize, ySize);
+        private CellData[] CreateCellDatas() =>
+            CreateCellDatas(_staticDataService.Get<FieldConfig>().FieldXSize, _staticDataService.Get<FieldConfig>().FieldYSize);
 
-            var blockGridData = new FieldData(cellDatas);
-            _currentDataService.FieldData = blockGridData; 
-            CreateBlockGridView(blockGridData);
-            CreateCheckpointsDatas();
-            
-            return blockGridData;
-        }
+        public BlockView CreateBlockView(BlockData blockData, Transform parent) =>
+            _assetProviderService.Instantiate<BlockView>(Constants.AssetsPath.Prefabs.Block, Vector3.zero)
+                .With(e => e.Init(blockData))
+                .With(e => e.transform.SetParent(parent))
+                .With(e => e.transform.localPosition = Vector3.zero);
 
-        public BlockView CreateBlockView(BlockData blockData, Transform parent)
-        {
-            var blockView = _assetProviderService.Instantiate<BlockView>(Constants.AssetsPath.Prefabs.Block, Vector3.zero);
-            blockView.Init(blockData);
-            blockView.transform.SetParent(parent);
-            blockView.transform.localPosition = Vector3.zero;
-            return blockView;
-        }
+        public CheckpointView CreateCheckpointView(CheckpointData checkpointData, Transform transform) =>
+            _assetProviderService.Instantiate<CheckpointView>(Constants.AssetsPath.Prefabs.Checkpoint, Vector3.zero)
+                .With(e => e.Init(checkpointData))
+                .With(e => e.transform.SetParent(transform))
+                .With(e => e.transform.localPosition = Vector3.zero)
+                .With(e => e.name = "Checkpoint " + checkpointData.Number);
 
-        public CheckpointView CreateCheckpointView(CheckpointData checkpointData, Transform transform)
-        {
-            var checkpointView = _assetProviderService.Instantiate<CheckpointView>(Constants.AssetsPath.Prefabs.Checkpoint, Vector3.zero);
-            checkpointView.Init(checkpointData);
-            checkpointView.transform.SetParent(transform);
-            checkpointView.transform.localPosition = Vector3.zero;
-            checkpointView.name = "Checkpoint " + checkpointData.Number;
-            return checkpointView;
-        }
+        public CellView CreateCellView(CellData cellData, Transform transform) =>
+            _assetProviderService.Instantiate<CellView>(Constants.AssetsPath.Prefabs.Cell, Vector3.zero)
+                .With(e => e.Init(cellData))
+                .With(e => e.transform.SetParent(transform))
+                .With(e => e.transform.localPosition = new Vector3(cellData.Coordinates.X, 0, cellData.Coordinates.Z))
+                .With(e => e.name = "Cell (" + cellData.Coordinates.X + ", " + cellData.Coordinates.Z + ")");
 
-        public CellView CreateCellView(CellData cellData, Transform transform)
-        {
-            var cellView = _assetProviderService.Instantiate<CellView>(Constants.AssetsPath.Prefabs.Cell, Vector3.zero);
-            cellView.Init(cellData);
-            cellView.transform.SetParent(transform);
-            cellView.transform.localPosition = new Vector3(cellData.Coordinates.X, 0, cellData.Coordinates.Z);
-            cellView.name = "Cell (" + cellData.Coordinates.X + ", " + cellData.Coordinates.Z + ")";
-            return cellView;
-        }
+        public FieldView CreateBlockGridView(FieldData fieldData) =>
+            _assetProviderService.Instantiate<FieldView>(Constants.AssetsPath.Prefabs.Field)
+                .With(e => e.Init(fieldData));
 
-        private void CreateCheckpointsDatas()
+        public void CreateCheckpointsDatas()
         {
             CheckpointSettings[] configs = _staticDataService.Get<CheckpointsConfig>().CheckPointSettings;
 
@@ -76,17 +65,14 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
 
             for (int i = 0; i < configs.Length; i++)
             {
-                checkpointDatas[i] = new CheckpointData(configs[i].Number);
+                checkpointDatas[i] = CreateCheckPointData(configs[i].Number);
                 CellData cell = GetCellDataByCoordinates(configs[i].Coordinates);
                 cell.SetCheckpointData(checkpointDatas[i]);
             }
         }
 
-        private void CreateBlockGridView(FieldData fieldData)
-        {
-            var blockGridView = _assetProviderService.Instantiate<FieldView>(Constants.AssetsPath.Prefabs.Field);
-            blockGridView.Init(fieldData);
-        }
+        private CheckpointData CreateCheckPointData(int number) =>
+            new(number);
 
         private CellData[] CreateCellDatas(int xSize, int ySize)
         {
@@ -95,44 +81,23 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             int count = 0;
 
             for (int i = 0; i < xSize; i++)
-            {
-                for (int j = 0; j < ySize; j++)
-                    cellDatas[count++] = new CellData(new Coordinates(i, j), new BlockData());
-            }
+            for (int j = 0; j < ySize; j++)
+                cellDatas[count++] = new CellData(new Coordinates(i, j), new BlockData());
 
             return cellDatas;
         }
 
-        private CellData GetCellDataByCoordinates(Coordinates coordinates)
-        {
-            CellData[] allCellDatas = _currentDataService.FieldData.CellDatas; 
+        private CellData GetCellDataByCoordinates(Coordinates coordinates) =>
+            _currentDataService.FieldData.CellDatas.FirstOrDefault(cellData => cellData.Coordinates.X == coordinates.X && cellData.Coordinates.Z == coordinates.Z);
 
-            foreach (CellData cellData in allCellDatas)
-            {
-                if (cellData.Coordinates.X == coordinates.X && cellData.Coordinates.Z == coordinates.Z)
-                {
-                    return cellData;
-                }
-            }
+        public WallView CreateWallView(WallData wallData, Transform transform) =>
+            _assetProviderService.Instantiate<WallView>(Constants.AssetsPath.Prefabs.Wall, Vector3.zero)
+                .With(e => e.Init(wallData))
+                .With(e => e.transform.SetParent(transform))
+                .With(e => e.transform.localPosition = Vector3.zero);
 
-            return null;
-        }
-
-        public WallView CreateWallView(WallData wallData, Transform transform)
-        {
-            var wallView = _assetProviderService.Instantiate<WallView>(Constants.AssetsPath.Prefabs.Wall, Vector3.zero);
-            wallView.Init(wallData);
-            wallView.transform.SetParent(transform);
-            wallView.transform.localPosition = Vector3.zero;
-            return wallView;
-        }
-
-        public WallData CreateWall(CellData cellData)
-        {
-            WallData wallData = new WallData();
-            cellData.SetWallData(wallData);
-            return wallData;
-        }
+        public WallData CreateWall() =>
+            new();
 
         public void PaintBlocks()
         {
@@ -142,8 +107,8 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             for (int i = 0; i < config.Coordinates.Count; i++)
             {
                 var coordinates = config.Coordinates[i];
-                
-                CellData cellData = fieldData.GetCellDataByCoordinates(coordinates);
+
+                CellData cellData = fieldData.GetCellData(coordinates);
                 cellData.BlockData.Paint();
             }
         }
