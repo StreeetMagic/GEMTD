@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 3166265399666144613}
   - component: {fileID: 4657074243384638064}
   m_Layer: 0
-  m_Name: Debug HeadsUpDisplay
+  m_Name: DebugHeadsUpDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e748cfa6ab3053648b4aeb6a5be75609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button1: {fileID: 7835959990891621388}
+  _finishPlacingWalls: {fileID: 1026665259633307264}
   _button2: {fileID: 5152057525942156768}
   _button3: {fileID: 6884658250110071526}
 --- !u!1 &2671977366400445665
