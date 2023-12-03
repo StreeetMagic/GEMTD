@@ -13,5 +13,8 @@ namespace InfastuctureCore.ServiceLocators
 
         public TService Get<TService>() => 
             Implementation<TService>.Instance;
+        
+        public static TService Gets<TService>() => 
+            Implementation<TService>.Instance;
     }
 }

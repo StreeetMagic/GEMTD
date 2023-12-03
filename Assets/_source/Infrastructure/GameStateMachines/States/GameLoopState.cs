@@ -17,6 +17,7 @@ namespace Infrastructure.GameStateMachines.States
         private IStateMachineService<GameLoopStateMachineData> _gameLoopStateMachine;
 
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
+        private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
 
         public GameLoopState(IStateMachineService<GameStateMachineData> gameStateMachine)
         {
@@ -26,7 +27,10 @@ namespace Infrastructure.GameStateMachines.States
         public void Enter()
         {
             Debug.Log("Entered GameLoop State");
-            GameFactoryService.BlockGridFactory.CreateFieldData();
+            CurrentDataService.FieldData = GameFactoryService.BlockGridFactory.CreateFieldData();
+
+            GameFactoryService.BlockGridFactory.CreateBlockGridView(CurrentDataService.FieldData);
+            GameFactoryService.BlockGridFactory.CreateCheckpointsDatas();
             GameFactoryService.BlockGridFactory.PaintBlocks();
             GameFactoryService.LabyrinthFactory.CreateStartingLabyrinth();
             _gameLoopStateMachine = CreateGameLoopStateMachine();

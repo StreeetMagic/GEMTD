@@ -24,12 +24,12 @@ namespace Infrastructure.GameStateMachines.States
     {
         private readonly IStateMachineService<GameStateMachineData> _gameStateMachine;
 
-        private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
-
         public BootstrapState(IStateMachineService<GameStateMachineData> gameStateMachine)
         {
             _gameStateMachine = gameStateMachine;
         }
+
+        private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
 
         public void Enter()
         {

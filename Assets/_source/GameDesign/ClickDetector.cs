@@ -2,7 +2,11 @@ using Gameplay.Fields.Cells;
 using Gameplay.Fields.WallPlacers;
 using Gameplay.Fields.Walls;
 using Games;
+using InfastuctureCore;
 using InfastuctureCore.ServiceLocators;
+using InfastuctureCore.Services.AssetProviderServices;
+using InfastuctureCore.Services.StaticDataServices;
+using Infrastructure.Services;
 using Infrastructure.Services.GameFactoryServices;
 using Infrastructure.Services.InputServices;
 using UnityEngine;
@@ -162,7 +166,7 @@ namespace GameDesign
 
                         if (celLData.IsEmpty)
                         {
-                            celLData.SetWallData(GameFactoryService.BlockGridFactory.CreateWall(celLData));
+                            celLData.SetWallData(GameFactoryService.BlockGridFactory.CreateWall());
                             cellData = celLData;
                             return true;
                         }

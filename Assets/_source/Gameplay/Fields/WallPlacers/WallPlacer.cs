@@ -33,12 +33,12 @@ namespace Gameplay.Fields.WallPlacers
 
         private void AddWall(Coordinates coordinates)
         {
-            CurrentDataService.FieldData.GetCellDataByCoordinates(coordinates).SetWallData(new WallData());
+            CurrentDataService.FieldData.GetCellData(coordinates).SetWallData(new WallData());
         }
 
         private void RemoveWall(Coordinates coordinates)
         {
-            CurrentDataService.FieldData.GetCellDataByCoordinates(coordinates).RemoveWallData(); 
+            CurrentDataService.FieldData.GetCellData(coordinates).RemoveWallData(); 
         }
     }
 }
