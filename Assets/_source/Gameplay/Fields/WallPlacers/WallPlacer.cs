@@ -3,6 +3,7 @@ using Gameplay.Fields.Walls;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StaticDataServices;
 using Infrastructure.Services.CurrentDataServices;
+using UnityEngine;
 
 namespace Gameplay.Fields.WallPlacers
 {
@@ -15,6 +16,12 @@ namespace Gameplay.Fields.WallPlacers
 
         public void PlaceWalls()
         {
+            if (_roundNumber >= WallPlacerConfig.WallSettingsPerRounds.Count)
+            {
+                Debug.Log("стены закончились");
+                return;
+            }
+            
             if (WallPlacerConfig.WallSettingsPerRounds[_roundNumber].DestroyList.Count > 0)
             {
                 foreach (var coordinates in WallPlacerConfig.WallSettingsPerRounds[_roundNumber].DestroyList)
