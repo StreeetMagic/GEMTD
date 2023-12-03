@@ -20,7 +20,7 @@ namespace InfastuctureCore.Services.AssetProviderServices
         public T Instantiate<T>(string path, Vector3 at) where T : Object =>
             Object.Instantiate((GameObject)Resources.Load(path), at, Quaternion.identity).GetComponent<T>();
 
-        public T InstantiateScriptableObject<T>() where T : Object =>
-            Resources.Load<T>(typeof(T).Name + "SO");
+        public T Get<T>() where T : Object =>
+            (T)(Resources.Load(typeof(T).Name));
     }
 }
