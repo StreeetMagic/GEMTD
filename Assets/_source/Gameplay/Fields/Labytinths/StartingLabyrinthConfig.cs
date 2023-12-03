@@ -9,7 +9,7 @@ using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticD
 
 namespace Gameplay.Fields.Labytinths
 {
-    [CreateAssetMenu(menuName = "Configs/Starting Labyrinth Config", fileName = "StartingLabyrinthConfigSO")]
+    [CreateAssetMenu(menuName = "Configs/Starting Labyrinth Config", fileName = "StartingLabyrinthConfig")]
     public class StartingLabyrinthConfig : ScriptableObject, IStaticData
     {
         public Coordinates[] _coordinates;

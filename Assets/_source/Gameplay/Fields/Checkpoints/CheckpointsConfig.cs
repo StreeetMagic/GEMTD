@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Gameplay.Fields.Checkpoints
 {
-    [CreateAssetMenu(menuName = "Configs/Checkpoints Config", fileName = "CheckpointsConfigSO")]
+    [CreateAssetMenu(menuName = "Configs/Checkpoints Config", fileName = "CheckpointsConfig")]
     public class CheckpointsConfig : ScriptableObject, IStaticData
     {
         [SerializeField] private CheckpointSettings[] _checkPointSettings;

@@ -1,4 +1,5 @@
-﻿using GameDesign;
+﻿using System;
+using GameDesign;
 using Gameplay.Fields;
 using Gameplay.Fields.Checkpoints;
 using Gameplay.Fields.Labytinths;
@@ -36,7 +37,7 @@ namespace Infrastructure.GameStateMachines.States
             Debug.Log("Entered Bootstrap State");
 
             RegisterServices();
-            RegisterConfigs(ServiceLocator.Instance.Get<IAssetProviderService>());
+            RegisterConfigs();
             EnterNextState();
         }
 
@@ -47,26 +48,26 @@ namespace Infrastructure.GameStateMachines.States
 
         private void RegisterServices()
         {
-            var locator = ServiceLocator.Instance;
+            var loc = ServiceLocator.Instance;
 
-            var staticData = locator.Register<IStaticDataService>(new StaticDataService());
-            var assetProvider = locator.Register<IAssetProviderService>(new AssetProviderService());
-            var currentData = locator.Register<ICurrentDataService>(new CurrentDataService());
-            locator.Register(_gameStateMachine);
-            locator.Register<IInputService>(new InputService());
-            locator.Register<IPoolRepositoryService>(new PoolRepositoryService());
-            locator.Register<IGameFactoryService>(new GameFactoryService(assetProvider, staticData, currentData));
+            var assetProvider = loc.Register<IAssetProviderService>(new AssetProviderService());
+            var currentData = loc.Register<ICurrentDataService>(new CurrentDataService());
+            var staticData = loc.Register<IStaticDataService>(new StaticDataService(assetProvider));
+            var stateMachine = loc.Register<IStateMachineService<GameStateMachineData>>(_gameStateMachine);
+            var input = loc.Register<IInputService>(new InputService());
+            var poolRepository = loc.Register<IPoolRepositoryService>(new PoolRepositoryService());
+            var gameFactory = loc.Register<IGameFactoryService>(new GameFactoryService(assetProvider, staticData, currentData));
         }
 
-        private void RegisterConfigs(IAssetProviderService assetProvider)
+        private void RegisterConfigs()
         {
-            StaticDataService.Register(assetProvider.InstantiateScriptableObject<GameConfig>());
-            StaticDataService.Register(assetProvider.InstantiateScriptableObject<FieldConfig>());
-            StaticDataService.Register(assetProvider.InstantiateScriptableObject<CheckpointsConfig>());
-            StaticDataService.Register(assetProvider.InstantiateScriptableObject<MapWallsConfig>());
-            StaticDataService.Register(assetProvider.InstantiateScriptableObject<StartingLabyrinthConfig>());
-            StaticDataService.Register(assetProvider.InstantiateScriptableObject<PaintedBlockConfig>());
-            StaticDataService.Register(assetProvider.InstantiateScriptableObject<WallPlacerConfig>());
+            StaticDataService.Register<GameConfig>();
+            StaticDataService.Register<FieldConfig>();
+            StaticDataService.Register<CheckpointsConfig>();
+            StaticDataService.Register<MapWallsConfig>();
+            StaticDataService.Register<StartingLabyrinthConfig>();
+            StaticDataService.Register<PaintedBlockConfig>();
+            StaticDataService.Register<WallPlacerConfig>();
         }
 
         private void EnterNextState() =>

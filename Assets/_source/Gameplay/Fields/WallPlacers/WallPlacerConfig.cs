@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Gameplay.Fields.WallPlacers
 {
-    [CreateAssetMenu(fileName = "WallPlacerConfig", menuName = "Configs/WallPlacerConfigSO")]
+    [CreateAssetMenu(fileName = "WallPlacerConfig", menuName = "Configs/WallPlacerConfig")]
     public class WallPlacerConfig : ScriptableObject, IStaticData
     {
         public int towerPerRound = 5;
