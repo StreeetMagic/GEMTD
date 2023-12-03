@@ -18,11 +18,11 @@ namespace Infrastructure.GameLoopStateMachines.States
         public void Enter()
         {
             Debug.Log(" Entered PlaceWallsState");
-            _wallPlacer.PlaceWalls();
         }
 
         public void Exit()
         {
+            _wallPlacer.PlaceWalls();
             Debug.Log("Exited PlaceWallsState");
         }
 
