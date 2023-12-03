@@ -11,7 +11,7 @@ namespace Gameplay.Fields.WallPlacers
     public class WallPlacerConfig : ScriptableObject, IStaticData
     {
         public int towerPerRound = 5;
-        public List<WallSettingsPerRound> WallSettingsPerRounds = new List<WallSettingsPerRound>();
+        public List<WallSettingsPerRound> WallSettingsPerRounds = new();
 
         public void AddPlacedTower(Coordinates coordinates)
         {
