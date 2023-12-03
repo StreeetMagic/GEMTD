@@ -13,11 +13,11 @@ namespace Debug_HeadsUpDisplays
         [SerializeField] private Button _button2;
         [SerializeField] private Button _button3;
 
-        private IStateMachineService<GameLoopStateMachineData> GameLoopStateMachine => ServiceLocator.Instance.Get<IStateMachineService<GameLoopStateMachineData>>();
-
         private void Start()
         {
             _finishPlacingWalls.onClick.AddListener(GameLoopStateMachine.Get<PlaceWallsState>().FinishPlacingWalls);
         }
+
+        private IStateMachineService<GameLoopStateMachineData> GameLoopStateMachine => ServiceLocator.Instance.Get<IStateMachineService<GameLoopStateMachineData>>();
     }
 }
