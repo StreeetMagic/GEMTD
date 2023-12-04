@@ -19,7 +19,7 @@ namespace Gameplay.Fields.WallPlacers
     public class TowerPlacer
     {
         private int _roundNumber = 1;
-        private float _seconds = .001f;
+        private float _seconds = .01f;
 
         private WallPlacerConfig WallPlacerConfig => ServiceLocator.Instance.Get<IStaticDataService>().Get<WallPlacerConfig>();
         private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
@@ -27,6 +27,8 @@ namespace Gameplay.Fields.WallPlacers
 
         public IEnumerator PlaceTowers(Action onComplete)
         {
+            yield return null;
+
             Debug.Log("Round number " + _roundNumber);
             Debug.Log("Round with walls " + WallPlacerConfig.WallSettingsPerRounds.Count);
 
@@ -51,10 +53,29 @@ namespace Gameplay.Fields.WallPlacers
             {
                 yield return new WaitForSeconds(_seconds);
 
+                CellData cellData = CurrentDataService.FieldData.GetCellData(wallsCoordinates[i]);
+
+                if (cellData.WallData != null)
+                    cellData.RemoveWallData();
+
                 AddTower(wallsCoordinates[i]);
             }
 
-            ChooseRandomTower(wallsCoordinates);
+            int randomIndex = Random.Range(0, wallsCoordinates.Length);
+            CurrentDataService.FieldData.GetCellData(wallsCoordinates[randomIndex]).ConfirmTower();
+
+            foreach (Coordinates coordinates in wallsCoordinates)
+            {
+                yield return new WaitForSeconds(_seconds);
+
+                CellData cellData = CurrentDataService.FieldData.GetCellData(coordinates);
+
+                if (cellData.TowerIsConfirmed == false)
+                {
+                    cellData.RemoveTowerData();
+                    AddWall(coordinates);
+                }
+            }
 
             _roundNumber++;
             onComplete?.Invoke();
@@ -62,14 +83,14 @@ namespace Gameplay.Fields.WallPlacers
 
         private Coordinates[] GetWallCoordinates()
         {
-            if (_roundNumber >= WallPlacerConfig.WallSettingsPerRounds.Count)
+            if (_roundNumber < WallPlacerConfig.WallSettingsPerRounds.Count)
             {
-                Debug.Log("стены закончились");
-                return CurrentDataService.FieldData.GetCentalWalls(WallPlacerConfig.towerPerRound);
+                return WallPlacerConfig.WallSettingsPerRounds[_roundNumber - 1].PlaceList.ToArray();
             }
             else
             {
-                return WallPlacerConfig.WallSettingsPerRounds[_roundNumber - 1].PlaceList.ToArray();
+                Debug.Log("стены закончились");
+                return CurrentDataService.FieldData.GetCentalWalls(WallPlacerConfig.towerPerRound);
             }
         }
 
@@ -88,23 +109,6 @@ namespace Gameplay.Fields.WallPlacers
         private void RemoveWall(Coordinates coordinates)
         {
             CurrentDataService.FieldData.GetCellData(coordinates).RemoveWallData();
-        }
-
-        private void ChooseRandomTower(Coordinates[] placedTowers)
-        {
-            int randomIndex = Random.Range(0, placedTowers.Length);
-
-            for (int i = 0; i < placedTowers.Length; i++)
-            {
-                if (i == randomIndex)
-                {
-                    var cellData = CurrentDataService.FieldData.GetCellData(placedTowers[i]);
-                    cellData.PlaceTower();
-                    continue;
-                }
-
-                CurrentDataService.FieldData.GetCellData(placedTowers[i]).ReplaceTowerWithWall(GameFactory.BlockGridFactory.CreateWallData());
-            }
         }
     }
 }
