@@ -31,32 +31,34 @@ namespace Gameplay.Fields.WallPlacers
                 Debug.Log("стены закончились");
                 _roundNumber++;
                 onComplete?.Invoke(false);
-                yield break;
+                yield return null;
             }
-
-            int roundIndex = _roundNumber - 1;
-
-            if (WallPlacerConfig.WallSettingsPerRounds[roundIndex].DestroyList.Count > 0)
+            else
             {
-                foreach (Coordinates coordinates in WallPlacerConfig.WallSettingsPerRounds[roundIndex].DestroyList)
+                int roundIndex = _roundNumber - 1;
+
+                if (WallPlacerConfig.WallSettingsPerRounds[roundIndex].DestroyList.Count > 0)
                 {
+                    foreach (Coordinates coordinates in WallPlacerConfig.WallSettingsPerRounds[roundIndex].DestroyList)
+                    {
+                        yield return new WaitForSeconds(_seconds);
+
+                        RemoveWall(coordinates);
+                    }
+                }
+
+                for (int i = 0; i < WallPlacerConfig.WallSettingsPerRounds[roundIndex].PlaceList.Count; i++)
+                {
+                    Coordinates coordinates = WallPlacerConfig.WallSettingsPerRounds[roundIndex].PlaceList[i];
                     yield return new WaitForSeconds(_seconds);
 
-                    RemoveWall(coordinates);
+                    AddTower(coordinates);
+                    placedTowers[i] = coordinates;
                 }
+
+                _roundNumber++;
+                onComplete?.Invoke(true);
             }
-
-            for (int i = 0; i < WallPlacerConfig.WallSettingsPerRounds[roundIndex].PlaceList.Count; i++)
-            {
-                Coordinates coordinates = WallPlacerConfig.WallSettingsPerRounds[roundIndex].PlaceList[i];
-                yield return new WaitForSeconds(_seconds);
-
-                AddTower(coordinates);
-                placedTowers[i] = coordinates;
-            }
-
-            _roundNumber++;
-            onComplete?.Invoke(true);
         }
 
         private void AddTower(Coordinates coordinates)
