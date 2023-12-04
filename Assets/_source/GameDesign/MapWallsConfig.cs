@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Gameplay.Fields.Cells;
+using Gameplay.Fields;
 using InfastuctureCore.Services;
 using UnityEngine;
 

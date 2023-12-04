@@ -20,7 +20,7 @@ namespace Infrastructure.GameStateMachines
         {
             gameStateMachine.Register(new BootstrapState(gameStateMachine));
             gameStateMachine.Register(new LoadLevelState(gameStateMachine));
-            gameStateMachine.Register(new GameLoopState(gameStateMachine));
+            gameStateMachine.Register(new GameLoopState());
         }
     }
 }

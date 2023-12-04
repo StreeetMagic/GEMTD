@@ -1,6 +1,5 @@
-﻿using Gameplay.Fields.Cells;
+﻿using Gameplay.Fields;
 using Gameplay.Fields.Labytinths;
-using InfastuctureCore.Services.AssetProviderServices;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices.Factories;
 using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticDataService;
@@ -9,14 +8,12 @@ namespace Infrastructure.Services.GameFactoryServices
 {
     public class LabyrinthFactory
     {
-        private readonly IAssetProviderService _assetProviderService;
         private readonly IStaticDataService _staticDataService;
         private readonly ICurrentDataService _currentDataService;
         private readonly BlockGridFactory _blockGridFactory;
 
-        public LabyrinthFactory(IAssetProviderService assetProviderService, IStaticDataService staticDataService, ICurrentDataService currentDataService, BlockGridFactory blockGridFactory)
+        public LabyrinthFactory(IStaticDataService staticDataService, ICurrentDataService currentDataService, BlockGridFactory blockGridFactory)
         {
-            _assetProviderService = assetProviderService;
             _staticDataService = staticDataService;
             _currentDataService = currentDataService;
             _blockGridFactory = blockGridFactory;

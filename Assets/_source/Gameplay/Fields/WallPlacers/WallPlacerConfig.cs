@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Gameplay.Fields.Cells;
 using InfastuctureCore.Services;
 using UnityEngine;
 
@@ -22,26 +21,28 @@ namespace Gameplay.Fields.WallPlacers
 
             WallSettingsPerRound lastWallSettingsPerRound = WallSettingsPerRounds.LastOrDefault();
 
-            if (lastWallSettingsPerRound.PlaceCount >= towerPerRound)
+            if (lastWallSettingsPerRound != null && lastWallSettingsPerRound.PlaceCount >= towerPerRound)
             {
                 WallSettingsPerRounds.Add(new WallSettingsPerRound(1337));
                 lastWallSettingsPerRound = WallSettingsPerRounds.Last();
             }
 
-            lastWallSettingsPerRound.PlaceList.Add(coordinates);
+            if (lastWallSettingsPerRound != null)
+                lastWallSettingsPerRound.PlaceList.Add(coordinates);
         }
 
         public void RemovePlacedTower(Coordinates coordinates)
         {
             var lastWallSettingsPerRound = WallSettingsPerRounds.LastOrDefault();
 
-            if (lastWallSettingsPerRound.PlaceCount >= towerPerRound)
+            if (lastWallSettingsPerRound != null && lastWallSettingsPerRound.PlaceCount >= towerPerRound)
             {
                 WallSettingsPerRounds.Add(new WallSettingsPerRound(1337));
                 lastWallSettingsPerRound = WallSettingsPerRounds.Last();
             }
 
-            lastWallSettingsPerRound.DestroyList.Add(coordinates);
+            if (lastWallSettingsPerRound != null)
+                lastWallSettingsPerRound.DestroyList.Add(coordinates);
         }
     }
 }

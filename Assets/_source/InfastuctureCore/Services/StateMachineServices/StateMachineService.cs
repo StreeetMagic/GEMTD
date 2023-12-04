@@ -1,5 +1,5 @@
-﻿using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.StateMachineServices.States;
+﻿using InfastuctureCore.Services.StateMachineServices.States;
+using InfastuctureCore.Utilities;
 
 namespace InfastuctureCore.Services.StateMachineServices
 {

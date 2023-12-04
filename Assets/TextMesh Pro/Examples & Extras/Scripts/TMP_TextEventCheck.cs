@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-
+// ReSharper disable All
 namespace TMPro.Examples
 {
     public class TMP_TextEventCheck : MonoBehaviour

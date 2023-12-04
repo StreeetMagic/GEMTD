@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 
+// ReSharper disable All
 namespace TMPro
 {
     /// <summary>
@@ -15,7 +15,7 @@ namespace TMPro
         public override char Validate(ref string text, ref int pos, char ch)
         {
             Debug.Log("Trying to validate...");
-            
+
             // Return unless the character is a valid digit
             if (ch < '0' && ch > '9') return (char)0;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using InfastuctureCore.Services.StateMachineServices.States;
+using UnityEngine;
 
 namespace Infrastructure.GameLoopStateMachines.States
 {
@@ -10,12 +11,12 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         public void Enter()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Entered Win State");
         }
 
         public void Exit()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Exited Win State");
         }
     }
 }

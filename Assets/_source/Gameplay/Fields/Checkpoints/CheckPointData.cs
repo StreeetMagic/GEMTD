@@ -1,4 +1,3 @@
-
 namespace Gameplay.Fields.Checkpoints
 {
     public class CheckpointData

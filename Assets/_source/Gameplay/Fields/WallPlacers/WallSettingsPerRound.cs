@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Gameplay.Fields.Cells;
 
 namespace Gameplay.Fields.WallPlacers
 {
@@ -8,8 +7,8 @@ namespace Gameplay.Fields.WallPlacers
     public class WallSettingsPerRound
     {
         public int RoundNumber;
-        public List<Coordinates> DestroyList = new List<Coordinates>();
-        public List<Coordinates> PlaceList = new List<Coordinates>();
+        public List<Coordinates> DestroyList = new();
+        public List<Coordinates> PlaceList = new();
 
         public int PlaceCount => PlaceList.Count;
 

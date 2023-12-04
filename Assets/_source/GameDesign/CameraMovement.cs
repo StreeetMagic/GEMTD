@@ -1,8 +1,6 @@
 ﻿using InfastuctureCore.ServiceLocators;
 using Infrastructure.Services.InputServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace GameDesign
 {
@@ -22,8 +20,9 @@ namespace GameDesign
         private void MoveY()
         {
             Vector2 cameraMovement = InputService.CameraMovementY;
-            Vector3 newPosition = transform.position - new Vector3(0, cameraMovement.y * _scrollPower * Time.deltaTime, 0);
-            transform.position = newPosition;
+            Transform transform1 = transform;
+            Vector3 newPosition = transform1.position - new Vector3(0, cameraMovement.y * _scrollPower * Time.deltaTime, 0);
+            transform1.position = newPosition;
         }
 
         private void MoveXZ()

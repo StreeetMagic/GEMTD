@@ -1,4 +1,3 @@
-using Gameplay.Fields.Cells;
 using UnityEngine;
 
 namespace Gameplay.Fields.Towers.Resources

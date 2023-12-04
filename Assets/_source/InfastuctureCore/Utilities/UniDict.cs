@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace InfastuctureCore.Utilities
 {
+    // ReSharper disable All
     [Serializable]
     public struct DictEntry<TKey, TValue>
     {

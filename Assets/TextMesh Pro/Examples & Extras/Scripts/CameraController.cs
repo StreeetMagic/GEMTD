@@ -1,13 +1,17 @@
 using UnityEngine;
-using System.Collections;
 
+// ReSharper disable All
 
 namespace TMPro.Examples
 {
-    
     public class CameraController : MonoBehaviour
     {
-        public enum CameraModes { Follow, Isometric, Free }
+        public enum CameraModes
+        {
+            Follow,
+            Isometric,
+            Free
+        }
 
         private Transform cameraTransform;
         private Transform dummyTarget;
@@ -45,10 +49,8 @@ namespace TMPro.Examples
         // Controls for Touches on Mobile devices
         //private float prev_ZoomDelta;
 
-
         private const string event_SmoothingValue = "Slider - Smoothing Value";
         private const string event_FollowDistance = "Slider - Camera Zoom";
-
 
         void Awake()
         {
@@ -63,7 +65,6 @@ namespace TMPro.Examples
             cameraTransform = transform;
             previousSmoothing = MovementSmoothing;
         }
-
 
         // Use this for initialization
         void Start()
@@ -80,7 +81,6 @@ namespace TMPro.Examples
         void LateUpdate()
         {
             GetPlayerInput();
-
 
             // Check if we still have a valid target
             if (CameraTarget != null)
@@ -116,12 +116,8 @@ namespace TMPro.Examples
                 {
                     cameraTransform.LookAt(CameraTarget);
                 }
-
             }
-
         }
-
-
 
         void GetPlayerInput()
         {
@@ -144,7 +140,6 @@ namespace TMPro.Examples
 
                 if (Input.GetKeyDown(KeyCode.S))
                     MovementSmoothing = !MovementSmoothing;
-
 
                 // Check for right mouse button to change camera follow and elevation angle
                 if (Input.GetMouseButton(1))
@@ -182,7 +177,6 @@ namespace TMPro.Examples
                         ElevationAngle = Mathf.Clamp(ElevationAngle, MinElevationAngle, MaxElevationAngle);
                     }
 
-
                     // Handle left & right 
                     if (deltaPosition.x > 0.01f || deltaPosition.x < -0.01f)
                     {
@@ -192,7 +186,6 @@ namespace TMPro.Examples
                         if (OrbitalAngle < 0)
                             OrbitalAngle += 360;
                     }
-
                 }
 
                 // Check for left mouse button to select a new CameraTarget or to reset Follow position
@@ -214,10 +207,8 @@ namespace TMPro.Examples
                             OrbitalAngle = 0;
                             MovementSmoothing = previousSmoothing;
                         }
-
                     }
                 }
-
 
                 if (Input.GetMouseButton(2))
                 {
@@ -241,16 +232,13 @@ namespace TMPro.Examples
                         MovementSmoothing = false;
                     }
 
-
                     mouseY = Input.GetAxis("Mouse Y");
                     mouseX = Input.GetAxis("Mouse X");
 
                     moveVector = cameraTransform.TransformDirection(mouseX, mouseY, 0);
 
                     dummyTarget.Translate(-moveVector, Space.World);
-
                 }
-
             }
 
             // Check Pinching to Zoom in - out on Mobile device
@@ -273,20 +261,15 @@ namespace TMPro.Examples
                     // Limit FollowDistance between min & max values.
                     FollowDistance = Mathf.Clamp(FollowDistance, MinFollowDistance, MaxFollowDistance);
                 }
-
-
             }
 
             // Check MouseWheel to Zoom in-out
             if (mouseWheel < -0.01f || mouseWheel > 0.01f)
             {
-
                 FollowDistance -= mouseWheel * 5.0f;
                 // Limit FollowDistance between min & max values.
                 FollowDistance = Mathf.Clamp(FollowDistance, MinFollowDistance, MaxFollowDistance);
             }
-
-
         }
     }
 }
