@@ -15,40 +15,48 @@ namespace Gameplay.Fields.WallPlacers
 {
     public class TowerPlacer
     {
-        private int _roundNumber;
+        private int _roundNumber = 1;
+        private float _seconds = .001f;
 
         private WallPlacerConfig WallPlacerConfig => ServiceLocator.Instance.Get<IStaticDataService>().Get<WallPlacerConfig>();
         private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
 
-        public IEnumerator PlaceTowers(Coordinates[] placedTowers, Action onComplete)
+        public IEnumerator PlaceTowers(Coordinates[] placedTowers, Action<bool> onComplete)
         {
+            Debug.Log("Round number " + _roundNumber);
+            Debug.Log("Round with walls " + WallPlacerConfig.WallSettingsPerRounds.Count);
+
             if (_roundNumber >= WallPlacerConfig.WallSettingsPerRounds.Count)
             {
                 Debug.Log("стены закончились");
+                _roundNumber++;
+                onComplete?.Invoke(false);
                 yield break;
             }
 
-            if (WallPlacerConfig.WallSettingsPerRounds[_roundNumber].DestroyList.Count > 0)
+            int roundIndex = _roundNumber - 1;
+
+            if (WallPlacerConfig.WallSettingsPerRounds[roundIndex].DestroyList.Count > 0)
             {
-                foreach (Coordinates coordinates in WallPlacerConfig.WallSettingsPerRounds[_roundNumber].DestroyList)
+                foreach (Coordinates coordinates in WallPlacerConfig.WallSettingsPerRounds[roundIndex].DestroyList)
                 {
-                    yield return new WaitForSeconds(.1f);
+                    yield return new WaitForSeconds(_seconds);
 
                     RemoveWall(coordinates);
                 }
             }
 
-            for (int i = 0; i < WallPlacerConfig.WallSettingsPerRounds[_roundNumber].PlaceList.Count; i++)
+            for (int i = 0; i < WallPlacerConfig.WallSettingsPerRounds[roundIndex].PlaceList.Count; i++)
             {
-                Coordinates coordinates = WallPlacerConfig.WallSettingsPerRounds[_roundNumber].PlaceList[i];
-                yield return new WaitForSeconds(.1f);
+                Coordinates coordinates = WallPlacerConfig.WallSettingsPerRounds[roundIndex].PlaceList[i];
+                yield return new WaitForSeconds(_seconds);
 
                 AddTower(coordinates);
                 placedTowers[i] = coordinates;
             }
 
             _roundNumber++;
-            onComplete?.Invoke();
+            onComplete?.Invoke(true);
         }
 
         private void AddTower(Coordinates coordinates)

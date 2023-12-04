@@ -400,10 +400,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1276912101892514981, guid: de457f968bb3aac4eafba8213736d49e, type: 3}
-      propertyPath: GameDesignMode
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 2753575607001271974, guid: de457f968bb3aac4eafba8213736d49e, type: 3}
       propertyPath: m_Name
       value: LevelDesignTools
