@@ -60,14 +60,23 @@ namespace Gameplay.Fields
 
                             CellData cellData = GetCellData(new Coordinates(x, z));
 
-                            if (cellData.WallData != null)
+                            if (cellData.CanBeReplacedWithTower)
                             {
-                                if (cellData.TowerData == null)
-                                    coordinates.Add(new Coordinates(x, z));
+                                coordinates.Add(new Coordinates(x, z));
                             }
 
                             if (coordinates.Count == towerPerRound)
-                                return coordinates.ToArray();
+                            {
+                                if (HasSameCoordinates(coordinates.ToArray()))
+                                {
+                                    Debug.Log("Есть одинаковые координаты");
+                                    coordinates.Clear();
+                                }
+                                else
+                                {
+                                    return coordinates.ToArray();
+                                }
+                            }
                         }
                     }
                 }
@@ -76,18 +85,34 @@ namespace Gameplay.Fields
             return coordinates.ToArray();
         }
 
-        private void TrySetTower(CellData cellData, List<Coordinates> coordinates, int i, int j)
+        private bool HasSameCoordinates(Coordinates[] coordinates)
         {
-            if (cellData.WallData != null)
+            for (int i = 0; i < coordinates.Length; i++)
             {
-                if (cellData.TowerData == null)
+                for (int j = i + 1; j < coordinates.Length; j++)
                 {
-                    cellData.RemoveWallData();
-                    cellData.SetTowerData(GameFactory.BlockGridFactory.CreateTowerData((TowerType)Random.Range(0, 8), 1));
-
-                    coordinates.Add(new Coordinates(i, j));
+                    if (coordinates[i].Equals(coordinates[j]))
+                    {
+                        return true;
+                    }
                 }
             }
+            
+            return false;
         }
+
+        // private void TrySetTower(CellData cellData, List<Coordinates> coordinates, int i, int j)
+        // {
+        //     if (cellData.WallData != null)
+        //     {
+        //         if (cellData.TowerData == null)
+        //         {
+        //             cellData.RemoveWallData();
+        //             cellData.SetTowerData(GameFactory.BlockGridFactory.CreateTowerData((TowerType)Random.Range(0, 8), 1));
+        //
+        //             coordinates.Add(new Coordinates(i, j));
+        //         }
+        //     }
+        // }
     }
 }

@@ -20,7 +20,7 @@ namespace Gameplay.Fields.Cells
         public event Action WallDataRemoved;
         public event Action TowerDataSet;
         public event Action TowerDataRemoved;
-        public event Action TowerPlaced;
+        public event Action TowerConfirmed;
 
         public Coordinates Coordinates { get; }
         public CheckpointData CheckpointData { get; private set; }
@@ -28,8 +28,10 @@ namespace Gameplay.Fields.Cells
         public BlockData BlockData { get; private set; }
         public TowerData TowerData { get; private set; }
 
-        public bool IsEmpty => CheckpointData == null && WallData == null;
+        public bool IsEmpty => CheckpointData == null && WallData == null && TowerData == null;
         public bool HasWall => WallData != null;
+        public bool CanBeReplacedWithTower => WallData != null && TowerData == null && CheckpointData == null && TowerIsConfirmed == false;
+        public bool TowerIsConfirmed { get; set; }
 
         public void SetCheckpointData(CheckpointData checkpointData)
         {
@@ -41,21 +43,10 @@ namespace Gameplay.Fields.Cells
         {
             TowerData = towerData;
             TowerDataSet?.Invoke();
-
-            if (WallData != null)
-            {
-                RemoveWallData();
-            }
         }
 
         public void SetWallData(WallData wallData)
         {
-            if (IsEmpty == false)
-            {
-                Debug.Log("Cell is not empty");
-                return;
-            }
-
             WallData = wallData;
             WallDataSet?.Invoke();
         }
@@ -72,15 +63,10 @@ namespace Gameplay.Fields.Cells
             TowerDataRemoved?.Invoke();
         }
 
-        public void ReplaceTowerWithWall(WallData wallData)
+        public void ConfirmTower()
         {
-            RemoveTowerData();
-            SetWallData(wallData);
-        }
-
-        public void PlaceTower()
-        {
-            TowerPlaced?.Invoke();
+            TowerConfirmed?.Invoke();
+            TowerIsConfirmed = true;
         }
     }
 }

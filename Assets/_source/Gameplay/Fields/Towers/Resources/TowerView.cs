@@ -20,7 +20,7 @@ namespace Gameplay.Fields.Towers.Resources
 
         public void ReduceScale()
         {
-            transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+            transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
         }
     }
 }
