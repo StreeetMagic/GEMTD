@@ -30,7 +30,6 @@ namespace Debug_HeadsUpDisplays
 
             _finishPlacingWalls.onClick.AddListener(() =>
             {
-                Debug.Log("Я НАЖАЛ НА КНОПКУ");
                 _finishPlacingWalls.interactable = false;
                 _placeWallsState.PlaceWalls();
             });
@@ -57,7 +56,6 @@ namespace Debug_HeadsUpDisplays
         {
             yield return null;
 
-            Debug.Log("Я СЛУШАЮ ИНВОКИ");
             _finishPlacingWalls.interactable = true;
         }
     }
