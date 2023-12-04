@@ -45,11 +45,11 @@ namespace Infrastructure.GameLoopStateMachines.States
             Exited?.Invoke(this);
             Debug.Log("Exited PlaceWallsState");
 
-            // if (_coroutine != null)
-            // {
-            //     CoroutineRunner.StopCoroutine(_coroutine);
-            //     _coroutine = null;
-            // }
+            if (_coroutine != null)
+            {
+                CoroutineRunner.StopCoroutine(_coroutine);
+                _coroutine = null;
+            }
         }
 
         public void PlaceWalls()
