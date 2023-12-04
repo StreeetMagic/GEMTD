@@ -26,7 +26,6 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         public void Enter()
         {
-            Debug.Log("Я ИНВОКАЮ");
             Entered?.Invoke(this);
             Debug.Log(" Entered PlaceWallsState");
         }
