@@ -1,8 +1,4 @@
-using System;
 using Games;
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.AssetProviderServices;
-using InfastuctureCore.Services.StaticDataServices;
 using UnityEngine;
 
 namespace Gameplay.Fields.Blocks

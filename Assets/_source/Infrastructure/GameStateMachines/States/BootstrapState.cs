@@ -3,9 +3,9 @@ using GameDesign;
 using Gameplay.Fields;
 using Gameplay.Fields.Checkpoints;
 using Gameplay.Fields.Labytinths;
+using Gameplay.Fields.Towers;
 using Gameplay.Fields.WallPlacers;
 using Games;
-using Games.Config.Resources;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.AssetProviderServices;
 using InfastuctureCore.Services.PoolServices;
@@ -68,6 +68,7 @@ namespace Infrastructure.GameStateMachines.States
             StaticDataService.Register<StartingLabyrinthConfig>();
             StaticDataService.Register<PaintedBlockConfig>();
             StaticDataService.Register<WallPlacerConfig>();
+            StaticDataService.Register<TowerConfig>();
         }
 
         private void EnterNextState() =>

@@ -166,7 +166,7 @@ namespace GameDesign
 
                         if (celLData.IsEmpty)
                         {
-                            celLData.SetWallData(GameFactoryService.BlockGridFactory.CreateWall());
+                            celLData.SetWallData(GameFactoryService.BlockGridFactory.CreateWallData());
                             cellData = celLData;
                             return true;
                         }

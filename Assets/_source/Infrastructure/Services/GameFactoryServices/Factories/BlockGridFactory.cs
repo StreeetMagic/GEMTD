@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GameDesign;
 using Gameplay.Fields;
 using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.Towers;
+using Gameplay.Fields.Towers.Resources;
 using Gameplay.Fields.Walls;
 using Games;
 using InfastuctureCore.Services.AssetProviderServices;
@@ -57,6 +60,18 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             _assetProviderService.Instantiate<FieldView>(Constants.AssetsPath.Prefabs.Field)
                 .With(e => e.Init(fieldData));
 
+        public WallView CreateWallView(WallData wallData, Transform transform) =>
+            _assetProviderService.Instantiate<WallView>(Constants.AssetsPath.Prefabs.Wall, Vector3.zero)
+                .With(e => e.Init(wallData))
+                .With(e => e.transform.SetParent(transform))
+                .With(e => e.transform.localPosition = Vector3.zero);
+
+        public TowerView CreateTowerView(TowerData towerData, Transform transform) =>
+            _assetProviderService.Instantiate<TowerView>(Constants.AssetsPath.Prefabs.Tower, Vector3.zero)
+                .With(e => e.Init(towerData,_staticDataService.Get<TowerConfig>().TowerMaterials[towerData.Type]))
+                .With(e => e.transform.SetParent(transform))
+                .With(e => e.transform.localPosition = Vector3.zero);
+
         public void CreateCheckpointsDatas()
         {
             CheckpointSettings[] configs = _staticDataService.Get<CheckpointsConfig>().CheckPointSettings;
@@ -90,13 +105,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
         private CellData GetCellDataByCoordinates(Coordinates coordinates) =>
             _currentDataService.FieldData.CellDatas.FirstOrDefault(cellData => cellData.Coordinates.X == coordinates.X && cellData.Coordinates.Z == coordinates.Z);
 
-        public WallView CreateWallView(WallData wallData, Transform transform) =>
-            _assetProviderService.Instantiate<WallView>(Constants.AssetsPath.Prefabs.Wall, Vector3.zero)
-                .With(e => e.Init(wallData))
-                .With(e => e.transform.SetParent(transform))
-                .With(e => e.transform.localPosition = Vector3.zero);
-
-        public WallData CreateWall() =>
+        public WallData CreateWallData() =>
             new();
 
         public void PaintBlocks()

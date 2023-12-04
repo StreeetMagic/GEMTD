@@ -25,7 +25,7 @@ namespace Infrastructure.Services.GameFactoryServices
         public void CreateStartingLabyrinth()
         {
             foreach (Coordinates coordinate in _staticDataService.Get<StartingLabyrinthConfig>().Coordinates)
-                _currentDataService.FieldData.GetCellData(coordinate).SetWallData(_blockGridFactory.CreateWall());
+                _currentDataService.FieldData.GetCellData(coordinate).SetWallData(_blockGridFactory.CreateWallData());
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Games
                 public const string Block = "Block";
                 public const string Checkpoint = "Checkpoint";
                 public const string Wall = "Wall";
+                public const string Tower = "Tower";
             }
 
             public class Materials
