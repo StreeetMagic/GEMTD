@@ -17,5 +17,10 @@ namespace Gameplay.Fields.Towers.Resources
             _meshRenderer = GetComponentInChildren<MeshRenderer>();
             _meshRenderer.material = Material;
         }
+
+        public void ReduceScale()
+        {
+            transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+        }
     }
 }

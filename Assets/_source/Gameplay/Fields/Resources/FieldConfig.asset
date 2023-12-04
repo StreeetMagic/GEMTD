@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a804e915490c446289db7a37f9f36f7d, type: 3}
   m_Name: FieldConfig
   m_EditorClassIdentifier: 
-  <FieldXSize>k__BackingField: 37
-  <FieldYSize>k__BackingField: 37
+  <FieldSize>k__BackingField: 37

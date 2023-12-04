@@ -30,8 +30,6 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         private MonoBehaviour CoroutineRunner => ServiceLocator.Instance.Get<IStateMachineService<GameStateMachineData>>().Data.CoroutineRunner;
         private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
-        private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
-        private IGameFactoryService GameFactory => ServiceLocator.Instance.Get<IGameFactoryService>();
 
         public void Enter()
         {
@@ -54,28 +52,7 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         public void PlaceWalls()
         {
-            Coordinates[] placedTowers = new Coordinates[StaticDataService.Get<WallPlacerConfig>().towerPerRound];
-
-            _coroutine = CoroutineRunner.StartCoroutine(_towerPlacer.PlaceTowers(placedTowers, onComplete: (hasTowers) =>
-            {
-                if (hasTowers)
-                    ChooseRandomTower(placedTowers);
-
-                _gameLoopStateMachine.Enter<EnemyMoveState>();
-            }));
-        }
-
-        private void ChooseRandomTower(Coordinates[] placedTowers)
-        {
-            int randomIndex = Random.Range(0, placedTowers.Length);
-
-            for (int i = 0; i < placedTowers.Length; i++)
-            {
-                if (i == randomIndex)
-                    continue;
-
-                CurrentDataService.FieldData.GetCellData(placedTowers[i]).ReplaceTowerWithWall(GameFactory.BlockGridFactory.CreateWallData());
-            }
+            _coroutine = CoroutineRunner.StartCoroutine(_towerPlacer.PlaceTowers(onComplete: () => { _gameLoopStateMachine.Enter<EnemyMoveState>(); }));
         }
     }
 }

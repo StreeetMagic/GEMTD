@@ -20,6 +20,7 @@ namespace Gameplay.Fields.Cells
         public event Action WallDataRemoved;
         public event Action TowerDataSet;
         public event Action TowerDataRemoved;
+        public event Action TowerPlaced;
 
         public Coordinates Coordinates { get; }
         public CheckpointData CheckpointData { get; private set; }
@@ -40,6 +41,11 @@ namespace Gameplay.Fields.Cells
         {
             TowerData = towerData;
             TowerDataSet?.Invoke();
+
+            if (WallData != null)
+            {
+                RemoveWallData();
+            }
         }
 
         public void SetWallData(WallData wallData)
@@ -70,6 +76,11 @@ namespace Gameplay.Fields.Cells
         {
             RemoveTowerData();
             SetWallData(wallData);
+        }
+
+        public void PlaceTower()
+        {
+            TowerPlaced?.Invoke();
         }
     }
 }
