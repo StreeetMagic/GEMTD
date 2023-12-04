@@ -14,11 +14,11 @@ namespace Gameplay.Fields
 
         public CellData[] CellDatas => _cellDatas.ToArray();
 
-        public CellData GetCellData(Coordinates coordinate)
+        public CellData GetCellData(Coordinates coordinates)
         {
             foreach (CellData cellData in _cellDatas)
             {
-                if (cellData.Coordinates.Equals(coordinate))
+                if (cellData.Coordinates.Equals(coordinates))
                 {
                     return cellData;
                 }

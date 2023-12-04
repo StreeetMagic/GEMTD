@@ -15,7 +15,7 @@ namespace Debug_HeadsUpDisplays
 
         private void Start()
         {
-            _finishPlacingWalls.onClick.AddListener(GameLoopStateMachine.Get<PlaceWallsState>().FinishPlacingWalls);
+            _finishPlacingWalls.onClick.AddListener(GameLoopStateMachine.Get<PlaceWallsState>().FinishPlacingTowers);
         }
 
         private IStateMachineService<GameLoopStateMachineData> GameLoopStateMachine => ServiceLocator.Instance.Get<IStateMachineService<GameLoopStateMachineData>>();

@@ -1,6 +1,7 @@
 ﻿using System;
 using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.Towers.Resources;
 using Gameplay.Fields.Walls;
 using UnityEngine;
 
@@ -17,11 +18,14 @@ namespace Gameplay.Fields.Cells
         public event Action ChekpointDataSet;
         public event Action WallDataSet;
         public event Action WallDataRemoved;
+        public event Action TowerDataSet;
+        public event Action TowerDataRemoved;
 
         public Coordinates Coordinates { get; }
         public CheckpointData CheckpointData { get; private set; }
         public WallData WallData { get; private set; }
         public BlockData BlockData { get; private set; }
+        public TowerData TowerData { get; private set; }
 
         public bool IsEmpty => CheckpointData == null && WallData == null;
         public bool HasWall => WallData != null;
@@ -30,6 +34,12 @@ namespace Gameplay.Fields.Cells
         {
             CheckpointData = checkpointData;
             ChekpointDataSet?.Invoke();
+        }
+
+        public void SetTowerData(TowerData towerData)
+        {
+            TowerData = towerData;
+            TowerDataSet?.Invoke();
         }
 
         public void SetWallData(WallData wallData)
@@ -49,18 +59,17 @@ namespace Gameplay.Fields.Cells
             WallData = null;
             WallDataRemoved?.Invoke();
         }
-    }
 
-    [Serializable]
-    public struct Coordinates
-    {
-        public int X;
-        public int Z;
-
-        public Coordinates(int x, int z)
+        public void RemoveTowerData()
         {
-            X = x;
-            Z = z;
+            TowerData = null;
+            TowerDataRemoved?.Invoke();
+        }
+
+        public void ReplaceTowerWithWall(WallData wallData)
+        {
+            RemoveTowerData();
+            SetWallData(wallData);
         }
     }
 }

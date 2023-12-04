@@ -1,5 +1,6 @@
 using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.Towers.Resources;
 using Gameplay.Fields.Walls;
 using InfastuctureCore.ServiceLocators;
 using Infrastructure.Services.GameFactoryServices;
@@ -14,6 +15,7 @@ namespace Gameplay.Fields.Cells
         public BlockView BlockView { get; private set; }
         public CheckpointView CheckpointView { get; private set; }
         public WallView WallView { get; private set; }
+        public TowerView TowerView { get; private set; }
         public bool IsPainted { get; set; }
 
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
@@ -35,6 +37,8 @@ namespace Gameplay.Fields.Cells
             CelLData.ChekpointDataSet += OnCheckpointDataSet;
             CelLData.WallDataSet += OnWallDataSet;
             CelLData.WallDataRemoved += OnWallDataRemoved;
+            CelLData.TowerDataSet += OnTowerDataSet;
+            CelLData.TowerDataRemoved += OnTowerDataRemoved;
         }
 
         private void Unsubscribe()
@@ -42,6 +46,14 @@ namespace Gameplay.Fields.Cells
             CelLData.ChekpointDataSet -= OnCheckpointDataSet;
             CelLData.WallDataSet -= OnWallDataSet;
             CelLData.WallDataRemoved -= OnWallDataRemoved;
+            CelLData.TowerDataSet -= OnTowerDataSet;
+            CelLData.TowerDataRemoved -= OnTowerDataRemoved;
+        }
+
+        private void OnTowerDataRemoved()
+        {
+            Destroy(TowerView.gameObject);
+            TowerView = null;
         }
 
         private void OnCheckpointDataSet()
@@ -68,6 +80,11 @@ namespace Gameplay.Fields.Cells
         private void OnWallDataSet()
         {
             WallView = GameFactoryService.BlockGridFactory.CreateWallView(CelLData.WallData, transform);
+        }
+
+        private void OnTowerDataSet()
+        {
+            TowerView = GameFactoryService.BlockGridFactory.CreateTowerView(CelLData.TowerData, transform);
         }
 
         private void OnWallDataRemoved()
