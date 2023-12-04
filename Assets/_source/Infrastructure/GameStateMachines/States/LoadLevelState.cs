@@ -1,4 +1,3 @@
-using System;
 using InfastuctureCore.SceneLoaders;
 using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StateMachineServices.States;
@@ -17,9 +16,6 @@ namespace Infrastructure.GameStateMachines.States
 
             _sceneLoader = new SceneLoader(_gameStateMachine.Data.CoroutineRunner);
         }
-
-        public event Action<IState> Entered;
-        public event Action<IExitableState> Exited;
 
         public void Enter(string sceneName)
         {
