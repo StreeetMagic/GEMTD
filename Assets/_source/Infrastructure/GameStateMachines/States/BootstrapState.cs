@@ -1,5 +1,4 @@
-﻿using System;
-using GameDesign;
+﻿using GameDesign;
 using Gameplay.Fields;
 using Gameplay.Fields.Checkpoints;
 using Gameplay.Fields.Labytinths;
@@ -29,9 +28,6 @@ namespace Infrastructure.GameStateMachines.States
         {
             _gameStateMachine = gameStateMachine;
         }
-
-        public event Action<IState> Entered;
-        public event Action<IExitableState> Exited;
 
         private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
 

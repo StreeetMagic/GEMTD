@@ -1,4 +1,3 @@
-using System;
 using Debug_HeadsUpDisplays;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.AssetProviderServices;
@@ -9,16 +8,12 @@ using Infrastructure.GameLoopStateMachines.States;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;
-using IState = InfastuctureCore.Services.StateMachineServices.States.IState;
 
 namespace Infrastructure.GameStateMachines.States
 {
     public class GameLoopState : IState
     {
         private IStateMachineService<GameLoopStateMachineData> _gameLoopStateMachine;
-
-        public event Action<IState> Entered;
-        public event Action<IExitableState> Exited;
 
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
         private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
