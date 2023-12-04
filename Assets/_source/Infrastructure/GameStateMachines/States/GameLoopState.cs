@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using Debug_HeadsUpDisplays;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.AssetProviderServices;
 using InfastuctureCore.Services.StateMachineServices;
+using InfastuctureCore.Services.StateMachineServices.States;
 using Infrastructure.GameLoopStateMachines;
 using Infrastructure.GameLoopStateMachines.States;
 using Infrastructure.Services.CurrentDataServices;
@@ -23,6 +25,9 @@ namespace Infrastructure.GameStateMachines.States
             _gameStateMachine = gameStateMachine;
         }
 
+        public event Action<IState> Entered;
+        public event Action<IExitableState> Exited;
+
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
         private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
         private IAssetProviderService AssetProviderService => ServiceLocator.Instance.Get<IAssetProviderService>();
@@ -30,14 +35,19 @@ namespace Infrastructure.GameStateMachines.States
         public void Enter()
         {
             Debug.Log("Entered GameLoop State");
-            AssetProviderService.Instantiate<DebugHeadsUpDisplay>();
             CurrentDataService.FieldData = GameFactoryService.BlockGridFactory.CreateFieldData();
             GameFactoryService.BlockGridFactory.CreateBlockGridView(CurrentDataService.FieldData);
             GameFactoryService.BlockGridFactory.CreateCheckpointsDatas();
             GameFactoryService.BlockGridFactory.PaintBlocks();
             GameFactoryService.LabyrinthFactory.CreateStartingLabyrinth();
             _gameLoopStateMachine = CreateGameLoopStateMachine();
+            AssetProviderService.Instantiate<DebugHeadsUpDisplay>();
             _gameLoopStateMachine.Enter<PlaceWallsState>();
+        }
+
+        public void Exit()
+        {
+            Debug.Log("Exited GameLoop State");
         }
 
         private IStateMachineService<GameLoopStateMachineData> CreateGameLoopStateMachine()
@@ -48,11 +58,6 @@ namespace Infrastructure.GameStateMachines.States
             ServiceLocator.Instance.Register<IStateMachineService<GameLoopStateMachineData>>(gameLoopStateMachine);
 
             return gameLoopStateMachine;
-        }
-
-        public void Exit()
-        {
-            Debug.Log("Exited GameLoop State");
         }
     }
 }

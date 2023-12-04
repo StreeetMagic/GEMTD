@@ -470,3 +470,16 @@ MonoBehaviour:
       Z: 10
     - X: 13
       Z: 9
+  - RoundNumber: 1337
+    DestroyList: []
+    PlaceList:
+    - X: 10
+      Z: 27
+    - X: 27
+      Z: 19
+    - X: 28
+      Z: 19
+    - X: 28
+      Z: 20
+    - X: 29
+      Z: 19

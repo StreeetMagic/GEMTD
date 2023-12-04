@@ -1,15 +1,19 @@
-﻿using InfastuctureCore.Services.StateMachineServices.States;
+﻿using System;
+using InfastuctureCore.Services.StateMachineServices.States;
 
 namespace Infrastructure.GameLoopStateMachines.States
 {
     public class WinState : IState
     {
-        public void Exit()
+        public event Action<IState> Entered;
+        public event Action<IExitableState> Exited;
+
+        public void Enter()
         {
             throw new System.NotImplementedException();
         }
 
-        public void Enter()
+        public void Exit()
         {
             throw new System.NotImplementedException();
         }

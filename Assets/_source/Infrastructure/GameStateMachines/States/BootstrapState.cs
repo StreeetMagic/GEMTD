@@ -30,6 +30,9 @@ namespace Infrastructure.GameStateMachines.States
             _gameStateMachine = gameStateMachine;
         }
 
+        public event Action<IState> Entered;
+        public event Action<IExitableState> Exited;
+
         private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
 
         public void Enter()

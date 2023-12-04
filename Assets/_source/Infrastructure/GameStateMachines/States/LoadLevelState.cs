@@ -1,3 +1,4 @@
+using System;
 using InfastuctureCore.SceneLoaders;
 using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StateMachineServices.States;
@@ -17,18 +18,21 @@ namespace Infrastructure.GameStateMachines.States
             _sceneLoader = new SceneLoader(_gameStateMachine.Data.CoroutineRunner);
         }
 
-        public void Enter()
-        {
-            Debug.Log("Entered LoadLevelState");
-
-            _sceneLoader.Load(OnSceneLoaded);
-        }
+        public event Action<IState> Entered;
+        public event Action<IExitableState> Exited;
 
         public void Enter(string sceneName)
         {
             Debug.Log("Entered LoadLevelState");
 
             _sceneLoader.Load(sceneName, OnSceneLoaded);
+        }
+
+        public void Enter()
+        {
+            Debug.Log("Entered LoadLevelState");
+
+            _sceneLoader.Load(OnSceneLoaded);
         }
 
         private void OnSceneLoaded(string name)
