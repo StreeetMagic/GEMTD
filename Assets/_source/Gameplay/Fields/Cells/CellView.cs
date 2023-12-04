@@ -39,6 +39,12 @@ namespace Gameplay.Fields.Cells
             CelLData.WallDataRemoved += OnWallDataRemoved;
             CelLData.TowerDataSet += OnTowerDataSet;
             CelLData.TowerDataRemoved += OnTowerDataRemoved;
+            CelLData.TowerPlaced += OnTowerPlaced; 
+        }
+
+        private void OnTowerPlaced()
+        {
+            TowerView.ReduceScale();
         }
 
         private void Unsubscribe()
@@ -48,10 +54,16 @@ namespace Gameplay.Fields.Cells
             CelLData.WallDataRemoved -= OnWallDataRemoved;
             CelLData.TowerDataSet -= OnTowerDataSet;
             CelLData.TowerDataRemoved -= OnTowerDataRemoved;
+            CelLData.TowerPlaced -= OnTowerPlaced;
         }
 
         private void OnTowerDataRemoved()
         {
+            if (TowerView == null)
+            {
+                return;
+            }
+            
             Destroy(TowerView.gameObject);
             TowerView = null;
         }

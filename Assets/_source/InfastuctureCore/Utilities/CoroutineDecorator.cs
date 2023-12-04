@@ -18,7 +18,7 @@ namespace InfastuctureCore.Utilities
 
         public bool IsRunning { get; private set; }
 
-        public void StartCoroutine()
+        public void Start()
         {
             if (IsRunning && _coroutine != null)
                 _runner.StopCoroutine(_coroutine);
@@ -27,7 +27,7 @@ namespace InfastuctureCore.Utilities
             IsRunning = true;
         }
 
-        public void StopCoroutine()
+        public void Stop()
         {
             _runner.StopCoroutine(_coroutine);
             IsRunning = false;

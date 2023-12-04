@@ -34,7 +34,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             new(CreateCellDatas());
 
         private CellData[] CreateCellDatas() =>
-            CreateCellDatas(_staticDataService.Get<FieldConfig>().FieldXSize, _staticDataService.Get<FieldConfig>().FieldYSize);
+            CreateCellDatas(_staticDataService.Get<FieldConfig>().FieldSize);
 
         public BlockView CreateBlockView(BlockData blockData, Transform parent) =>
             _assetProviderService.Instantiate<BlockView>(Constants.AssetsPath.Prefabs.Block, Vector3.zero)
@@ -68,7 +68,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
 
         public TowerView CreateTowerView(TowerData towerData, Transform transform) =>
             _assetProviderService.Instantiate<TowerView>(Constants.AssetsPath.Prefabs.Tower, Vector3.zero)
-                .With(e => e.Init(towerData,_staticDataService.Get<TowerConfig>().TowerMaterials[towerData.Type]))
+                .With(e => e.Init(towerData, _staticDataService.Get<TowerConfig>().TowerMaterials[towerData.Type]))
                 .With(e => e.transform.SetParent(transform))
                 .With(e => e.transform.localPosition = Vector3.zero);
 
@@ -89,15 +89,17 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
         private CheckpointData CreateCheckPointData(int number) =>
             new(number);
 
-        private CellData[] CreateCellDatas(int xSize, int ySize)
+        private CellData[] CreateCellDatas(int size)
         {
-            CellData[] cellDatas = new CellData[xSize * ySize];
+            CellData[] cellDatas = new CellData[size * size];
 
             int count = 0;
 
-            for (int i = 0; i < xSize; i++)
-            for (int j = 0; j < ySize; j++)
-                cellDatas[count++] = new CellData(new Coordinates(i, j), new BlockData());
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                    cellDatas[count++] = new CellData(new Coordinates(i, j), new BlockData());
+            }
 
             return cellDatas;
         }
@@ -120,6 +122,11 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
                 CellData cellData = fieldData.GetCellData(coordinates);
                 cellData.BlockData.Paint();
             }
+        }
+
+        public TowerData CreateTowerData(TowerType towerType, int level)
+        {
+            return new TowerData(towerType, level);
         }
     }
 }

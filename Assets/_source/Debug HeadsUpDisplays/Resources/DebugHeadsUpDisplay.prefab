@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _finishPlacingWalls: {fileID: 1026665259633307264}
-  _button2: {fileID: 5152057525942156768}
+  _timeScaleButton: {fileID: 1026665259633307264}
   _button3: {fileID: 6884658250110071526}
 --- !u!1 &2671977366400445665
 GameObject:
@@ -1321,7 +1321,7 @@ GameObject:
   - component: {fileID: 6877929264473285460}
   - component: {fileID: 3220571806234630813}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Button TimeScale1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
