@@ -16,6 +16,7 @@ namespace InfastuctureCore.GameBootstrappers
             DontDestroyOnLoad(this);
 
             string initialSceneName = SceneManager.GetActiveScene().name;
+            // ReSharper disable once UnusedVariable
             var game = new Game(this, initialSceneName);
         }
     }

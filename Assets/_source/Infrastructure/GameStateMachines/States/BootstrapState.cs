@@ -56,10 +56,10 @@ namespace Infrastructure.GameStateMachines.States
             var assetProvider = loc.Register<IAssetProviderService>(new AssetProviderService());
             var currentData = loc.Register<ICurrentDataService>(new CurrentDataService());
             var staticData = loc.Register<IStaticDataService>(new StaticDataService(assetProvider));
-            var stateMachine = loc.Register<IStateMachineService<GameStateMachineData>>(_gameStateMachine);
-            var input = loc.Register<IInputService>(new InputService());
-            var poolRepository = loc.Register<IPoolRepositoryService>(new PoolRepositoryService());
-            var gameFactory = loc.Register<IGameFactoryService>(new GameFactoryService(assetProvider, staticData, currentData));
+            loc.Register(_gameStateMachine);
+            loc.Register<IInputService>(new InputService());
+            loc.Register<IPoolRepositoryService>(new PoolRepositoryService());
+            loc.Register<IGameFactoryService>(new GameFactoryService(assetProvider, staticData, currentData));
         }
 
         private void RegisterConfigs()

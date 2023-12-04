@@ -1,9 +1,7 @@
 using System.Linq;
 using GameDesign;
-using Gameplay.Fields.Cells;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticDataService;
 

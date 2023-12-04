@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// ReSharper disable InvalidXmlDocComment
 
+// ReSharper disable All
 namespace TMPro.Examples
 {
 

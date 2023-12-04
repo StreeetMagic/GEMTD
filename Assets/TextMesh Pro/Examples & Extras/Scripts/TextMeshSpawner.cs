@@ -1,13 +1,10 @@
 using UnityEngine;
-using System.Collections;
 
-
+// ReSharper disable All
 namespace TMPro.Examples
 {
-    
     public class TextMeshSpawner : MonoBehaviour
     {
-
         public int SpawnType = 0;
         public int NumberOfNPC = 12;
 
@@ -17,12 +14,10 @@ namespace TMPro.Examples
 
         void Awake()
         {
-
         }
 
         void Start()
         {
-
             for (int i = 0; i < NumberOfNPC; i++)
             {
                 if (SpawnType == 0)
@@ -45,7 +40,6 @@ namespace TMPro.Examples
                     textMeshPro.text = "!";
                     textMeshPro.color = new Color32(255, 255, 0, 255);
                     //textMeshPro.Text = "!";
-
 
                     // Spawn Floating Text
                     floatingText_Script = go.AddComponent<TextMeshProFloatingText>();
@@ -74,6 +68,5 @@ namespace TMPro.Examples
                 }
             }
         }
-
     }
 }

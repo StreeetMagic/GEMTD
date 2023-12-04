@@ -1,23 +1,17 @@
 ﻿using System;
-using Gameplay.Fields.Cells;
 using Gameplay.Fields.WallPlacers;
-using Gameplay.Fields.Walls;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StateMachineServices.States;
-using InfastuctureCore.Services.StaticDataServices;
 using Infrastructure.GameStateMachines;
-using Infrastructure.Services.CurrentDataServices;
-using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Infrastructure.GameLoopStateMachines.States
 {
     public class PlaceWallsState : IState
     {
-        private TowerPlacer _towerPlacer = new TowerPlacer();
-        private IStateMachineService<GameLoopStateMachineData> _gameLoopStateMachine;
+        private readonly TowerPlacer _towerPlacer = new();
+        private readonly IStateMachineService<GameLoopStateMachineData> _gameLoopStateMachine;
         private Coroutine _coroutine;
 
         public PlaceWallsState(IStateMachineService<GameLoopStateMachineData> gameLoopStateMachine)
@@ -29,7 +23,6 @@ namespace Infrastructure.GameLoopStateMachines.States
         public event Action<IExitableState> Exited;
 
         private MonoBehaviour CoroutineRunner => ServiceLocator.Instance.Get<IStateMachineService<GameStateMachineData>>().Data.CoroutineRunner;
-        private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
 
         public void Enter()
         {

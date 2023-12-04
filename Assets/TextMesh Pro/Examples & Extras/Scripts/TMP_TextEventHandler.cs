@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System;
 
-
+// ReSharper disable All
 namespace TMPro
 {
 

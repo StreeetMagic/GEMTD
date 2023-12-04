@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Gameplay.Fields.Cells
+namespace Gameplay.Fields
 {
     [Serializable]
     public struct Coordinates

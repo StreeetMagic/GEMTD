@@ -1,17 +1,11 @@
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.WallPlacers;
-using Gameplay.Fields.Walls;
 using Games;
-using InfastuctureCore;
 using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.AssetProviderServices;
-using InfastuctureCore.Services.StaticDataServices;
-using Infrastructure.Services;
 using Infrastructure.Services.GameFactoryServices;
 using Infrastructure.Services.InputServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 namespace GameDesign
 {
@@ -45,8 +39,8 @@ namespace GameDesign
             switch (GameDesignMode)
             {
                 case GameDesignMode.StartingWallsPlacing:
-                    PlaceWall(out var cellData);
-                    RemoveWall(out var removedCellData);
+                    PlaceWall(out CellData _);
+                    RemoveWall(out CellData _);
                     break;
 
                 case GameDesignMode.PaintingBlocks:
@@ -85,6 +79,7 @@ namespace GameDesign
             if (InputService.LeftMouseButtonIsPressed)
             {
                 Ray ray = _camera.ScreenPointToRay(InputService.MousePosition);
+                // ReSharper disable once Unity.PreferNonAllocApi
                 RaycastHit[] results = Physics.RaycastAll(ray);
 
                 foreach (RaycastHit hit in results)
@@ -100,6 +95,7 @@ namespace GameDesign
             if (InputService.RightMouseButtonIsPressed)
             {
                 Ray ray = _camera.ScreenPointToRay(InputService.MousePosition);
+                // ReSharper disable once Unity.PreferNonAllocApi
                 RaycastHit[] results = Physics.RaycastAll(ray);
 
                 foreach (RaycastHit hit in results)
@@ -129,6 +125,7 @@ namespace GameDesign
         private void HighlightCellViewByCursor()
         {
             Ray ray = _camera.ScreenPointToRay(InputService.MousePosition);
+            // ReSharper disable once Unity.PreferNonAllocApi
             RaycastHit[] results = Physics.RaycastAll(ray);
 
             foreach (RaycastHit hit in results)
@@ -156,6 +153,7 @@ namespace GameDesign
             if (InputService.LeftMouseButtonWasPressedThisFrame)
             {
                 Ray ray = _camera.ScreenPointToRay(InputService.MousePosition);
+                // ReSharper disable once Unity.PreferNonAllocApi
                 RaycastHit[] results = Physics.RaycastAll(ray);
 
                 foreach (RaycastHit hit in results)
@@ -182,6 +180,7 @@ namespace GameDesign
             if (InputService.RightMouseButtonWasPressedThisFrame)
             {
                 Ray ray = _camera.ScreenPointToRay(InputService.MousePosition);
+                // ReSharper disable once Unity.PreferNonAllocApi
                 RaycastHit[] results = Physics.RaycastAll(ray);
 
                 foreach (RaycastHit hit in results)

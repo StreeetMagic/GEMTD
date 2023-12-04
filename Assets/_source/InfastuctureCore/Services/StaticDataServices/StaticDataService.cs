@@ -1,4 +1,5 @@
 using InfastuctureCore.Services.AssetProviderServices;
+using InfastuctureCore.Utilities;
 using UnityEngine;
 
 namespace InfastuctureCore.Services.StaticDataServices
@@ -7,10 +8,8 @@ namespace InfastuctureCore.Services.StaticDataServices
     {
         private readonly IAssetProviderService _assetProviderService;
 
-        public StaticDataService(IAssetProviderService assetProviderService)
-        {
+        public StaticDataService(IAssetProviderService assetProviderService) =>
             _assetProviderService = assetProviderService;
-        }
 
         public void Register<TStaticData>() where TStaticData : Object, IStaticData =>
             Implementation<TStaticData>.Instance = _assetProviderService.Get<TStaticData>();

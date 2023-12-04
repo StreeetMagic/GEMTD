@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
@@ -14,8 +13,10 @@ namespace Debug_HeadsUpDisplays
     public class DebugHeadsUpDisplay : MonoBehaviour
     {
         [SerializeField] private Button _finishPlacingWalls;
+
         [SerializeField] private Button _timeScaleButton;
-        [SerializeField] private Button _button3;
+
+        // [SerializeField] private Button _button3;
         private PlaceWallsState _placeWallsState;
         private CoroutineDecorator _coroutine;
 

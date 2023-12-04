@@ -17,7 +17,7 @@ namespace Infrastructure.Services.GameFactoryServices
         public GameFactoryService(IAssetProviderService assetProviderService, IStaticDataService staticDataService, ICurrentDataService currentDataService)
         {
             BlockGridFactory = new BlockGridFactory(assetProviderService, staticDataService, currentDataService);
-            LabyrinthFactory = new LabyrinthFactory(assetProviderService, staticDataService, currentDataService, BlockGridFactory);
+            LabyrinthFactory = new LabyrinthFactory(staticDataService, currentDataService, BlockGridFactory);
         }
 
         public BlockGridFactory BlockGridFactory { get; }

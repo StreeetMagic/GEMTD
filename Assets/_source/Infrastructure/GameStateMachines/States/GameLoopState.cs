@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using Debug_HeadsUpDisplays;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.AssetProviderServices;
@@ -9,7 +8,6 @@ using Infrastructure.GameLoopStateMachines;
 using Infrastructure.GameLoopStateMachines.States;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using IState = InfastuctureCore.Services.StateMachineServices.States.IState;
 
@@ -17,13 +15,7 @@ namespace Infrastructure.GameStateMachines.States
 {
     public class GameLoopState : IState
     {
-        private readonly IStateMachineService<GameStateMachineData> _gameStateMachine;
         private IStateMachineService<GameLoopStateMachineData> _gameLoopStateMachine;
-
-        public GameLoopState(IStateMachineService<GameStateMachineData> gameStateMachine)
-        {
-            _gameStateMachine = gameStateMachine;
-        }
 
         public event Action<IState> Entered;
         public event Action<IExitableState> Exited;

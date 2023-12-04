@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
+// ReSharper disable All
+
 
 namespace TMPro.Examples
 {

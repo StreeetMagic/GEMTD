@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Towers.Resources;
-using Gameplay.Fields.Walls;
 using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StaticDataServices;
-using Infrastructure.GameStateMachines;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;

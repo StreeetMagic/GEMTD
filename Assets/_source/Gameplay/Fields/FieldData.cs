@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Fields.Cells;
-using Gameplay.Fields.Towers.Resources;
 using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services;
 using InfastuctureCore.Services.StaticDataServices;
-using Infrastructure.Services.CurrentDataServices;
-using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Gameplay.Fields
 {
@@ -24,8 +18,6 @@ namespace Gameplay.Fields
 
         public CellData[] CellDatas => _cellDatas.ToArray();
         private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
-        private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
-        private IGameFactoryService GameFactory => ServiceLocator.Instance.Get<IGameFactoryService>();
 
         public CellData GetCellData(Coordinates coordinates)
         {
