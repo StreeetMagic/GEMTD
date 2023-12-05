@@ -1,6 +1,6 @@
 using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Checkpoints;
-using Gameplay.Fields.Towers.Resources;
+using Gameplay.Fields.Towers;
 using Gameplay.Fields.Walls;
 using InfastuctureCore.ServiceLocators;
 using Infrastructure.Services.GameFactoryServices;
@@ -23,7 +23,7 @@ namespace Gameplay.Fields.Cells
         public void Init(CellData cellData)
         {
             CelLData = cellData;
-            BlockView = GameFactoryService.BlockGridFactory.CreateBlockView(CelLData.BlockData, transform);
+            BlockView = GameFactoryService.FieldFactory.CreateBlockView(CelLData.BlockData, transform);
             Subscribe();
         }
 
@@ -70,7 +70,7 @@ namespace Gameplay.Fields.Cells
 
         private void OnCheckpointDataSet()
         {
-            CheckpointView = GameFactoryService.BlockGridFactory.CreateCheckpointView(CelLData.CheckpointData, transform);
+            CheckpointView = GameFactoryService.FieldFactory.CreateCheckpointView(CelLData.CheckpointData, transform);
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -91,12 +91,12 @@ namespace Gameplay.Fields.Cells
 
         private void OnWallDataSet()
         {
-            WallView = GameFactoryService.BlockGridFactory.CreateWallView(CelLData.WallData, transform);
+            WallView = GameFactoryService.FieldFactory.CreateWallView(CelLData.WallData, transform);
         }
 
         private void OnTowerDataSet()
         {
-            TowerView = GameFactoryService.BlockGridFactory.CreateTowerView(CelLData.TowerData, transform);
+            TowerView = GameFactoryService.FieldFactory.CreateTowerView(CelLData.TowerData, transform);
         }
 
         private void OnWallDataRemoved()

@@ -8,19 +8,16 @@ namespace Infrastructure.Services.GameFactoryServices
 {
     public interface IGameFactoryService : IService
     {
-        BlockGridFactory BlockGridFactory { get; }
-        LabyrinthFactory LabyrinthFactory { get; }
+        FieldFactory FieldFactory { get; }
     }
 
     public class GameFactoryService : IGameFactoryService
     {
-        public GameFactoryService(IAssetProviderService assetProviderService, IStaticDataService staticDataService, ICurrentDataService currentDataService)
+        public GameFactoryService(IAssetProviderService assetProvider, IStaticDataService staticData, ICurrentDataService currentData)
         {
-            BlockGridFactory = new BlockGridFactory(assetProviderService, staticDataService, currentDataService);
-            LabyrinthFactory = new LabyrinthFactory(staticDataService, currentDataService, BlockGridFactory);
+            FieldFactory = new FieldFactory(assetProvider, staticData, currentData);
         }
 
-        public BlockGridFactory BlockGridFactory { get; }
-        public LabyrinthFactory LabyrinthFactory { get; }
+        public FieldFactory FieldFactory { get; }
     }
 }
