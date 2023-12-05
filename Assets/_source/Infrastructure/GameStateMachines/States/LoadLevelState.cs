@@ -1,3 +1,4 @@
+using Games;
 using InfastuctureCore.SceneLoaders;
 using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StateMachineServices.States;
@@ -31,14 +32,17 @@ namespace Infrastructure.GameStateMachines.States
             _sceneLoader.Load(OnSceneLoaded);
         }
 
-        private void OnSceneLoaded(string name)
-        {
-            _gameStateMachine.Enter<GameLoopState>();
-        }
-
         public void Exit()
         {
             Debug.Log("Exited LoadLevelState");
+        }
+
+        private void OnSceneLoaded(string name)
+        {
+            if (name == Constants.Scenes.Prototype)
+                _gameStateMachine.Enter<PrototypeState>();
+            else
+                _gameStateMachine.Enter<GameLoopState>();
         }
     }
 }

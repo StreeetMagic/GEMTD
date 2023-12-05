@@ -7,6 +7,7 @@ namespace Games
             public const string InitialScene = "00_Initial";
             public const string MainMenuScene = "01_MainMenu";
             public const string Gameloop = "02_Gameloop";
+            public const string Prototype = "99_Prototype";
         }
 
         public class AssetsPath

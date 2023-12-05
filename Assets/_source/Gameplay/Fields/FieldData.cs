@@ -3,7 +3,6 @@ using System.Linq;
 using Gameplay.Fields.Cells;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StaticDataServices;
-using UnityEngine;
 
 namespace Gameplay.Fields
 {

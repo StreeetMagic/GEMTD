@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Gameplay.Fields;
 using Gameplay.Fields.Cells;
+using Gameplay.Fields.Cells.Walls;
 using Gameplay.Fields.Labytinths;
-using Gameplay.Fields.Walls;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Gameplay.Fields.Walls
+namespace Gameplay.Fields.Cells.Walls
 {
     public class WallView : MonoBehaviour
     {

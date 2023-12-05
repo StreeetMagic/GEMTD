@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Gameplay.Fields.WallPlacers
+namespace Gameplay.Fields.Cells.Walls.WallPlacers
 {
     [Serializable]
     public class WallSettingsPerRound

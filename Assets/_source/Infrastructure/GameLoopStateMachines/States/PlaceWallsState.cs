@@ -1,5 +1,5 @@
 ﻿using System;
-using Gameplay.Fields.WallPlacers;
+using Gameplay.Fields.Cells.Walls.WallPlacers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StateMachineServices.States;

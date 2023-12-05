@@ -1,8 +1,8 @@
 ﻿using System;
-using Gameplay.Fields.Blocks;
-using Gameplay.Fields.Checkpoints;
-using Gameplay.Fields.Towers;
-using Gameplay.Fields.Walls;
+using Gameplay.Fields.Cells.Blocks;
+using Gameplay.Fields.Cells.Checkpoints;
+using Gameplay.Fields.Cells.Towers;
+using Gameplay.Fields.Cells.Walls;
 
 namespace Gameplay.Fields.Cells
 {

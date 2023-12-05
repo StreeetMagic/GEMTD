@@ -1,4 +1,4 @@
-namespace Gameplay.Fields.Checkpoints
+namespace Gameplay.Fields.Cells.Checkpoints
 {
     public class CheckpointData
     {

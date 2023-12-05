@@ -3,7 +3,7 @@ using System.Linq;
 using InfastuctureCore.Services;
 using UnityEngine;
 
-namespace Gameplay.Fields.WallPlacers
+namespace Gameplay.Fields.Cells.Walls.WallPlacers
 {
     [CreateAssetMenu(fileName = "WallPlacerConfig", menuName = "Configs/WallPlacerConfig")]
     public class WallPlacerConfig : ScriptableObject, IStaticData

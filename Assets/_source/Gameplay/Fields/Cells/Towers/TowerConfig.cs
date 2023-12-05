@@ -3,7 +3,7 @@ using InfastuctureCore.Services;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Gameplay.Fields.Towers
+namespace Gameplay.Fields.Cells.Towers
 {
     [CreateAssetMenu(fileName = "TowerConfig", menuName = "Configs/TowerConfig")]
     public class TowerConfig : SerializedScriptableObject, IStaticData

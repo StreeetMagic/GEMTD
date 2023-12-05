@@ -1,4 +1,4 @@
-﻿namespace Gameplay.Fields.Walls
+﻿namespace Gameplay.Fields.Cells.Walls
 {
     public class WallData
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Gameplay.Fields.Towers;
+using Gameplay.Fields.Cells.Towers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StaticDataServices;
 using Infrastructure.Services.CurrentDataServices;
@@ -9,7 +9,7 @@ using Infrastructure.Services.GameFactoryServices;
 using Sirenix.Utilities;
 using Random = UnityEngine.Random;
 
-namespace Gameplay.Fields.WallPlacers
+namespace Gameplay.Fields.Cells.Walls.WallPlacers
 {
     public class TowerPlacer
     {
