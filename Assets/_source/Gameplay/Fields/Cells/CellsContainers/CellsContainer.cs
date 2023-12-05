@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay.Fields.CellsContainers
+namespace Gameplay.Fields.Cells.CellsContainers
 {
     public class CellsContainer : MonoBehaviour
     {

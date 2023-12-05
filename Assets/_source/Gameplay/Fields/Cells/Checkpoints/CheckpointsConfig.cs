@@ -3,7 +3,7 @@ using System.Linq;
 using InfastuctureCore.Services;
 using UnityEngine;
 
-namespace Gameplay.Fields.Checkpoints
+namespace Gameplay.Fields.Cells.Checkpoints
 {
     [CreateAssetMenu(menuName = "Configs/Checkpoints Config", fileName = "CheckpointsConfig")]
     public class CheckpointsConfig : ScriptableObject, IStaticData

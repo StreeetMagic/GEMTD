@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Gameplay.Fields.Blocks
+namespace Gameplay.Fields.Cells.Blocks
 {
     public class BlockData
     {

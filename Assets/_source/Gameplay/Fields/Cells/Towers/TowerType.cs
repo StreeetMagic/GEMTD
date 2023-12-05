@@ -1,4 +1,4 @@
-﻿namespace Gameplay.Fields.Towers
+﻿namespace Gameplay.Fields.Cells.Towers
 {
     public enum TowerType
     {

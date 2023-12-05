@@ -1,7 +1,7 @@
 using Games;
 using UnityEngine;
 
-namespace Gameplay.Fields.Blocks
+namespace Gameplay.Fields.Cells.Blocks
 {
     [RequireComponent(typeof(Renderer))]
     public class BlockView : MonoBehaviour

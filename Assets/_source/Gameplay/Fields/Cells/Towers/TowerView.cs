@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay.Fields.Towers
+namespace Gameplay.Fields.Cells.Towers
 {
     public class TowerView : MonoBehaviour
     {

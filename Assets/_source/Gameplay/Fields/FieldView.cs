@@ -1,6 +1,6 @@
 using System.Linq;
 using Gameplay.Fields.Cells;
-using Gameplay.Fields.CellsContainers;
+using Gameplay.Fields.Cells.CellsContainers;
 using InfastuctureCore.ServiceLocators;
 using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;

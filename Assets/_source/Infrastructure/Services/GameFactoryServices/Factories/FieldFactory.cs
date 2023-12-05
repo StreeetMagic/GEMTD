@@ -1,12 +1,13 @@
 ﻿using System.Linq;
 using GameDesign;
 using Gameplay.Fields;
-using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Cells;
-using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.Cells.Blocks;
+using Gameplay.Fields.Cells.Checkpoints;
+using Gameplay.Fields.Cells.Towers;
+using Gameplay.Fields.Cells.Towers.Shooters;
+using Gameplay.Fields.Cells.Walls;
 using Gameplay.Fields.Labytinths;
-using Gameplay.Fields.Towers;
-using Gameplay.Fields.Walls;
 using Games;
 using InfastuctureCore.Services.AssetProviderServices;
 using InfastuctureCore.Services.StaticDataServices;
@@ -88,7 +89,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             _staticDataService.Get<PaintedBlockConfig>().Coordinates.ForEach(coordinates => { _currentDataService.FieldData.GetCellData(coordinates).BlockData.Paint(); });
 
         public TowerData CreateTowerData(TowerType towerType, int level) =>
-            new(towerType, level);
+            new(towerType, level, new SingleProjectileShooter());
 
         public void CreateStartingLabyrinth() =>
             _staticDataService.Get<StartingLabyrinthConfig>().Coordinates.ToList().ForEach(coordinate => _currentDataService.FieldData.GetCellData(coordinate)
