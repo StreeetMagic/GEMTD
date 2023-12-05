@@ -1,9 +1,20 @@
-﻿using UnityEngine;
+﻿using Gameplay.Towers.Shooters.Projectiles.DefaultProjectiles.Movers;
+using UnityEngine;
 
 namespace Gameplay.Towers.Shooters.Projectiles.DefaultProjectiles
 {
-    class DefaultProjectileView : MonoBehaviour, IProjectileView
+    public class DefaultProjectileView : MonoBehaviour, IProjectileView
     {
-        public IProjectileModel ProjectileModel { get; set; } = new DefaultProjectileModel();
+        [field: SerializeField] public DefaultProjectileMoverView MoverView { get; set; }
+
+        public DefaultProjectileMoverView SEX => MoverView;
+
+        public IProjectileModel ProjectileModel { get; set; }
+
+        public void Init(IProjectileModel projectileModel)
+        {
+            ProjectileModel = projectileModel;
+            MoverView.Init(ProjectileModel.Mover);
+        }
     }
 }
