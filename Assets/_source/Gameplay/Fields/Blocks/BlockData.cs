@@ -4,9 +4,10 @@ namespace Gameplay.Fields.Blocks
 {
     public class BlockData
     {
-        public bool IsPainted { get; set; }
         public event Action Painted;
         public event Action UnPainted;
+        
+        public bool IsPainted { get; set; }
 
         public void Paint()
         {
