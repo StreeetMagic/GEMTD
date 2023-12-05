@@ -4,6 +4,7 @@ using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StateMachineServices.States;
 using Infrastructure.GameStateMachines;
+using Infrastructure.Services.CurrentDataServices;
 using UnityEngine;
 
 namespace Infrastructure.GameLoopStateMachines.States
@@ -12,7 +13,6 @@ namespace Infrastructure.GameLoopStateMachines.States
     {
         private readonly TowerPlacer _towerPlacer = new();
         private readonly IStateMachineService<GameLoopStateMachineData> _gameLoopStateMachine;
-        private Coroutine _coroutine;
 
         public PlaceWallsState(IStateMachineService<GameLoopStateMachineData> gameLoopStateMachine)
         {
@@ -20,9 +20,9 @@ namespace Infrastructure.GameLoopStateMachines.States
         }
 
         public event Action<IState> Entered;
-        public event Action<IExitableState> Exited;
 
         private MonoBehaviour CoroutineRunner => ServiceLocator.Instance.Get<IStateMachineService<GameStateMachineData>>().Data.CoroutineRunner;
+        private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
 
         public void Enter()
         {
@@ -32,19 +32,13 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         public void Exit()
         {
-            Exited?.Invoke(this);
+            CurrentDataService.FieldData.RoundNumber++;
             Debug.Log("Exited PlaceWallsState");
-
-            if (_coroutine != null)
-            {
-                CoroutineRunner.StopCoroutine(_coroutine);
-                _coroutine = null;
-            }
         }
 
         public void PlaceWalls()
         {
-            _coroutine = CoroutineRunner.StartCoroutine(_towerPlacer.PlaceTowers(onComplete: () => { _gameLoopStateMachine.Enter<EnemyMoveState>(); }));
+            _towerPlacer.PlaceTowers(onComplete: () => { _gameLoopStateMachine.Enter<EnemyMoveState>(); });
         }
     }
 }
