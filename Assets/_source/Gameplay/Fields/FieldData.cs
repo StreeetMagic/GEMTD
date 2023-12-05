@@ -16,6 +16,7 @@ namespace Gameplay.Fields
             _cellDatas = cellDatas;
         }
 
+        public int RoundNumber { get; set; } = 1;
         public CellData[] CellDatas => _cellDatas.ToArray();
         private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
 
@@ -89,22 +90,8 @@ namespace Gameplay.Fields
                     }
                 }
             }
-            
+
             return false;
         }
-
-        // private void TrySetTower(CellData cellData, List<Coordinates> coordinates, int i, int j)
-        // {
-        //     if (cellData.WallData != null)
-        //     {
-        //         if (cellData.TowerData == null)
-        //         {
-        //             cellData.RemoveWallData();
-        //             cellData.SetTowerData(GameFactory.BlockGridFactory.CreateTowerData((TowerType)Random.Range(0, 8), 1));
-        //
-        //             coordinates.Add(new Coordinates(i, j));
-        //         }
-        //     }
-        // }
     }
 }
