@@ -1,7 +1,10 @@
-﻿namespace Gameplay.Towers.Shooters.Projectiles
+﻿using Gameplay.Towers.Shooters.Projectiles.Movers;
+
+namespace Gameplay.Towers.Shooters.Projectiles
 {
-    internal interface IProjectileModel
+    public interface IProjectileModel
     {
         float Damage { get; set; }
+        IProjectileMoverModel Mover { get; }
     }
 }

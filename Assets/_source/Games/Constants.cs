@@ -20,8 +20,10 @@ namespace Games
                 public const string Checkpoint = "Checkpoint";
                 public const string Wall = "Wall";
                 public const string Tower = "Tower";
+                public const string Projectile = "Projectile";
             }
 
+            //TODO сделать через ассет провайдер
             public class Materials
             {
                 public const string Highlighted = "Highlighted";

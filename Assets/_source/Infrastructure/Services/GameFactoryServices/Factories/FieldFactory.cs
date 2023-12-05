@@ -7,6 +7,7 @@ using Gameplay.Fields.Cells;
 using Gameplay.Fields.Labytinths;
 using Gameplay.Towers;
 using Gameplay.Towers.Shooters;
+using Gameplay.Towers.TargetDetectors;
 using Gameplay.Walls;
 using Games;
 using InfastuctureCore.Services.AssetProviderServices;
@@ -88,8 +89,11 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
         public void PaintBlocks() =>
             _staticDataService.Get<PaintedBlockConfig>().Coordinates.ForEach(coordinates => { _currentDataService.FieldModel.GetCellData(coordinates).BlockModel.Paint(); });
 
-        public TowerModel CreateTowerData(TowerType towerType, int level) =>
-            new(towerType, level, new SingleProjectileShooterModel());
+        public TowerModel CreateTowerData(TowerType towerType, int level)
+        {
+            var singleProjectileShooterModel = new SingleProjectileShooterModel();
+            return new TowerModel(towerType, level, singleProjectileShooterModel, new TargetDetetcorModel(singleProjectileShooterModel));
+        }
 
         public void CreateStartingLabyrinth() =>
             _staticDataService.Get<StartingLabyrinthConfig>().Coordinates.ToList().ForEach(coordinate => _currentDataService.FieldModel.GetCellData(coordinate)
