@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Gameplay.Fields.Cells;
-using Gameplay.Fields.Towers.Resources;
+using Gameplay.Fields.Towers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StaticDataServices;
 using Infrastructure.Services.CurrentDataServices;
@@ -93,12 +93,12 @@ namespace Gameplay.Fields.WallPlacers
         {
             TowerType towerType = (TowerType)Random.Range(0, 8);
             int level = 1;
-            CurrentDataService.FieldData.GetCellData(coordinates).SetTowerData(GameFactory.BlockGridFactory.CreateTowerData(towerType, level));
+            CurrentDataService.FieldData.GetCellData(coordinates).SetTowerData(GameFactory.FieldFactory.CreateTowerData(towerType, level));
         }
 
         private void AddWall(Coordinates coordinates)
         {
-            CurrentDataService.FieldData.GetCellData(coordinates).SetWallData(GameFactory.BlockGridFactory.CreateWallData());
+            CurrentDataService.FieldData.GetCellData(coordinates).SetWallData(GameFactory.FieldFactory.CreateWallData());
         }
 
         private void RemoveWall(Coordinates coordinates)

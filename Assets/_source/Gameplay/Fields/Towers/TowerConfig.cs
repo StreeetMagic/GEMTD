@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Gameplay.Fields.Towers.Resources;
 using InfastuctureCore.Services;
 using Sirenix.OdinInspector;
 using UnityEngine;

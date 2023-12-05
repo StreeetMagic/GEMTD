@@ -1,7 +1,7 @@
 ﻿using System;
 using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Checkpoints;
-using Gameplay.Fields.Towers.Resources;
+using Gameplay.Fields.Towers;
 using Gameplay.Fields.Walls;
 
 namespace Gameplay.Fields.Cells

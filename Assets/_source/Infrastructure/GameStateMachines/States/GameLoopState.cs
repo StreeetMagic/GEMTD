@@ -22,11 +22,11 @@ namespace Infrastructure.GameStateMachines.States
         public void Enter()
         {
             Debug.Log("Entered GameLoop State");
-            CurrentDataService.FieldData = GameFactoryService.BlockGridFactory.CreateFieldData();
-            GameFactoryService.BlockGridFactory.CreateBlockGridView(CurrentDataService.FieldData);
-            GameFactoryService.BlockGridFactory.CreateCheckpointsDatas();
-            GameFactoryService.BlockGridFactory.PaintBlocks();
-            GameFactoryService.LabyrinthFactory.CreateStartingLabyrinth();
+            CurrentDataService.FieldData = GameFactoryService.FieldFactory.CreateFieldData();
+            GameFactoryService.FieldFactory.CreateBlockGridView(CurrentDataService.FieldData);
+            GameFactoryService.FieldFactory.CreateCheckpointsDatas();
+            GameFactoryService.FieldFactory.PaintBlocks();
+            GameFactoryService.FieldFactory.CreateStartingLabyrinth();
             _gameLoopStateMachine = CreateGameLoopStateMachine();
             AssetProviderService.Instantiate<DebugHeadsUpDisplay>();
             _gameLoopStateMachine.Enter<PlaceWallsState>();

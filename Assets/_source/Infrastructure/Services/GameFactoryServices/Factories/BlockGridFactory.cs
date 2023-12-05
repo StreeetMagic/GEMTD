@@ -4,8 +4,8 @@ using Gameplay.Fields;
 using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.Labytinths;
 using Gameplay.Fields.Towers;
-using Gameplay.Fields.Towers.Resources;
 using Gameplay.Fields.Walls;
 using Games;
 using InfastuctureCore.Services.AssetProviderServices;
@@ -16,13 +16,13 @@ using UnityEngine;
 
 namespace Infrastructure.Services.GameFactoryServices.Factories
 {
-    public class BlockGridFactory
+    public class FieldFactory
     {
         private readonly IAssetProviderService _assetProviderService;
         private readonly IStaticDataService _staticDataService;
         private readonly ICurrentDataService _currentDataService;
 
-        public BlockGridFactory(IAssetProviderService assetProviderService, IStaticDataService staticDataService, ICurrentDataService currentDataService)
+        public FieldFactory(IAssetProviderService assetProviderService, IStaticDataService staticDataService, ICurrentDataService currentDataService)
         {
             _assetProviderService = assetProviderService;
             _staticDataService = staticDataService;
@@ -43,7 +43,6 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
 
         public CheckpointView CreateCheckpointView(CheckpointData checkpointData, Transform transform) =>
             _assetProviderService.Instantiate<CheckpointView>(Constants.AssetsPath.Prefabs.Checkpoint, Vector3.zero)
-                .With(e => e.Init(checkpointData))
                 .With(e => e.transform.SetParent(transform))
                 .With(e => e.transform.localPosition = Vector3.zero)
                 .With(e => e.name = "Checkpoint " + checkpointData.Number);
@@ -126,6 +125,12 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
         public TowerData CreateTowerData(TowerType towerType, int level)
         {
             return new TowerData(towerType, level);
+        }
+
+        public void CreateStartingLabyrinth()
+        {
+            foreach (Coordinates coordinate in _staticDataService.Get<StartingLabyrinthConfig>().Coordinates)
+                _currentDataService.FieldData.GetCellData(coordinate).SetWallData(CreateWallData());
         }
     }
 }

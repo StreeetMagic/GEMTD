@@ -1,4 +1,4 @@
-﻿namespace Gameplay.Fields.Towers.Resources
+﻿namespace Gameplay.Fields.Towers
 {
     public class TowerData
     {
