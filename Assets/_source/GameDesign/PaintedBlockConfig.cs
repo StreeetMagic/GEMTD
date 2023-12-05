@@ -8,6 +8,6 @@ namespace GameDesign
     [CreateAssetMenu(fileName = "PaintedBlockConfig", menuName = "Configs/PaintedBlockConfig")]
     public class PaintedBlockConfig : ScriptableObject, IStaticData
     {
-        public List<Coordinates> Coordinates;
+        public List<CoordinatesValues> Coordinates;
     }
 }

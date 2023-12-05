@@ -9,22 +9,22 @@ namespace Gameplay.Fields
 {
     public class FieldView : MonoBehaviour
     {
-        private FieldData _fieldData;
+        private FieldModel _fieldModel;
 
         public CellView[] CellViews { get; private set; }
-        private CellsContainer CellsContainer { get; set; }
+        private CellsContainerModel CellsContainerModel { get; set; }
 
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
 
         private void Awake()
         {
-            CellsContainer = GetComponentInChildren<CellsContainer>();
+            CellsContainerModel = GetComponentInChildren<CellsContainerModel>();
         }
 
-        public void Init(FieldData fieldData)
+        public void Init(FieldModel fieldModel)
         {
-            _fieldData = fieldData;
-            CellViews = _fieldData.CellDatas.Select(cellData => GameFactoryService.FieldFactory.CreateCellView(cellData, CellsContainer.transform)).ToArray();
+            _fieldModel = fieldModel;
+            CellViews = _fieldModel.CellDatas.Select(cellData => GameFactoryService.FieldFactory.CreateCellView(cellData, CellsContainerModel.transform)).ToArray();
         }
     }
 }

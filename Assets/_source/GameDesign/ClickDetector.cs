@@ -1,5 +1,5 @@
 using Gameplay.Fields.Cells;
-using Gameplay.Fields.Cells.Walls.WallPlacers;
+using Gameplay.Walls.WallPlacers;
 using Games;
 using InfastuctureCore.ServiceLocators;
 using Infrastructure.Services.GameFactoryServices;
@@ -39,8 +39,8 @@ namespace GameDesign
             switch (GameDesignMode)
             {
                 case GameDesignMode.StartingWallsPlacing:
-                    PlaceWall(out CellData _);
-                    RemoveWall(out CellData _);
+                    PlaceWall(out CellModel _);
+                    RemoveWall(out CellModel _);
                     break;
 
                 case GameDesignMode.PaintingBlocks:
@@ -62,7 +62,7 @@ namespace GameDesign
         {
             if (PlaceWall(out var cellData))
             {
-                WallPlacerConfig.AddPlacedTower(cellData.Coordinates);
+                WallPlacerConfig.AddPlacedTower(cellData.CoordinatesValues);
             }
         }
 
@@ -70,7 +70,7 @@ namespace GameDesign
         {
             if (RemoveWall(out var removedCellData))
             {
-                WallPlacerConfig.RemovePlacedTower(removedCellData.Coordinates);
+                WallPlacerConfig.RemovePlacedTower(removedCellData.CoordinatesValues);
             }
         }
 
@@ -146,9 +146,9 @@ namespace GameDesign
             }
         }
 
-        private bool PlaceWall(out CellData cellData)
+        private bool PlaceWall(out CellModel cellModel)
         {
-            cellData = null;
+            cellModel = null;
 
             if (InputService.LeftMouseButtonWasPressedThisFrame)
             {
@@ -160,12 +160,12 @@ namespace GameDesign
                 {
                     if (hit.transform.TryGetComponent(out CellView cellView))
                     {
-                        CellData celLData = cellView.CelLData;
+                        CellModel celLModel = cellView.CelLModel;
 
-                        if (celLData.IsEmpty)
+                        if (celLModel.IsEmpty)
                         {
-                            celLData.SetWallData(GameFactoryService.FieldFactory.CreateWallData());
-                            cellData = celLData;
+                            celLModel.SetWallData(GameFactoryService.FieldFactory.CreateWallData());
+                            cellModel = celLModel;
                             return true;
                         }
                     }
@@ -175,7 +175,7 @@ namespace GameDesign
             return false;
         }
 
-        private bool RemoveWall(out CellData cellData)
+        private bool RemoveWall(out CellModel cellModel)
         {
             if (InputService.RightMouseButtonWasPressedThisFrame)
             {
@@ -187,19 +187,19 @@ namespace GameDesign
                 {
                     if (hit.transform.TryGetComponent(out CellView cellView))
                     {
-                        CellData celLData = cellView.CelLData;
+                        CellModel celLModel = cellView.CelLModel;
 
-                        if (celLData.HasWall)
+                        if (celLModel.HasWall)
                         {
-                            celLData.RemoveWallData();
-                            cellData = celLData;
+                            celLModel.RemoveWallData();
+                            cellModel = celLModel;
                             return true;
                         }
                     }
                 }
             }
 
-            cellData = null;
+            cellModel = null;
             return false;
         }
     }

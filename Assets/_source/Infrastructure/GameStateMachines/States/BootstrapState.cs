@@ -1,9 +1,9 @@
 ﻿using GameDesign;
+using Gameplay.Checkpoints;
 using Gameplay.Fields;
-using Gameplay.Fields.Cells.Checkpoints;
-using Gameplay.Fields.Cells.Towers;
-using Gameplay.Fields.Cells.Walls.WallPlacers;
 using Gameplay.Fields.Labytinths;
+using Gameplay.Towers;
+using Gameplay.Walls.WallPlacers;
 using Games;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.AssetProviderServices;

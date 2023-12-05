@@ -3,12 +3,12 @@
 namespace Gameplay.Fields.Cells
 {
     [Serializable]
-    public struct Coordinates
+    public struct CoordinatesValues
     {
         public int X;
         public int Z;
 
-        public Coordinates(int x, int z)
+        public CoordinatesValues(int x, int z)
         {
             X = x;
             Z = z;

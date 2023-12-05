@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using GameDesign;
+using Gameplay.Blocks;
+using Gameplay.Checkpoints;
 using Gameplay.Fields;
 using Gameplay.Fields.Cells;
-using Gameplay.Fields.Cells.Blocks;
-using Gameplay.Fields.Cells.Checkpoints;
-using Gameplay.Fields.Cells.Towers;
-using Gameplay.Fields.Cells.Towers.Shooters;
-using Gameplay.Fields.Cells.Walls;
 using Gameplay.Fields.Labytinths;
+using Gameplay.Towers;
+using Gameplay.Towers.Shooters;
+using Gameplay.Walls;
 using Games;
 using InfastuctureCore.Services.AssetProviderServices;
 using InfastuctureCore.Services.StaticDataServices;
@@ -30,31 +30,31 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             _currentDataService = currentDataService;
         }
 
-        public FieldData CreateFieldData() =>
+        public FieldModel CreateFieldData() =>
             new(CreateCellDatas(_staticDataService.Get<FieldConfig>().FieldSize));
 
-        public BlockView CreateBlockView(BlockData blockData, Transform parent) =>
+        public BlockView CreateBlockView(BlockModel blockModel, Transform parent) =>
             _assetProviderService.Instantiate<BlockView>(Constants.AssetsPath.Prefabs.Block, Vector3.zero)
-                .With(e => e.Init(blockData))
+                .With(e => e.Init(blockModel))
                 .With(e => e.transform.SetParent(parent))
                 .With(e => e.transform.localPosition = Vector3.zero);
 
-        public CheckpointView CreateCheckpointView(CheckpointData checkpointData, Transform transform) =>
+        public CheckpointView CreateCheckpointView(CheckPointModel checkPointModel, Transform transform) =>
             _assetProviderService.Instantiate<CheckpointView>(Constants.AssetsPath.Prefabs.Checkpoint, Vector3.zero)
                 .With(e => e.transform.SetParent(transform))
                 .With(e => e.transform.localPosition = Vector3.zero)
-                .With(e => e.name = "Checkpoint " + checkpointData.Number);
+                .With(e => e.name = "Checkpoint " + checkPointModel.Number);
 
-        public CellView CreateCellView(CellData cellData, Transform transform) =>
+        public CellView CreateCellView(CellModel cellModel, Transform transform) =>
             _assetProviderService.Instantiate<CellView>(Constants.AssetsPath.Prefabs.Cell, Vector3.zero)
-                .With(e => e.Init(cellData))
+                .With(e => e.Init(cellModel))
                 .With(e => e.transform.SetParent(transform))
-                .With(e => e.transform.localPosition = new Vector3(cellData.Coordinates.X, 0, cellData.Coordinates.Z))
-                .With(e => e.name = "Cell (" + cellData.Coordinates.X + ", " + cellData.Coordinates.Z + ")");
+                .With(e => e.transform.localPosition = new Vector3(cellModel.CoordinatesValues.X, 0, cellModel.CoordinatesValues.Z))
+                .With(e => e.name = "Cell (" + cellModel.CoordinatesValues.X + ", " + cellModel.CoordinatesValues.Z + ")");
 
-        public FieldView CreateBlockGridView(FieldData fieldData) =>
+        public FieldView CreateBlockGridView(FieldModel fieldModel) =>
             _assetProviderService.Instantiate<FieldView>(Constants.AssetsPath.Prefabs.Field)
-                .With(e => e.Init(fieldData));
+                .With(e => e.Init(fieldModel));
 
         public WallView CreateWallView(WallData wallData, Transform transform) =>
             _assetProviderService.Instantiate<WallView>(Constants.AssetsPath.Prefabs.Wall, Vector3.zero)
@@ -62,9 +62,9 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
                 .With(e => e.transform.SetParent(transform))
                 .With(e => e.transform.localPosition = Vector3.zero);
 
-        public TowerView CreateTowerView(TowerData towerData, Transform transform) =>
+        public TowerView CreateTowerView(TowerModel towerModel, Transform transform) =>
             _assetProviderService.Instantiate<TowerView>(Constants.AssetsPath.Prefabs.Tower, Vector3.zero)
-                .With(e => e.Init(towerData, _staticDataService.Get<TowerConfig>().TowerMaterials[towerData.Type]))
+                .With(e => e.Init(towerModel, _staticDataService.Get<TowerConfig>().TowerMaterials[towerModel.Type]))
                 .With(e => e.transform.SetParent(transform))
                 .With(e => e.transform.localPosition = Vector3.zero);
 
@@ -72,12 +72,12 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
         {
             CheckpointSettings[] configs = _staticDataService.Get<CheckpointsConfig>().CheckPointSettings;
 
-            CheckpointData[] checkpointDatas = new CheckpointData[configs.Length];
+            CheckPointModel[] checkpointDatas = new CheckPointModel[configs.Length];
 
             for (int i = 0; i < configs.Length; i++)
             {
                 checkpointDatas[i] = CreateCheckPointData(configs[i].Number);
-                CellData cell = GetCellDataByCoordinates(configs[i].Coordinates);
+                CellModel cell = GetCellDataByCoordinates(configs[i]._coordinatesValues);
                 cell.SetCheckpointData(checkpointDatas[i]);
             }
         }
@@ -86,25 +86,25 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             new WallData();
 
         public void PaintBlocks() =>
-            _staticDataService.Get<PaintedBlockConfig>().Coordinates.ForEach(coordinates => { _currentDataService.FieldData.GetCellData(coordinates).BlockData.Paint(); });
+            _staticDataService.Get<PaintedBlockConfig>().Coordinates.ForEach(coordinates => { _currentDataService.FieldModel.GetCellData(coordinates).BlockModel.Paint(); });
 
-        public TowerData CreateTowerData(TowerType towerType, int level) =>
-            new(towerType, level, new SingleProjectileShooter());
+        public TowerModel CreateTowerData(TowerType towerType, int level) =>
+            new(towerType, level, new SingleProjectileShooterModel());
 
         public void CreateStartingLabyrinth() =>
-            _staticDataService.Get<StartingLabyrinthConfig>().Coordinates.ToList().ForEach(coordinate => _currentDataService.FieldData.GetCellData(coordinate)
+            _staticDataService.Get<StartingLabyrinthConfig>().Coordinates.ToList().ForEach(coordinate => _currentDataService.FieldModel.GetCellData(coordinate)
                 .SetWallData(CreateWallData()));
 
-        private CheckpointData CreateCheckPointData(int number) =>
-            new CheckpointData(number);
+        private CheckPointModel CreateCheckPointData(int number) =>
+            new CheckPointModel(number);
 
-        private CellData[] CreateCellDatas(int size) =>
+        private CellModel[] CreateCellDatas(int size) =>
             Enumerable.Range(0, size)
                 .SelectMany(i => Enumerable.Range(0, size)
-                    .Select(j => new CellData(new Coordinates(i, j), new BlockData())))
+                    .Select(j => new CellModel(new CoordinatesValues(i, j), new BlockModel())))
                 .ToArray();
 
-        private CellData GetCellDataByCoordinates(Coordinates coordinates) =>
-            _currentDataService.FieldData.CellDatas.FirstOrDefault(cellData => cellData.Coordinates.X == coordinates.X && cellData.Coordinates.Z == coordinates.Z);
+        private CellModel GetCellDataByCoordinates(CoordinatesValues coordinatesValues) =>
+            _currentDataService.FieldModel.CellDatas.FirstOrDefault(cellData => cellData.CoordinatesValues.X == coordinatesValues.X && cellData.CoordinatesValues.Z == coordinatesValues.Z);
     }
 }
