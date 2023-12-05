@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
-using Gameplay.Fields.Cells;
 using Gameplay.Fields.Towers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StaticDataServices;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
-using UnityEngine;
+using Sirenix.Utilities;
 using Random = UnityEngine.Random;
 
 namespace Gameplay.Fields.WallPlacers
@@ -20,7 +19,7 @@ namespace Gameplay.Fields.WallPlacers
 
         public void PlaceTowers(Action onComplete)
         {
-            Coordinates[] wallsCoordinates = GetWallCoordinates();
+            List<Coordinates> wallsCoordinates = GetWallCoordinates();
 
             PlaceNewWalls(CurrentDataService.FieldData.RoundNumber - 1);
             SetTowers(wallsCoordinates);
@@ -30,6 +29,11 @@ namespace Gameplay.Fields.WallPlacers
 
             onComplete?.Invoke();
         }
+
+        private List<Coordinates> GetWallCoordinates() =>
+            CurrentDataService.FieldData.RoundNumber < WallPlacerConfig.WallSettingsPerRounds.Count
+                ? WallPlacerConfig.WallSettingsPerRounds[CurrentDataService.FieldData.RoundNumber - 1].PlaceList
+                : CurrentDataService.FieldData.GetCentralWalls(WallPlacerConfig.towerPerRound).ToList();
 
         private void PlaceNewWalls(int roundIndex)
         {
@@ -43,7 +47,7 @@ namespace Gameplay.Fields.WallPlacers
                 CurrentDataService.FieldData.GetCellData(coordinates).RemoveWallData();
         }
 
-        private void SetTowers(Coordinates[] wallsCoordinates) =>
+        private void SetTowers(List<Coordinates> wallsCoordinates) =>
             wallsCoordinates.ToList().ForEach(SetTower);
 
         private void SetTower(Coordinates coordinates)
@@ -54,24 +58,17 @@ namespace Gameplay.Fields.WallPlacers
             CurrentDataService.FieldData.GetCellData(coordinates).SetTowerData(GameFactory.FieldFactory.CreateTowerData((TowerType)Random.Range(0, 8), 1));
         }
 
-        private void ConfirmRandomTower(Coordinates[] wallsCoordinates) =>
-            CurrentDataService.FieldData.GetCellData(wallsCoordinates[Random.Range(0, wallsCoordinates.Length)]).ConfirmTower();
+        private void ConfirmRandomTower(IReadOnlyList<Coordinates> wallsCoordinates) =>
+            CurrentDataService.FieldData.GetCellData(wallsCoordinates[Random.Range(0, wallsCoordinates.Count)]).ConfirmTower();
 
-        private Coordinates[] GetWallCoordinates() =>
-            CurrentDataService.FieldData.RoundNumber < WallPlacerConfig.WallSettingsPerRounds.Count
-                ? WallPlacerConfig.WallSettingsPerRounds[CurrentDataService.FieldData.RoundNumber - 1].PlaceList.ToArray()
-                : CurrentDataService.FieldData.GetCentalWalls(WallPlacerConfig.towerPerRound);
-
-        private void RemoveTowers(Coordinates[] wallsCoordinates) =>
+        private void RemoveTowers(IEnumerable<Coordinates> wallsCoordinates) =>
             wallsCoordinates
                 .Where(coordinates => !CurrentDataService.FieldData.GetCellData(coordinates).TowerIsConfirmed)
-                .ToList()
                 .ForEach(coordinates => CurrentDataService.FieldData.GetCellData(coordinates).RemoveTowerData());
 
-        private void PlaceWalls(Coordinates[] wallsCoordinates) =>
+        private void PlaceWalls(IEnumerable<Coordinates> wallsCoordinates) =>
             wallsCoordinates
                 .Where(coordinates => !CurrentDataService.FieldData.GetCellData(coordinates).TowerIsConfirmed)
-                .ToList()
                 .ForEach(coordinates => CurrentDataService.FieldData.GetCellData(coordinates).SetWallData(GameFactory.FieldFactory.CreateWallData()));
     }
 }
