@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2fd691a55e228247a343fc205d821ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shootingPoint: {fileID: 0}
+  _shootingPoint: {fileID: 3907844035880005908}
 --- !u!1 &7469060152320261067
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +301,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

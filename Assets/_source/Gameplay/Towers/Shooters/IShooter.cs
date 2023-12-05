@@ -5,8 +5,10 @@ namespace Gameplay.Towers.Shooters
 {
     public interface IShooter
     {
-        Stack<Transform> Targets { get; set; }
+        List<Transform> Targets { get; set; }
         Transform ShootingPoint { get; set; }
         void Shoot();
+        void AddTarget(Transform otherTransform);
+        void RemoveTarget(Transform otherTransform);
     }
 }

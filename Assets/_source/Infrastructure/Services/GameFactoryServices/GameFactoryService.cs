@@ -5,6 +5,7 @@ using InfastuctureCore.Services.AssetProviderServices;
 using InfastuctureCore.Utilities;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices.Factories;
+using UnityEngine;
 using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticDataService;
 
 namespace Infrastructure.Services.GameFactoryServices
@@ -12,7 +13,7 @@ namespace Infrastructure.Services.GameFactoryServices
     public interface IGameFactoryService : IService
     {
         FieldFactory FieldFactory { get; }
-        DefaultProjectileView CreateProjectile();
+        DefaultProjectileView CreateProjectile( Transform shootingPoint, Transform target);
     }
 
     public class GameFactoryService : IGameFactoryService
@@ -31,8 +32,8 @@ namespace Infrastructure.Services.GameFactoryServices
 
         public FieldFactory FieldFactory { get; }
 
-        public DefaultProjectileView CreateProjectile() =>
-            _assetProvider.Instantiate<DefaultProjectileView>(Constants.AssetsPath.Prefabs.Projectile)
-                .With(e => e.Init(new DefaultProjectileModel(e.SEX.Rigidbody, e.transform)));
+        public DefaultProjectileView CreateProjectile(Transform shootingPoint, Transform target) =>
+            _assetProvider.Instantiate<DefaultProjectileView>(Constants.AssetsPath.Prefabs.Projectile, shootingPoint.position)
+                .With(e => e.Init(new DefaultProjectileModel(e.SEX.Rigidbody, e.transform), target));
     }
 }

@@ -6,18 +6,16 @@ namespace Gameplay.Towers.Shooters.Projectiles.DefaultProjectiles.Movers
     [RequireComponent(typeof(Rigidbody))]
     public class DefaultProjectileMoverView : MonoBehaviour
     {
-        [SerializeField] private Transform _target;
-
         private IProjectileMoverModel _moverModel;
         public Rigidbody Rigidbody { get; private set; }
 
-        public void Init(IProjectileMoverModel moverModel)
+        public void Init(IProjectileMoverModel moverModel, Transform target)
         {
             _moverModel = moverModel;
 
             _moverModel.Transform = transform;
             _moverModel.Rigidbody = Rigidbody;
-            _moverModel.Target = _target;
+            _moverModel.Target = target;
         }
 
         private void Awake()

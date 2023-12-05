@@ -17,5 +17,10 @@ namespace Gameplay.Towers.TargetDetectors
         {
             _targetDetetcorModel.OnTriggerEnter(other);
         }
+
+        private void OnTriggerExit(Collider other)
+        {
+            _targetDetetcorModel.OnTriggerExit(other);
+        }
     }
 }
