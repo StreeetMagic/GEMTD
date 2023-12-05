@@ -5,11 +5,11 @@ namespace Infrastructure.Services.CurrentDataServices
 {
     public interface ICurrentDataService : IService
     {
-        public FieldData FieldData { get; set; }
+        public FieldModel FieldModel { get; set; }
     }
 
     public class CurrentDataService : ICurrentDataService
     {
-        public FieldData FieldData { get; set; }
+        public FieldModel FieldModel { get; set; }
     }
 }

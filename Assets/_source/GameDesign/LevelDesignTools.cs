@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Fields.Cells;
-using Gameplay.Fields.Cells.Walls;
 using Gameplay.Fields.Labytinths;
+using Gameplay.Walls;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -26,15 +26,15 @@ namespace GameDesign
         [Button]
         public void SaveWallCoordinates()
         {
-            MapWallsConfig.Coordinates = new List<Coordinates>();
+            MapWallsConfig.Coordinates = new List<CoordinatesValues>();
             WallView[] wallViews = FindObjectsOfType<WallView>();
 
-            Coordinates[] coordinates = new Coordinates[wallViews.Length];
+            CoordinatesValues[] coordinates = new CoordinatesValues[wallViews.Length];
 
             for (int i = 0; i < wallViews.Length; i++)
             {
                 WallView wallView = wallViews[i];
-                coordinates[i] = wallView.GetComponentInParent<CellView>().CelLData.Coordinates;
+                coordinates[i] = wallView.GetComponentInParent<CellView>().CelLModel.CoordinatesValues;
             }
 
             MapWallsConfig.Coordinates = coordinates.ToList();
@@ -49,14 +49,14 @@ namespace GameDesign
         [Button]
         public void SavePaintedBlockCoordinates()
         {
-            PaintedBlockConfig.Coordinates = new List<Coordinates>();
+            PaintedBlockConfig.Coordinates = new List<CoordinatesValues>();
             List<CellView> cellViews = FindObjectsOfType<CellView>().ToList();
 
             foreach (var cellView in cellViews)
             {
                 if (cellView.IsPainted)
                 {
-                    PaintedBlockConfig.Coordinates.Add(cellView.CelLData.Coordinates);
+                    PaintedBlockConfig.Coordinates.Add(cellView.CelLModel.CoordinatesValues);
                 }
             }
         }

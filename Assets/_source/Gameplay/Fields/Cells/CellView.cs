@@ -1,7 +1,7 @@
-using Gameplay.Fields.Cells.Blocks;
-using Gameplay.Fields.Cells.Checkpoints;
-using Gameplay.Fields.Cells.Towers;
-using Gameplay.Fields.Cells.Walls;
+using Gameplay.Blocks;
+using Gameplay.Checkpoints;
+using Gameplay.Towers;
+using Gameplay.Walls;
 using InfastuctureCore.ServiceLocators;
 using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;
@@ -11,7 +11,7 @@ namespace Gameplay.Fields.Cells
 {
     public class CellView : MonoBehaviour, IPointerDownHandler
     {
-        public CellData CelLData { get; private set; }
+        public CellModel CelLModel { get; private set; }
         public BlockView BlockView { get; private set; }
         public CheckpointView CheckpointView { get; private set; }
         public WallView WallView { get; private set; }
@@ -20,10 +20,10 @@ namespace Gameplay.Fields.Cells
 
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
 
-        public void Init(CellData cellData)
+        public void Init(CellModel cellModel)
         {
-            CelLData = cellData;
-            BlockView = GameFactoryService.FieldFactory.CreateBlockView(CelLData.BlockData, transform);
+            CelLModel = cellModel;
+            BlockView = GameFactoryService.FieldFactory.CreateBlockView(CelLModel.BlockModel, transform);
             Subscribe();
         }
 
@@ -34,12 +34,12 @@ namespace Gameplay.Fields.Cells
 
         private void Subscribe()
         {
-            CelLData.ChekpointDataSet += OnCheckpointDataSet;
-            CelLData.WallDataSet += OnWallDataSet;
-            CelLData.WallDataRemoved += OnWallDataRemoved;
-            CelLData.TowerDataSet += OnTowerDataSet;
-            CelLData.TowerDataRemoved += OnTowerDataRemoved;
-            CelLData.TowerConfirmed += OnTowerConfirmed; 
+            CelLModel.ChekpointDataSet += OnCheckpointDataSet;
+            CelLModel.WallDataSet += OnWallDataSet;
+            CelLModel.WallDataRemoved += OnWallDataRemoved;
+            CelLModel.TowerDataSet += OnTowerDataSet;
+            CelLModel.TowerDataRemoved += OnTowerDataRemoved;
+            CelLModel.TowerConfirmed += OnTowerConfirmed; 
         }
 
         private void OnTowerConfirmed()
@@ -49,12 +49,12 @@ namespace Gameplay.Fields.Cells
 
         private void Unsubscribe()
         {
-            CelLData.ChekpointDataSet -= OnCheckpointDataSet;
-            CelLData.WallDataSet -= OnWallDataSet;
-            CelLData.WallDataRemoved -= OnWallDataRemoved;
-            CelLData.TowerDataSet -= OnTowerDataSet;
-            CelLData.TowerDataRemoved -= OnTowerDataRemoved;
-            CelLData.TowerConfirmed -= OnTowerConfirmed;
+            CelLModel.ChekpointDataSet -= OnCheckpointDataSet;
+            CelLModel.WallDataSet -= OnWallDataSet;
+            CelLModel.WallDataRemoved -= OnWallDataRemoved;
+            CelLModel.TowerDataSet -= OnTowerDataSet;
+            CelLModel.TowerDataRemoved -= OnTowerDataRemoved;
+            CelLModel.TowerConfirmed -= OnTowerConfirmed;
         }
 
         private void OnTowerDataRemoved()
@@ -70,7 +70,7 @@ namespace Gameplay.Fields.Cells
 
         private void OnCheckpointDataSet()
         {
-            CheckpointView = GameFactoryService.FieldFactory.CreateCheckpointView(CelLData.CheckpointData, transform);
+            CheckpointView = GameFactoryService.FieldFactory.CreateCheckpointView(CelLModel.CheckPointModel, transform);
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -91,12 +91,12 @@ namespace Gameplay.Fields.Cells
 
         private void OnWallDataSet()
         {
-            WallView = GameFactoryService.FieldFactory.CreateWallView(CelLData.WallData, transform);
+            WallView = GameFactoryService.FieldFactory.CreateWallView(CelLModel.WallData, transform);
         }
 
         private void OnTowerDataSet()
         {
-            TowerView = GameFactoryService.FieldFactory.CreateTowerView(CelLData.TowerData, transform);
+            TowerView = GameFactoryService.FieldFactory.CreateTowerView(CelLModel.TowerModel, transform);
         }
 
         private void OnWallDataRemoved()

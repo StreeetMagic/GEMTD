@@ -1,5 +1,5 @@
 ﻿using System;
-using Gameplay.Fields.Cells.Walls.WallPlacers;
+using Gameplay.Walls.WallPlacers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StateMachineServices.States;
@@ -30,7 +30,7 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         public void Exit()
         {
-            CurrentDataService.FieldData.RoundNumber++;
+            CurrentDataService.FieldModel.RoundNumber++;
             Debug.Log("Exited PlaceWallsState");
         }
 
