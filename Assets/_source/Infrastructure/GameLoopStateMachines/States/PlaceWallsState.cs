@@ -3,7 +3,6 @@ using Gameplay.Fields.WallPlacers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StateMachineServices.States;
-using Infrastructure.GameStateMachines;
 using Infrastructure.Services.CurrentDataServices;
 using UnityEngine;
 
@@ -21,7 +20,6 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         public event Action<IState> Entered;
 
-        private MonoBehaviour CoroutineRunner => ServiceLocator.Instance.Get<IStateMachineService<GameStateMachineData>>().Data.CoroutineRunner;
         private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
 
         public void Enter()

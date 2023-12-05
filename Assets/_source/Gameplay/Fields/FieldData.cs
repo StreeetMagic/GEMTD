@@ -33,7 +33,7 @@ namespace Gameplay.Fields
             return null;
         }
 
-        public Coordinates[] GetCentalWalls(int towerPerRound)
+        public Coordinates[] GetCentralWalls(int towerPerRound)
         {
             int size = StaticDataService.Get<FieldConfig>().FieldSize;
 
@@ -49,8 +49,6 @@ namespace Gameplay.Fields
                     {
                         for (int z = centralCoordinate - i; z < centralCoordinate + i; z++)
                         {
-                            Debug.Log("Координаты в цикле " + x + " " + z);
-
                             CellData cellData = GetCellData(new Coordinates(x, z));
 
                             if (cellData.CanBeReplacedWithTower)
@@ -62,7 +60,6 @@ namespace Gameplay.Fields
                             {
                                 if (HasSameCoordinates(coordinates.ToArray()))
                                 {
-                                    Debug.Log("Есть одинаковые координаты");
                                     coordinates.Clear();
                                 }
                                 else
