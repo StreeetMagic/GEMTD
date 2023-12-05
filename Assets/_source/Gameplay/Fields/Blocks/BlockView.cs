@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Gameplay.Fields.Blocks
 {
+    [RequireComponent(typeof(Renderer))]
     public class BlockView : MonoBehaviour
     {
         private Material _defaultMaterial;
@@ -16,16 +17,6 @@ namespace Gameplay.Fields.Blocks
             _renderer = GetComponentInChildren<Renderer>();
             _defaultMaterial = _renderer.material;
             _paintedMaterial = Resources.Load<Material>(Constants.AssetsPath.Materials.Painted);
-        }
-
-        private void OnBlockUnPainted()
-        {
-            PaintBlock(_defaultMaterial);
-        }
-
-        private void OnBlockPainted()
-        {
-            PaintBlock(_paintedMaterial);
         }
 
         public void OnDestroy()
@@ -55,6 +46,16 @@ namespace Gameplay.Fields.Blocks
         public void PaintBlock(Material material)
         {
             _renderer.material = material;
+        }
+
+        private void OnBlockUnPainted()
+        {
+            PaintBlock(_defaultMaterial);
+        }
+
+        private void OnBlockPainted()
+        {
+            PaintBlock(_paintedMaterial);
         }
     }
 }
