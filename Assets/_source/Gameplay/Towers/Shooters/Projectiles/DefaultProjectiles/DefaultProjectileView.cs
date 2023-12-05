@@ -11,10 +11,10 @@ namespace Gameplay.Towers.Shooters.Projectiles.DefaultProjectiles
 
         public IProjectileModel ProjectileModel { get; set; }
 
-        public void Init(IProjectileModel projectileModel)
+        public void Init(IProjectileModel projectileModel, Transform target)
         {
             ProjectileModel = projectileModel;
-            MoverView.Init(ProjectileModel.Mover);
+            MoverView.Init(ProjectileModel.Mover, target);
         }
     }
 }

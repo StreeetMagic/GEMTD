@@ -29,9 +29,12 @@ namespace InfastuctureCore.Utilities
 
         public void Stop()
         {
-            _runner.StopCoroutine(_coroutine);
-            IsRunning = false;
-            _coroutine = null;
+            if (_coroutine != null)
+            {
+                _runner.StopCoroutine(_coroutine);
+                IsRunning = false;
+                _coroutine = null;
+            }
         }
     }
 }

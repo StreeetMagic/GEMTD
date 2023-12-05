@@ -16,7 +16,7 @@ namespace Gameplay.Towers.Shooters
         private Transform _currentTarget;
         private CoroutineDecorator _coroutine;
 
-        public Stack<Transform> Targets { get; set; } = new();
+        public List<Transform> Targets { get; set; } = new();
         public Transform ShootingPoint { get; set; }
 
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
@@ -36,7 +36,7 @@ namespace Gameplay.Towers.Shooters
                 if (Targets.Count > 0)
                 {
                     Debug.Log("назначаю цель");
-                    _currentTarget = Targets.Pop();
+                    _currentTarget = Targets[0];
                 }
             }
 
@@ -51,13 +51,34 @@ namespace Gameplay.Towers.Shooters
             }
         }
 
+        public void AddTarget(Transform otherTransform)
+        {
+            if (!Targets.Contains(otherTransform))
+            {
+                Targets.Add(otherTransform);
+            }
+        }
+
+        public void RemoveTarget(Transform otherTransform)
+        {
+            if (Targets.Contains(otherTransform))
+            {
+                if (_currentTarget == otherTransform)
+                {
+                    _currentTarget = null;
+                }
+
+                Targets.Remove(otherTransform);
+            }
+        }
+
         private IEnumerator Shooting()
         {
             while (true)
             {
                 yield return new WaitForSeconds(.2f);
 
-                GameFactoryService.CreateProjectile();
+                GameFactoryService.CreateProjectile(ShootingPoint, _currentTarget);
             }
         }
     }
