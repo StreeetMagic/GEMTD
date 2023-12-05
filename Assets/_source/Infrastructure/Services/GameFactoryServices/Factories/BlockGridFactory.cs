@@ -30,10 +30,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
         }
 
         public FieldData CreateFieldData() =>
-            new(CreateCellDatas());
-
-        private CellData[] CreateCellDatas() =>
-            CreateCellDatas(_staticDataService.Get<FieldConfig>().FieldSize);
+            new(CreateCellDatas(_staticDataService.Get<FieldConfig>().FieldSize));
 
         public BlockView CreateBlockView(BlockData blockData, Transform parent) =>
             _assetProviderService.Instantiate<BlockView>(Constants.AssetsPath.Prefabs.Block, Vector3.zero)
@@ -84,53 +81,29 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             }
         }
 
+        public WallData CreateWallData() =>
+            new WallData();
+
+        public void PaintBlocks() =>
+            _staticDataService.Get<PaintedBlockConfig>().Coordinates.ForEach(coordinates => { _currentDataService.FieldData.GetCellData(coordinates).BlockData.Paint(); });
+
+        public TowerData CreateTowerData(TowerType towerType, int level) =>
+            new(towerType, level);
+
+        public void CreateStartingLabyrinth() =>
+            _staticDataService.Get<StartingLabyrinthConfig>().Coordinates.ToList().ForEach(coordinate => _currentDataService.FieldData.GetCellData(coordinate)
+                .SetWallData(CreateWallData()));
+
         private CheckpointData CreateCheckPointData(int number) =>
-            new(number);
+            new CheckpointData(number);
 
-        private CellData[] CreateCellDatas(int size)
-        {
-            CellData[] cellDatas = new CellData[size * size];
-
-            int count = 0;
-
-            for (int i = 0; i < size; i++)
-            {
-                for (int j = 0; j < size; j++)
-                    cellDatas[count++] = new CellData(new Coordinates(i, j), new BlockData());
-            }
-
-            return cellDatas;
-        }
+        private CellData[] CreateCellDatas(int size) =>
+            Enumerable.Range(0, size)
+                .SelectMany(i => Enumerable.Range(0, size)
+                    .Select(j => new CellData(new Coordinates(i, j), new BlockData())))
+                .ToArray();
 
         private CellData GetCellDataByCoordinates(Coordinates coordinates) =>
             _currentDataService.FieldData.CellDatas.FirstOrDefault(cellData => cellData.Coordinates.X == coordinates.X && cellData.Coordinates.Z == coordinates.Z);
-
-        public WallData CreateWallData() =>
-            new();
-
-        public void PaintBlocks()
-        {
-            FieldData fieldData = _currentDataService.FieldData;
-            PaintedBlockConfig config = _staticDataService.Get<PaintedBlockConfig>();
-
-            for (int i = 0; i < config.Coordinates.Count; i++)
-            {
-                var coordinates = config.Coordinates[i];
-
-                CellData cellData = fieldData.GetCellData(coordinates);
-                cellData.BlockData.Paint();
-            }
-        }
-
-        public TowerData CreateTowerData(TowerType towerType, int level)
-        {
-            return new TowerData(towerType, level);
-        }
-
-        public void CreateStartingLabyrinth()
-        {
-            foreach (Coordinates coordinate in _staticDataService.Get<StartingLabyrinthConfig>().Coordinates)
-                _currentDataService.FieldData.GetCellData(coordinate).SetWallData(CreateWallData());
-        }
     }
 }
