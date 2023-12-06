@@ -1,5 +1,4 @@
 ﻿using Gameplay.Towers.Shooters.Projectiles.DefaultProjectiles.Movers;
-using Gameplay.Towers.Shooters.Projectiles.Movers;
 using UnityEngine;
 
 namespace Gameplay.Towers.Shooters.Projectiles.DefaultProjectiles
@@ -10,9 +9,9 @@ namespace Gameplay.Towers.Shooters.Projectiles.DefaultProjectiles
 
         public float Damage { get; set; } = 10f;
 
-        public DefaultProjectileModel(Rigidbody rigidbody, Transform transform)
+        public DefaultProjectileModel(Transform target)
         {
-            Mover = new DefaultProjectileMoverModel(rigidbody, transform);
+            Mover = new DefaultProjectileMoverModel(target);
         }
     }
 }

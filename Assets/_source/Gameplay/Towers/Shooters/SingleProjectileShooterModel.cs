@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Gameplay.Towers.Shooters.Projectiles.ProjectileContainers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
-using InfastuctureCore.Services.StaticDataServices;
 using InfastuctureCore.Utilities;
 using Infrastructure.GameStateMachines;
 using Infrastructure.Services.GameFactoryServices;
@@ -18,6 +17,7 @@ namespace Gameplay.Towers.Shooters
 
         public List<Transform> Targets { get; set; } = new();
         public Transform ShootingPoint { get; set; }
+        public ProjectileContainerModel ProjectileContainerModel { get; set; }
 
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
         private MonoBehaviour CoroutineRunner => ServiceLocator.Instance.Get<IStateMachineService<GameStateMachineData>>().Data.CoroutineRunner;
@@ -25,6 +25,7 @@ namespace Gameplay.Towers.Shooters
         public SingleProjectileShooterModel()
         {
             _coroutine = new CoroutineDecorator(CoroutineRunner, Shooting);
+            ProjectileContainerModel = new ProjectileContainerModel();
         }
 
         public void Shoot()
@@ -74,7 +75,7 @@ namespace Gameplay.Towers.Shooters
 
         private IEnumerator Shooting()
         {
-            while (true)
+            while (_currentTarget != null)
             {
                 yield return new WaitForSeconds(.2f);
 

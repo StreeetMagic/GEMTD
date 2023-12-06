@@ -7,8 +7,6 @@ namespace Gameplay.Towers.Shooters.Projectiles.DefaultProjectiles
     {
         [field: SerializeField] public DefaultProjectileMoverView MoverView { get; set; }
 
-        public DefaultProjectileMoverView SEX => MoverView;
-
         public IProjectileModel ProjectileModel { get; set; }
 
         public void Init(IProjectileModel projectileModel, Transform target)
@@ -16,5 +14,8 @@ namespace Gameplay.Towers.Shooters.Projectiles.DefaultProjectiles
             ProjectileModel = projectileModel;
             MoverView.Init(ProjectileModel.Mover, target);
         }
+
+        public void Destroy() =>
+            Destroy(gameObject);
     }
 }

@@ -1,6 +1,4 @@
-﻿using Gameplay.Towers.Shooters.Projectiles.Movers;
-
-namespace Gameplay.Towers.Shooters.Projectiles
+﻿namespace Gameplay.Towers.Shooters.Projectiles
 {
     public interface IProjectileModel
     {
