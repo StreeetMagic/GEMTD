@@ -4,13 +4,11 @@ namespace Gameplay.Enemies.TriggerAreas
 {
     public class TriggerAreaView : MonoBehaviour
     {
-        [SerializeField] private EnemyView _enemyView;
-
         public TriggerAreaModel TriggerAreaModel { get; set; }
 
-        private void Awake()
+        public void Init(EnemyModel enemyModel)
         {
-            TriggerAreaModel = new TriggerAreaModel(_enemyView.EnemyModel);
+            TriggerAreaModel = new TriggerAreaModel(enemyModel);
         }
 
         private void OnTriggerEnter(Collider other)
