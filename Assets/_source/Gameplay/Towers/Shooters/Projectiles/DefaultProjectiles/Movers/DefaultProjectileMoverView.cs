@@ -1,5 +1,4 @@
-﻿using Gameplay.Towers.Shooters.Projectiles.Movers;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Gameplay.Towers.Shooters.Projectiles.DefaultProjectiles.Movers
 {
@@ -12,10 +11,6 @@ namespace Gameplay.Towers.Shooters.Projectiles.DefaultProjectiles.Movers
         public void Init(IProjectileMoverModel moverModel, Transform target)
         {
             _moverModel = moverModel;
-
-            _moverModel.Transform = transform;
-            _moverModel.Rigidbody = Rigidbody;
-            _moverModel.Target = target;
         }
 
         private void Awake()
@@ -25,7 +20,8 @@ namespace Gameplay.Towers.Shooters.Projectiles.DefaultProjectiles.Movers
 
         private void FixedUpdate()
         {
-            _moverModel.Move();
+            Rigidbody.MovePosition(Vector3.MoveTowards(transform.position, _moverModel.Target.position, _moverModel.Speed * Time.fixedDeltaTime));
+            _moverModel.Move(Rigidbody.position);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Gameplay.Enemies.TriggerAreas
             if (other.TryGetComponent(out IProjectileView projectile))
             {
                 EnemyModel.TakeDamage(projectile.ProjectileModel.Damage);
+                projectile.Destroy();
             }
         }
     }

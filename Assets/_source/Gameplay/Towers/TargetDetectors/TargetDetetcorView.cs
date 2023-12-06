@@ -1,4 +1,3 @@
-using Gameplay.Towers.Shooters;
 using UnityEngine;
 
 namespace Gameplay.Towers.TargetDetectors

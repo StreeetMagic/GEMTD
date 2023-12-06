@@ -1,29 +1,21 @@
-﻿using Gameplay.Towers.Shooters.Projectiles.Movers;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Gameplay.Towers.Shooters.Projectiles.DefaultProjectiles.Movers
 {
     class DefaultProjectileMoverModel : IProjectileMoverModel
     {
-        public Transform Transform { get; set; }
-        public Transform Target { get; set; }
-        public Rigidbody Rigidbody { get; set; }
         public float Speed { get; set; } = 10f;
+        public Transform Target { get; set; }
+        public Vector3 Position { get; private set; }
 
-        public DefaultProjectileMoverModel(Rigidbody rigidbody, Transform transform)
+        public DefaultProjectileMoverModel(Transform target)
         {
-            Rigidbody = rigidbody;
-            Transform = transform;
+            Target = target;
         }
 
-        public void Move()
+        public void Move(Vector3 position)
         {
-            if (Target == null)
-            {
-                return;
-            }
-
-            Rigidbody.MovePosition(Vector3.MoveTowards(Transform.position, Target.position, Speed * Time.fixedDeltaTime));
+            Position = position;
         }
     }
 }
