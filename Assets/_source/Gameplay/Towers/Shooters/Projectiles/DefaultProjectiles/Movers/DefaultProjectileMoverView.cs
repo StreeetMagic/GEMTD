@@ -6,7 +6,8 @@ namespace Gameplay.Towers.Shooters.Projectiles.DefaultProjectiles.Movers
     public class DefaultProjectileMoverView : MonoBehaviour
     {
         private IProjectileMoverModel _moverModel;
-        public Rigidbody Rigidbody { get; private set; }
+        
+        private Rigidbody Rigidbody { get; set; }
 
         public void Init(IProjectileMoverModel moverModel, Transform target)
         {

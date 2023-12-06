@@ -30,6 +30,10 @@ namespace Gameplay.Towers
         {
             _shooterView = GetComponentInChildren<SingleProjectileShooterView>();
             _targetDetetcorView = GetComponentInChildren<TargetDetetcorView>();
+        }
+
+        private void Start()
+        {
             var shooter = new SingleProjectileShooterModel();
             var targetDetector = new TargetDetetcorModel(shooter);
             var material = Resources.Load<Material>(Constants.AssetsPath.Materials.Highlighted);
