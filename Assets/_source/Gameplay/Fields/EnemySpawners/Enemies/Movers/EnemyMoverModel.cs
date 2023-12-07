@@ -4,15 +4,15 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers
 {
     public class EnemyMoverModel
     {
-        public EnemyMoverModel(Vector3 position, Vector3[] checkPoints)
+        public EnemyMoverModel(Vector3 position, Vector3[] points)
         {
             Position = position;
-            CheckPoints = checkPoints;
+            Points = points;
         }
 
         public Vector3 Position { get; set; }
         public float Speed { get; set; } = 5f;
-        public Vector3[] CheckPoints { get; set; }
+        public Vector3[] Points { get; set; }
 
         public void Move(Vector3 position)
         {
