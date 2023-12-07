@@ -20,11 +20,7 @@ namespace Gameplay.Fields.PathFinders
             List<Cell> allCells = new List<Cell>();
 
             foreach (CellModel cell in field)
-            {
-                var item = new Cell(cell.CoordinatesValues, cell.IsPassable);
-
-                allCells.Add(item);
-            }
+                allCells.Add(new Cell(cell.CoordinatesValues, cell.IsPassable));
 
             TryGetCell(allCells, startCoordinatesValues, out Cell startCell);
             startCell.IsStart = true;
@@ -41,51 +37,9 @@ namespace Gameplay.Fields.PathFinders
 
             while (queue.Count > 0)
             {
-                distance++;
-
                 Cell currentCell = queue.Dequeue();
+                distance = currentCell.Distance + 1;
                 currentCell.IsVisited = true;
-
-                if (currentCell.CoordinatesValues.X == finishCoordinates.X && currentCell.CoordinatesValues.Z == finishCoordinates.Z)
-                {
-                    path.Add(currentCell.CoordinatesValues);
-
-                    int finishDistance = currentCell.Distance;
-
-                    while (finishDistance > 0)
-                    {
-                        finishDistance--;
-
-                        Cell[] newNeighbours = GetCellNeighbours(currentCell, allCells.ToArray());
-
-                        Cell pathCell = null;
-
-                        foreach (Cell newNeighbour in newNeighbours)
-                        {
-                            if (newNeighbour.Distance == finishDistance)
-                            {
-                                pathCell = newNeighbour;
-
-                                path.Add(pathCell.CoordinatesValues);
-
-                                if (pathCell.CoordinatesValues.X == startCoordinatesValues.X && pathCell.CoordinatesValues.Z == startCoordinatesValues.Z)
-                                {
-                                    return path.ToArray();
-                                }
-
-                                break; // Exit the loop after finding the correct path cell
-                            }
-                        }
-
-                        if (pathCell == null)
-                        {
-                            // If no path cell is found, break the loop
-                            break;
-                        }
-
-                        currentCell = pathCell; // Move to the next cell
-                    }
-                }
 
                 Cell[] neighbours = GetCellNeighbours(currentCell, allCells.ToArray());
 
@@ -97,6 +51,49 @@ namespace Gameplay.Fields.PathFinders
                         neighbour.Distance = distance;
 
                         queue.Enqueue(neighbour);
+
+                        if (neighbour.CoordinatesValues.X == finishCoordinates.X && neighbour.CoordinatesValues.Z == finishCoordinates.Z)
+                        {
+                            currentCell = neighbour;
+
+                            path.Add(currentCell.CoordinatesValues);
+
+                            int finishDistance = currentCell.Distance;
+
+                            while (finishDistance > 0)
+                            {
+                                finishDistance--;
+
+                                Cell[] newNeighbours = GetCellNeighbours(currentCell, allCells.ToArray());
+
+                                Cell pathCell = null;
+
+                                foreach (Cell newNeighbour in newNeighbours)
+                                {
+                                    if (newNeighbour.Distance == finishDistance)
+                                    {
+                                        pathCell = newNeighbour;
+
+                                        path.Add(pathCell.CoordinatesValues);
+
+                                        if (pathCell.CoordinatesValues.X == startCoordinatesValues.X && pathCell.CoordinatesValues.Z == startCoordinatesValues.Z)
+                                        {
+                                            return path.ToArray();
+                                        }
+
+                                        break; // Exit the loop after finding the correct path cell
+                                    }
+                                }
+
+                                if (pathCell == null)
+                                {
+                                    // If no path cell is found, break the loop
+                                    break;
+                                }
+
+                                currentCell = pathCell; // Move to the next cell
+                            }
+                        }
                     }
                 }
             }
