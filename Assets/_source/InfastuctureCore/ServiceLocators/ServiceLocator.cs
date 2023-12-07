@@ -1,3 +1,4 @@
+using InfastuctureCore.Services;
 using InfastuctureCore.Utilities;
 
 namespace InfastuctureCore.ServiceLocators
@@ -8,10 +9,10 @@ namespace InfastuctureCore.ServiceLocators
 
         public static ServiceLocator Instance => s_instance ??= new ServiceLocator();
 
-        public TService Register<TService>(TService implementation) =>
+        public TService Register<TService>(TService implementation) where TService : IService =>
             Implementation<TService>.Instance = implementation;
 
-        public TService Get<TService>() =>
+        public TService Get<TService>() where TService : IService =>
             Implementation<TService>.Instance;
     }
 }

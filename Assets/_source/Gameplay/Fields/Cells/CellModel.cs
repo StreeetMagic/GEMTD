@@ -3,6 +3,7 @@ using Gameplay.Blocks;
 using Gameplay.Checkpoints;
 using Gameplay.Towers;
 using Gameplay.Walls;
+using UnityEngine;
 
 namespace Gameplay.Fields.Cells
 {
@@ -14,57 +15,59 @@ namespace Gameplay.Fields.Cells
             BlockModel = blockModel;
         }
 
-        public event Action ChekpointDataSet;
-        public event Action WallDataSet;
-        public event Action WallDataRemoved;
-        public event Action TowerDataSet;
-        public event Action TowerDataRemoved;
-        public event Action TowerConfirmed;
+        public event Action ChekpointModelSet;
+        public event Action WallModelSet;
+        public event Action WallModelRemoved;
+        public event Action TowerModelSet;
+        public event Action TowerModelRemoved;
+        public event Action TowerModelConfirmed;
 
         public CoordinatesValues CoordinatesValues { get; }
         public CheckPointModel CheckPointModel { get; private set; }
-        public WallData WallData { get; private set; }
+        public WallModel WallModel { get; private set; }
         public BlockModel BlockModel { get; private set; }
         public TowerModel TowerModel { get; private set; }
+        public bool TowerIsConfirmed { set; get; }
 
-        public bool IsEmpty => CheckPointModel == null && WallData == null && TowerModel == null;
-        public bool HasWall => WallData != null;
-        public bool CanBeReplacedWithTower => WallData != null && TowerModel == null && CheckPointModel == null && TowerIsConfirmed == false;
-        public bool TowerIsConfirmed { get; set; }
+        public Vector3 Position => new Vector3(CoordinatesValues.X, 0, CoordinatesValues.Z);
+        public bool IsEmpty => CheckPointModel == null && WallModel == null && TowerModel == null;
+        public bool HasWall => WallModel != null;
+        public bool CanBeReplacedWithTower => WallModel != null && TowerModel == null && CheckPointModel == null && TowerIsConfirmed == false;
+        public bool HasCheckPoint => CheckPointModel != null;
 
-        public void SetCheckpointData(CheckPointModel checkPointModel)
+        public void SetCheckpointModel(CheckPointModel checkPointModel)
         {
             CheckPointModel = checkPointModel;
-            ChekpointDataSet?.Invoke();
+            ChekpointModelSet?.Invoke();
         }
 
-        public void SetTowerData(TowerModel towerModel)
+        public void SetTowerModel(TowerModel towerModel)
         {
             TowerModel = towerModel;
-            TowerDataSet?.Invoke();
+            TowerModelSet?.Invoke();
         }
 
-        public void SetWallData(WallData wallData)
+        public void SetWallModel(WallModel wallModel)
         {
-            WallData = wallData;
-            WallDataSet?.Invoke();
+            WallModel = wallModel;
+            WallModelSet?.Invoke();
         }
 
-        public void RemoveWallData()
+        public void RemoveWallModel()
         {
-            WallData = null;
-            WallDataRemoved?.Invoke();
+            WallModel = null;
+            WallModelRemoved?.Invoke();
         }
 
-        public void RemoveTowerData()
+        public void RemoveTowerModel()
         {
             TowerModel = null;
-            TowerDataRemoved?.Invoke();
+            TowerModelRemoved?.Invoke();
         }
 
         public void ConfirmTower()
         {
-            TowerConfirmed?.Invoke();
+            TowerModelConfirmed?.Invoke();
             TowerIsConfirmed = true;
         }
     }

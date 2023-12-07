@@ -49,12 +49,15 @@ namespace Gameplay.Enemies.Movers.GroundEnemyMovers
 
         public void Move()
         {
-            _rigidbody.MovePosition(transform.position + (NextCheckpoint.position - transform.position).normalized * (_enemyMoverModel.Speed * Time.deltaTime));
+            const float MinDistance = 0.1f;
+            
+            Transform cachedTransform = transform;
+            Vector3 position = cachedTransform.position;
 
-            if (Vector3.Distance(transform.position, NextCheckpoint.position) < 0.1f)
-            {
+            _rigidbody.MovePosition(position + (NextCheckpoint.position - position).normalized * (_enemyMoverModel.Speed * Time.deltaTime));
+
+            if (Vector3.Distance(transform.position, NextCheckpoint.position) < MinDistance)
                 ReachCheckpoint();
-            }
 
             _enemyMoverModel.Move(transform.position);
         }

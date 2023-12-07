@@ -164,7 +164,7 @@ namespace GameDesign
 
                         if (celLModel.IsEmpty)
                         {
-                            celLModel.SetWallData(GameFactoryService.FieldFactory.CreateWallData());
+                            celLModel.SetWallModel(GameFactoryService.FieldFactory.CreateWallData());
                             cellModel = celLModel;
                             return true;
                         }
@@ -191,7 +191,7 @@ namespace GameDesign
 
                         if (celLModel.HasWall)
                         {
-                            celLModel.RemoveWallData();
+                            celLModel.RemoveWallModel();
                             cellModel = celLModel;
                             return true;
                         }

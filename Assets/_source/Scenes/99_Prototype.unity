@@ -910,10 +910,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 260377084042133021, guid: 5b580ca2bbb480749aca14b3667e9011, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 260377084042133021, guid: 5b580ca2bbb480749aca14b3667e9011, type: 3}
       propertyPath: <CheckPoints>k__BackingField.Array.data[0]
       value: 
       objectReference: {fileID: 651499647}

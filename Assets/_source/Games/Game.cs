@@ -9,9 +9,9 @@ namespace Games
     {
         public Game(MonoBehaviour coroutineRunner, string initialSceneName)
         {
-            var gameStateMachineData = new GameStateMachineData(coroutineRunner, initialSceneName);
-            var stateMachineService = new StateMachineService<GameStateMachineData>(gameStateMachineData);
-            gameStateMachineData.RegisterStates(stateMachineService);
+            var gameStateMachineData = new GameStateMachineModel(coroutineRunner, initialSceneName);
+            var stateMachineService = new StateMachineService<GameStateMachineModel>(gameStateMachineData);
+            gameStateMachineData.RegisterStates(stateMachineService, coroutineRunner);
             stateMachineService.Enter<BootstrapState>();
         }
     }

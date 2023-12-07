@@ -20,7 +20,7 @@ namespace Gameplay.Towers.Shooters
         public ProjectileContainerModel ProjectileContainerModel { get; set; }
 
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
-        private MonoBehaviour CoroutineRunner => ServiceLocator.Instance.Get<IStateMachineService<GameStateMachineData>>().Data.CoroutineRunner;
+        private MonoBehaviour CoroutineRunner => ServiceLocator.Instance.Get<IStateMachineService<GameStateMachineModel>>().Data.CoroutineRunner;
 
         public SingleProjectileShooterModel()
         {
