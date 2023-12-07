@@ -55,44 +55,49 @@ namespace Gameplay.Fields.PathFinders
                         if (neighbour.CoordinatesValues.X == finishCoordinates.X && neighbour.CoordinatesValues.Z == finishCoordinates.Z)
                         {
                             currentCell = neighbour;
-                            
+
                             List<CoordinatesValues> localPath = new List<CoordinatesValues>();
 
                             localPath.Add(currentCell.CoordinatesValues);
 
                             int finishDistance = currentCell.Distance;
 
+                            Debug.Log("Определили конец: " + finishDistance);
+
                             while (finishDistance > 0)
                             {
                                 finishDistance--;
 
-                                Cell[] newNeighbours = GetCellNeighbours(currentCell, allCells.ToArray());
+                                Debug.Log("Distance: " + finishDistance);
 
-                                Cell pathCell = null;
+                                Cell[] newNeighbours = GetCellNeighbours(currentCell, allCells.ToArray());
 
                                 foreach (Cell newNeighbour in newNeighbours)
                                 {
-                                    if (newNeighbour.Distance == finishDistance)
+                                    if (newNeighbour.Distance == 0)
                                     {
-                                        pathCell = newNeighbour;
+                                        Debug.Log("ДАААААА СУКААА");
 
-                                        localPath.Add(pathCell.CoordinatesValues);
+                                        currentCell = newNeighbour;
+
+                                        localPath.Add(currentCell.CoordinatesValues);
 
                                         localPath.Reverse();
-                                        
+
+                                        Debug.Log("Нашелся путь: " + localPath.Count);
+
                                         path.AddRange(localPath);
 
                                         break; // Exit the loop after finding the correct path cell
                                     }
-                                }
 
-                                if (pathCell == null)
-                                {
-                                    // If no path cell is found, break the loop
-                                    break;
+                                    if (newNeighbour.Distance == finishDistance)
+                                    {
+                                        currentCell = newNeighbour;
+                                        localPath.Add(currentCell.CoordinatesValues);
+                                        break;
+                                    }
                                 }
-
-                                currentCell = pathCell; // Move to the next cell
                             }
                         }
                     }

@@ -32,11 +32,8 @@ namespace Gameplay.Fields.Towers.Shooters
         {
             if (_currentTarget == null)
             {
-                Debug.Log("Цели нет");
-
                 if (Targets.Count > 0)
                 {
-                    Debug.Log("назначаю цель");
                     _currentTarget = Targets[0];
                 }
             }
