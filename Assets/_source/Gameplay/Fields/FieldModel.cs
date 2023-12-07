@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Gameplay.Fields.Cells;
-using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.Cells.CellsContainers;
 using Gameplay.Fields.EnemySpawners;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StaticDataServices;
@@ -10,30 +9,17 @@ namespace Gameplay.Fields
 {
     public class FieldModel
     {
-        private readonly CellModel[] _cellmodels;
-
         public FieldModel(CellModel[] cellmodels, EnemySpawnerModel enemyEnemySpawnerModel)
         {
-            _cellmodels = cellmodels;
             EnemySpawnerModel = enemyEnemySpawnerModel;
+            CellsContainerModel = new CellsContainerModel(cellmodels); 
         }
 
+        public CellsContainerModel CellsContainerModel { get; }
         public EnemySpawnerModel EnemySpawnerModel { get; }
         public int RoundNumber { get; set; } = 1;
-        public CellModel[] CellModels => _cellmodels.ToArray();
+
         private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
-
-        public CellModel GetCellDataByCoordinates(CoordinatesValues coordinatesValues) =>
-            CellModels.FirstOrDefault(cellData => cellData.CoordinatesValues.X == coordinatesValues.X && cellData.CoordinatesValues.Z == coordinatesValues.Z);
-
-        public CheckPointModel[] GetCheckPointModels()
-        {
-            return _cellmodels
-                .Where(cellModel => cellModel.HasCheckPoint)
-                .Select(cellModel => cellModel.CheckPointModel)
-                .OrderBy(checkPoint => checkPoint.Number)
-                .ToArray();
-        }
 
         public CoordinatesValues[] GetCentralWalls(int towerPerRound)
         {
@@ -64,16 +50,13 @@ namespace Gameplay.Fields
             return coordinates.ToArray();
         }
 
-        public CellModel GetCellModel(CoordinatesValues coordinatesValues) =>
-            _cellmodels.FirstOrDefault(cellData => cellData.CoordinatesValues.Equals(coordinatesValues));
-
         private void FindValidCoordinates(int centralCoordinate, int i, List<CoordinatesValues> coordinates, int towerPerRound)
         {
             for (int x = centralCoordinate - i; x < centralCoordinate + i; x++)
             {
                 for (int z = centralCoordinate - i; z < centralCoordinate + i; z++)
                 {
-                    CellModel cellModel = GetCellModel(new CoordinatesValues(x, z));
+                    CellModel cellModel = CellsContainerModel.GetCellModel(new CoordinatesValues(x, z));
 
                     if (cellModel.CanBeReplacedWithTower)
                     {

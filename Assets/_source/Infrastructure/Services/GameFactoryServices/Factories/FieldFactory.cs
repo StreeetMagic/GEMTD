@@ -85,7 +85,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
 
             for (int i = 0; i < configs.Length; i++)
             {
-                CellModel cell = _currentDataService.FieldModel.GetCellDataByCoordinates(configs[i].CoordinatesValues);
+                CellModel cell = _currentDataService.FieldModel.CellsContainerModel.GetCellModelByCoordinates(configs[i].CoordinatesValues);
                 checkpointDatas[i] = CreateCheckPointData(configs[i].Number, cell);
                 cell.SetCheckpointModel(checkpointDatas[i]);
             }
@@ -95,7 +95,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             new WallModel();
 
         public void PaintBlocks() =>
-            _staticDataService.Get<PaintedBlockConfig>().Coordinates.ForEach(coordinates => { _currentDataService.FieldModel.GetCellModel(coordinates).BlockModel.Paint(); });
+            _staticDataService.Get<PaintedBlockConfig>().Coordinates.ForEach(coordinates => { _currentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinates).BlockModel.Paint(); });
 
         public TowerModel CreateTowerData(TowerType towerType, int level)
         {
@@ -104,7 +104,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
         }
 
         public void CreateStartingLabyrinth() =>
-            _staticDataService.Get<StartingLabyrinthConfig>().Coordinates.ToList().ForEach(coordinate => _currentDataService.FieldModel.GetCellModel(coordinate)
+            _staticDataService.Get<StartingLabyrinthConfig>().Coordinates.ToList().ForEach(coordinate => _currentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinate)
                 .SetWallModel(CreateWallData()));
 
         private CheckPointModel CreateCheckPointData(int number, CellModel cell) =>

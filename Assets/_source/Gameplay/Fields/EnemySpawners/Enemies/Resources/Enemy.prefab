@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6775533978689681939}
   - component: {fileID: 1824928107451379270}
   - component: {fileID: 244381507791435378}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TriggerArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 6515868239158214843}
   - component: {fileID: 7010991564531419272}
   - component: {fileID: 260377084042133021}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,13 +179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd34d6e27d3463b8e78a9cfd2b31d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CheckPoints>k__BackingField:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &6278858631225447734
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +190,7 @@ GameObject:
   - component: {fileID: 7468745560646688719}
   - component: {fileID: 7789082589839943368}
   - component: {fileID: 639985648040949818}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +271,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1418140853091352846}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 3DModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}

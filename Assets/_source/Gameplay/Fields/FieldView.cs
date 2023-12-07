@@ -1,5 +1,4 @@
 using System.Linq;
-using Gameplay.Fields.Cells;
 using Gameplay.Fields.Cells.CellsContainers;
 using Gameplay.Fields.EnemySpawners;
 using InfastuctureCore.ServiceLocators;
@@ -26,7 +25,8 @@ namespace Gameplay.Fields
         public void Init(FieldModel fieldModel)
         {
             _fieldModel = fieldModel;
-            CellsContainerView.CellViews = _fieldModel.CellModels.Select(cellData => GameFactoryService.FieldFactory.CreateCellView(cellData, CellsContainerView.transform)).ToArray();
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+            _fieldModel.CellsContainerModel.CellModels.Select(cellData => GameFactoryService.FieldFactory.CreateCellView(cellData, CellsContainerView.transform)).ToArray();
             EnemySpawnerView.Init(_fieldModel.EnemySpawnerModel);
         }
     }

@@ -12,10 +12,12 @@ namespace Gameplay.Fields.Cells
     public class CellView : MonoBehaviour, IPointerDownHandler
     {
         public CellModel CelLModel { get; private set; }
+        
         public BlockView BlockView { get; private set; }
         public CheckpointView CheckpointView { get; private set; }
         public WallView WallView { get; private set; }
         public TowerView TowerView { get; private set; }
+        
         public bool IsPainted { get; set; }
 
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
