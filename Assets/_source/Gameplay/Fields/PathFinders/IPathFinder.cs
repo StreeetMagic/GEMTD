@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Gameplay.Fields.Cells;
+using UnityEngine;
 
 namespace Gameplay.Fields.PathFinders
 {
@@ -48,7 +49,7 @@ namespace Gameplay.Fields.PathFinders
                     while (true)
                     {
                         finishDistance--;
-                        
+
                         Cell[] newNeighbours = GetCellNeighbours(currentCell, allCells.ToArray());
 
                         Cell pathCell;
@@ -58,7 +59,7 @@ namespace Gameplay.Fields.PathFinders
                             if (newNeighbour.Distance == finishDistance)
                             {
                                 pathCell = newNeighbour;
-                                
+
                                 path.Add(pathCell.CoordinatesValues);
 
                                 if (pathCell.CoordinatesValues.X == startCoordinatesValues.X && pathCell.CoordinatesValues.Z == startCoordinatesValues.Z)
@@ -66,7 +67,7 @@ namespace Gameplay.Fields.PathFinders
                                     return path.ToArray();
                                 }
                             }
-                        } 
+                        }
                     }
                 }
 
@@ -76,8 +77,22 @@ namespace Gameplay.Fields.PathFinders
                 {
                     neighbour.IsVisited = true;
                     neighbour.Distance = distance;
+
                     queue.Enqueue(neighbour);
+                    Debug.Log("Neighbour: " + neighbour.CoordinatesValues);
                 }
+            }
+
+            return path.ToArray();
+        }
+
+        private CoordinatesValues[] DebugMethod()
+        {
+            List<CoordinatesValues> path = new List<CoordinatesValues>();
+
+            for (int i = 0; i < 30; i++)
+            {
+                path.Add(new CoordinatesValues(i, i));
             }
 
             return path.ToArray();
