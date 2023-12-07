@@ -26,11 +26,14 @@ namespace Gameplay.Fields
         public CellModel GetCellDataByCoordinates(CoordinatesValues coordinatesValues) =>
             CellModels.FirstOrDefault(cellData => cellData.CoordinatesValues.X == coordinatesValues.X && cellData.CoordinatesValues.Z == coordinatesValues.Z);
 
-        public CheckPointModel[] GetCheckPointModels() =>
-            _cellmodels
+        public CheckPointModel[] GetCheckPointModels()
+        {
+            return _cellmodels
                 .Where(cellModel => cellModel.HasCheckPoint)
                 .Select(cellModel => cellModel.CheckPointModel)
+                .OrderBy(checkPoint => checkPoint.Number)
                 .ToArray();
+        }
 
         public CoordinatesValues[] GetCentralWalls(int towerPerRound)
         {
