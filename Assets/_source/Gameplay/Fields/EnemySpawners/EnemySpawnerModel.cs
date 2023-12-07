@@ -85,22 +85,18 @@ namespace Gameplay.Fields.EnemySpawners
         {
             CoordinatesValues[] checkPoints = GetCheckPoints();
 
-            List<CoordinatesValues> points = new();
+            List<CoordinatesValues> foundPoints = new();
+            
             CellModel[] cells = CurrentDataService.FieldModel.CellsContainerModel.CellModels;
 
             for (int i = 0; i < checkPoints.Length - 1; i++)
             {
-                CoordinatesValues[] localPoints = _pathFinder.FindPath(cells, checkPoints[i], checkPoints[i + 1]);
-
-                foreach (var point in localPoints)
-                {
-                    points.Add(point);
-                }
+                _pathFinder.FindPath(cells, checkPoints[i], checkPoints[i + 1], foundPoints);
             }
 
             List<Vector3> vectorPoints = new();
 
-            foreach (var point in points)
+            foreach (var point in foundPoints)
             {
                 vectorPoints.Add(new Vector3(point.X, 0, point.Z));
             }

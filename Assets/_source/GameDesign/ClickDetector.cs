@@ -6,6 +6,7 @@ using Infrastructure.Services.GameFactoryServices;
 using Infrastructure.Services.InputServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 namespace GameDesign
 {
@@ -33,6 +34,13 @@ namespace GameDesign
 
         private void Update()
         {
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                Time.timeScale = Time.timeScale == 0
+                    ? 1
+                    : 0;
+            }
+
             if (UnHighlightCells())
                 return;
 

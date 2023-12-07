@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Gameplay.Fields.Cells;
 using UnityEngine;
 
@@ -6,16 +8,14 @@ namespace Gameplay.Fields.PathFinders
 {
     public interface IPathFinder
     {
-        CoordinatesValues[] FindPath(CellModel[] field, CoordinatesValues startCoordinatesValues, CoordinatesValues finishCoordinates);
+        void FindPath(CellModel[] field, CoordinatesValues startCoordinatesValues, CoordinatesValues finishCoordinates, List<CoordinatesValues> path);
     }
 
     public class BreadthFirstPathFinder : IPathFinder
     {
-        public CoordinatesValues[] FindPath(CellModel[] field, CoordinatesValues startCoordinatesValues, CoordinatesValues finishCoordinates)
+        public void FindPath(CellModel[] field, CoordinatesValues startCoordinatesValues, CoordinatesValues finishCoordinates, List<CoordinatesValues> path)
         {
             Debug.Log("Строю маршрут от " + startCoordinatesValues.X + " " + startCoordinatesValues.Z + " до " + finishCoordinates.X + " " + finishCoordinates.Z);
-
-            List<CoordinatesValues> path = new List<CoordinatesValues>();
 
             List<Cell> allCells = new List<Cell>();
 
@@ -55,8 +55,10 @@ namespace Gameplay.Fields.PathFinders
                         if (neighbour.CoordinatesValues.X == finishCoordinates.X && neighbour.CoordinatesValues.Z == finishCoordinates.Z)
                         {
                             currentCell = neighbour;
+                            
+                            List<CoordinatesValues> localPath = new List<CoordinatesValues>();
 
-                            path.Add(currentCell.CoordinatesValues);
+                            localPath.Add(currentCell.CoordinatesValues);
 
                             int finishDistance = currentCell.Distance;
 
@@ -74,12 +76,11 @@ namespace Gameplay.Fields.PathFinders
                                     {
                                         pathCell = newNeighbour;
 
-                                        path.Add(pathCell.CoordinatesValues);
+                                        localPath.Add(pathCell.CoordinatesValues);
 
-                                        if (pathCell.CoordinatesValues.X == startCoordinatesValues.X && pathCell.CoordinatesValues.Z == startCoordinatesValues.Z)
-                                        {
-                                            return path.ToArray();
-                                        }
+                                        localPath.Reverse();
+                                        
+                                        path.AddRange(localPath);
 
                                         break; // Exit the loop after finding the correct path cell
                                     }
@@ -97,8 +98,6 @@ namespace Gameplay.Fields.PathFinders
                     }
                 }
             }
-
-            return path.ToArray();
         }
 
         private bool TryGetCell(List<Cell> allCells, CoordinatesValues coordinatesValues, out Cell thisCell)
