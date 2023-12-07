@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Infrastructure.GameStateMachines
 {
-    public class GameStateMachineData
+    public class GameStateMachineModel
     {
-        public GameStateMachineData(MonoBehaviour coroutineRunner, string initialSceneName)
+        public GameStateMachineModel(MonoBehaviour coroutineRunner, string initialSceneName)
         {
             CoroutineRunner = coroutineRunner;
             SceneLoader = new SceneLoader(CoroutineRunner, initialSceneName);
@@ -16,9 +16,9 @@ namespace Infrastructure.GameStateMachines
         public MonoBehaviour CoroutineRunner { get; }
         public SceneLoader SceneLoader { get; }
 
-        public void RegisterStates(IStateMachineService<GameStateMachineData> gameStateMachine)
+        public void RegisterStates(IStateMachineService<GameStateMachineModel> gameStateMachine, MonoBehaviour coroutineRunner)
         {
-            gameStateMachine.Register(new BootstrapState(gameStateMachine));
+            gameStateMachine.Register(new BootstrapState(gameStateMachine, coroutineRunner));
             gameStateMachine.Register(new LoadLevelState(gameStateMachine));
             gameStateMachine.Register(new GameLoopState());
             gameStateMachine.Register(new PrototypeState());

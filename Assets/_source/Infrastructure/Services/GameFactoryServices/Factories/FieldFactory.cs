@@ -57,9 +57,9 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             _assetProviderService.Instantiate<FieldView>(Constants.AssetsPath.Prefabs.Field)
                 .With(e => e.Init(fieldModel));
 
-        public WallView CreateWallView(WallData wallData, Transform transform) =>
+        public WallView CreateWallView(WallModel wallModel, Transform transform) =>
             _assetProviderService.Instantiate<WallView>(Constants.AssetsPath.Prefabs.Wall, Vector3.zero)
-                .With(e => e.Init(wallData))
+                .With(e => e.Init(wallModel))
                 .With(e => e.transform.SetParent(transform))
                 .With(e => e.transform.localPosition = Vector3.zero);
 
@@ -77,17 +77,17 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
 
             for (int i = 0; i < configs.Length; i++)
             {
-                checkpointDatas[i] = CreateCheckPointData(configs[i].Number);
-                CellModel cell = GetCellDataByCoordinates(configs[i]._coordinatesValues);
-                cell.SetCheckpointData(checkpointDatas[i]);
+                CellModel cell = _currentDataService.FieldModel.GetCellDataByCoordinates(configs[i]._coordinatesValues);
+                checkpointDatas[i] = CreateCheckPointData(configs[i].Number, cell);
+                cell.SetCheckpointModel(checkpointDatas[i]);
             }
         }
 
-        public WallData CreateWallData() =>
-            new WallData();
+        public WallModel CreateWallData() =>
+            new WallModel();
 
         public void PaintBlocks() =>
-            _staticDataService.Get<PaintedBlockConfig>().Coordinates.ForEach(coordinates => { _currentDataService.FieldModel.GetCellData(coordinates).BlockModel.Paint(); });
+            _staticDataService.Get<PaintedBlockConfig>().Coordinates.ForEach(coordinates => { _currentDataService.FieldModel.GetCellModel(coordinates).BlockModel.Paint(); });
 
         public TowerModel CreateTowerData(TowerType towerType, int level)
         {
@@ -96,19 +96,16 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
         }
 
         public void CreateStartingLabyrinth() =>
-            _staticDataService.Get<StartingLabyrinthConfig>().Coordinates.ToList().ForEach(coordinate => _currentDataService.FieldModel.GetCellData(coordinate)
-                .SetWallData(CreateWallData()));
+            _staticDataService.Get<StartingLabyrinthConfig>().Coordinates.ToList().ForEach(coordinate => _currentDataService.FieldModel.GetCellModel(coordinate)
+                .SetWallModel(CreateWallData()));
 
-        private CheckPointModel CreateCheckPointData(int number) =>
-            new CheckPointModel(number);
+        private CheckPointModel CreateCheckPointData(int number, CellModel cell) =>
+            new CheckPointModel(number, cell);
 
         private CellModel[] CreateCellDatas(int size) =>
             Enumerable.Range(0, size)
                 .SelectMany(i => Enumerable.Range(0, size)
                     .Select(j => new CellModel(new CoordinatesValues(i, j), new BlockModel())))
                 .ToArray();
-
-        private CellModel GetCellDataByCoordinates(CoordinatesValues coordinatesValues) =>
-            _currentDataService.FieldModel.CellDatas.FirstOrDefault(cellData => cellData.CoordinatesValues.X == coordinatesValues.X && cellData.CoordinatesValues.Z == coordinatesValues.Z);
     }
 }

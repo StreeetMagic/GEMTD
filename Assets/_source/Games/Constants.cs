@@ -14,20 +14,20 @@ namespace Games
         {
             public class Prefabs
             {
-                public const string Field = "Field";
-                public const string Cell = "Cell";
-                public const string Block = "Block";
-                public const string Checkpoint = "Checkpoint";
-                public const string Wall = "Wall";
-                public const string Tower = "Tower";
-                public const string Projectile = "Projectile";
+                public const string Field = nameof(Field);
+                public const string Cell = nameof(Cell);
+                public const string Block = nameof(Block);
+                public const string Checkpoint = nameof(Checkpoint);
+                public const string Wall = nameof(Wall);
+                public const string Tower = nameof(Tower);
+                public const string Projectile = nameof(Projectile);
             }
 
             //TODO сделать через ассет провайдер
             public class Materials
             {
-                public const string Highlighted = "Highlighted";
-                public const string Painted = "Painted";
+                public const string Highlighted = nameof(Highlighted);
+                public const string Painted = nameof(Painted);
             }
         }
     }

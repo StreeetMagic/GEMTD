@@ -45,7 +45,7 @@ namespace Gameplay.Walls.WallPlacers
                 return;
 
             foreach (CoordinatesValues coordinates in WallPlacerConfig.WallSettingsPerRounds[roundIndex].DestroyList)
-                CurrentDataService.FieldModel.GetCellData(coordinates).RemoveWallData();
+                CurrentDataService.FieldModel.GetCellModel(coordinates).RemoveWallModel();
         }
 
         private void SetTowers(List<CoordinatesValues> wallsCoordinates) =>
@@ -53,23 +53,23 @@ namespace Gameplay.Walls.WallPlacers
 
         private void SetTower(CoordinatesValues coordinatesValues)
         {
-            if (CurrentDataService.FieldModel.GetCellData(coordinatesValues).WallData != null)
-                CurrentDataService.FieldModel.GetCellData(coordinatesValues).RemoveWallData();
+            if (CurrentDataService.FieldModel.GetCellModel(coordinatesValues).WallModel != null)
+                CurrentDataService.FieldModel.GetCellModel(coordinatesValues).RemoveWallModel();
 
-            CurrentDataService.FieldModel.GetCellData(coordinatesValues).SetTowerData(GameFactory.FieldFactory.CreateTowerData((TowerType)Random.Range(0, 8), 1));
+            CurrentDataService.FieldModel.GetCellModel(coordinatesValues).SetTowerModel(GameFactory.FieldFactory.CreateTowerData((TowerType)Random.Range(0, 8), 1));
         }
 
         private void ConfirmRandomTower(IReadOnlyList<CoordinatesValues> wallsCoordinates) =>
-            CurrentDataService.FieldModel.GetCellData(wallsCoordinates[Random.Range(0, wallsCoordinates.Count)]).ConfirmTower();
+            CurrentDataService.FieldModel.GetCellModel(wallsCoordinates[Random.Range(0, wallsCoordinates.Count)]).ConfirmTower();
 
         private void RemoveTowers(IEnumerable<CoordinatesValues> wallsCoordinates) =>
             wallsCoordinates
-                .Where(coordinates => !CurrentDataService.FieldModel.GetCellData(coordinates).TowerIsConfirmed)
-                .ForEach(coordinates => CurrentDataService.FieldModel.GetCellData(coordinates).RemoveTowerData());
+                .Where(coordinates => !CurrentDataService.FieldModel.GetCellModel(coordinates).TowerIsConfirmed)
+                .ForEach(coordinates => CurrentDataService.FieldModel.GetCellModel(coordinates).RemoveTowerModel());
 
         private void PlaceWalls(IEnumerable<CoordinatesValues> wallsCoordinates) =>
             wallsCoordinates
-                .Where(coordinates => !CurrentDataService.FieldModel.GetCellData(coordinates).TowerIsConfirmed)
-                .ForEach(coordinates => CurrentDataService.FieldModel.GetCellData(coordinates).SetWallData(GameFactory.FieldFactory.CreateWallData()));
+                .Where(coordinates => !CurrentDataService.FieldModel.GetCellModel(coordinates).TowerIsConfirmed)
+                .ForEach(coordinates => CurrentDataService.FieldModel.GetCellModel(coordinates).SetWallModel(GameFactory.FieldFactory.CreateWallData()));
     }
 }

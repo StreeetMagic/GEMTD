@@ -24,7 +24,7 @@ namespace Gameplay.Fields
         public void Init(FieldModel fieldModel)
         {
             _fieldModel = fieldModel;
-            CellViews = _fieldModel.CellDatas.Select(cellData => GameFactoryService.FieldFactory.CreateCellView(cellData, CellsContainerModel.transform)).ToArray();
+            CellViews = _fieldModel.CellModels.Select(cellData => GameFactoryService.FieldFactory.CreateCellView(cellData, CellsContainerModel.transform)).ToArray();
         }
     }
 }

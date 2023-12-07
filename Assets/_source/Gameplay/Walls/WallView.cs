@@ -4,11 +4,11 @@ namespace Gameplay.Walls
 {
     public class WallView : MonoBehaviour
     {
-        public WallData WallData { get; private set; }
+        public WallModel WallModel { get; private set; }
         
-        public void Init(WallData wallData)
+        public void Init(WallModel wallModel)
         {
-            WallData = wallData; 
+            WallModel = wallModel; 
         }
     }
 }

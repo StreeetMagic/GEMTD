@@ -1,5 +1,4 @@
-﻿using System;
-using Gameplay.Enemies.Movers;
+﻿using Gameplay.Enemies.Movers;
 using Gameplay.Enemies.TriggerAreas;
 using UnityEngine;
 

@@ -1,6 +1,6 @@
 ﻿namespace Games
 {
-    public class GameData
+    public class GameModel
     {
         // private float _musicVolume;
         // private float _sfxVolume;

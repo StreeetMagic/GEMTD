@@ -7,6 +7,7 @@ using Gameplay.Walls.WallPlacers;
 using Games;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.AssetProviderServices;
+using InfastuctureCore.Services.CoroutineRunnerServices;
 using InfastuctureCore.Services.PoolServices;
 using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StateMachineServices.States;
@@ -22,11 +23,13 @@ namespace Infrastructure.GameStateMachines.States
 {
     public class BootstrapState : IState
     {
-        private readonly IStateMachineService<GameStateMachineData> _gameStateMachine;
+        private readonly IStateMachineService<GameStateMachineModel> _gameStateMachine;
+        private readonly MonoBehaviour _coroutineRunner;
 
-        public BootstrapState(IStateMachineService<GameStateMachineData> gameStateMachine)
+        public BootstrapState(IStateMachineService<GameStateMachineModel> gameStateMachine, MonoBehaviour coroutineRunner)
         {
             _gameStateMachine = gameStateMachine;
+            _coroutineRunner = coroutineRunner;
         }
 
         private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
@@ -35,7 +38,7 @@ namespace Infrastructure.GameStateMachines.States
         {
             Debug.Log("Entered Bootstrap State");
 
-            RegisterServices();
+            RegisterServices(_coroutineRunner);
             RegisterConfigs();
             EnterNextState();
         }
@@ -45,7 +48,7 @@ namespace Infrastructure.GameStateMachines.States
             Debug.Log("Exited Bootstrap State");
         }
 
-        private void RegisterServices()
+        private void RegisterServices(MonoBehaviour coroutineRunner)
         {
             var loc = ServiceLocator.Instance;
 
@@ -53,6 +56,7 @@ namespace Infrastructure.GameStateMachines.States
             var currentData = loc.Register<ICurrentDataService>(new CurrentDataService());
             var staticData = loc.Register<IStaticDataService>(new StaticDataService(assetProvider));
             loc.Register(_gameStateMachine);
+            loc.Register<ICoroutineRunnerService>(new CoroutineRunnerService(coroutineRunner));
             loc.Register<IInputService>(new InputService());
             loc.Register<IPoolRepositoryService>(new PoolRepositoryService());
             loc.Register<IGameFactoryService>(new GameFactoryService(assetProvider, staticData, currentData));

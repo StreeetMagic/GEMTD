@@ -1,6 +1,6 @@
 ﻿namespace Gameplay.Walls
 {
-    public class WallData
+    public class WallModel
     {
     }
 }

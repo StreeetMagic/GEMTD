@@ -8,10 +8,10 @@ namespace Infrastructure.GameStateMachines.States
 {
     public class LoadLevelState : IState, IPayloadedState<string>
     {
-        private readonly IStateMachineService<GameStateMachineData> _gameStateMachine;
+        private readonly IStateMachineService<GameStateMachineModel> _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
 
-        public LoadLevelState(IStateMachineService<GameStateMachineData> gameStateMachine)
+        public LoadLevelState(IStateMachineService<GameStateMachineModel> gameStateMachine)
         {
             _gameStateMachine = gameStateMachine;
 
