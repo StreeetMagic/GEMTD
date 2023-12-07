@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using InfastuctureCore.ServiceLocators;
+using InfastuctureCore.Services.CoroutineRunnerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,31 +9,26 @@ namespace InfastuctureCore.SceneLoaders
 {
     public class SceneLoader
     {
-        private readonly MonoBehaviour _coroutineRunner;
         private readonly string _initialSceneName;
 
-        public SceneLoader(MonoBehaviour coroutineRunner, string initialSceneName)
+        public SceneLoader(string initialSceneName)
         {
-            _coroutineRunner = coroutineRunner;
             _initialSceneName = initialSceneName;
-        }
-
-        public SceneLoader(MonoBehaviour coroutineRunner)
-        {
-            _coroutineRunner = coroutineRunner;
         }
 
         public event Action<string> SceneLoaded;
 
+        private MonoBehaviour CoroutineRunner => ServiceLocator.Instance.Get<ICoroutineRunnerService>().Instance;
+
         public void Load(string name, Action<string> onLoaded = null)
         {
             //DOTween.KillAll();
-            _coroutineRunner.StartCoroutine(LoadScene(name, onLoaded));
+            CoroutineRunner.StartCoroutine(LoadScene(name, onLoaded));
         }
 
         public void Load(Action<string> onLoaded = null)
         {
-            _coroutineRunner.StartCoroutine(LoadScene(_initialSceneName, onLoaded));
+            CoroutineRunner.StartCoroutine(LoadScene(_initialSceneName, onLoaded));
         }
 
         private IEnumerator LoadScene(string nextScene, Action<string> onLoaded)

@@ -22,8 +22,8 @@ namespace Infrastructure.GameStateMachines.States
         public void Enter()
         {
             Debug.Log("Entered GameLoop State");
-            CurrentDataService.FieldModel = GameFactoryService.FieldFactory.CreateFieldData();
-            GameFactoryService.FieldFactory.CreateBlockGridView(CurrentDataService.FieldModel);
+            CurrentDataService.FieldModel = GameFactoryService.FieldFactory.CreateFieldModel();
+            GameFactoryService.FieldFactory.CreateFieldView(CurrentDataService.FieldModel);
             GameFactoryService.FieldFactory.CreateCheckpointsDatas();
             GameFactoryService.FieldFactory.PaintBlocks();
             GameFactoryService.FieldFactory.CreateStartingLabyrinth();

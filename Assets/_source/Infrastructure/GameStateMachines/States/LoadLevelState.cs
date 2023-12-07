@@ -11,11 +11,10 @@ namespace Infrastructure.GameStateMachines.States
         private readonly IStateMachineService<GameStateMachineModel> _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
 
-        public LoadLevelState(IStateMachineService<GameStateMachineModel> gameStateMachine)
+        public LoadLevelState(IStateMachineService<GameStateMachineModel> gameStateMachine, SceneLoader sceneLoader)
         {
             _gameStateMachine = gameStateMachine;
-
-            _sceneLoader = new SceneLoader(_gameStateMachine.Data.CoroutineRunner);
+            _sceneLoader = sceneLoader;
         }
 
         public void Enter(string sceneName)

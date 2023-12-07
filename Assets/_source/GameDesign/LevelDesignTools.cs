@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Labytinths;
-using Gameplay.Walls;
+using Gameplay.Fields.Walls;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

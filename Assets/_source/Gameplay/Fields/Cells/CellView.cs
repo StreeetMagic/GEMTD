@@ -1,7 +1,7 @@
-using Gameplay.Blocks;
-using Gameplay.Checkpoints;
-using Gameplay.Towers;
-using Gameplay.Walls;
+using Gameplay.Fields.Blocks;
+using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.Towers;
+using Gameplay.Fields.Walls;
 using InfastuctureCore.ServiceLocators;
 using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;

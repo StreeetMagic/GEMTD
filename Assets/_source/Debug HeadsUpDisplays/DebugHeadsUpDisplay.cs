@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
@@ -52,7 +53,7 @@ namespace Debug_HeadsUpDisplays
             _coroutine.Start();
         }
 
-        private IEnumerator EnableButton()
+        private IEnumerator EnableButton(Action onComplete)
         {
             yield return null;
 
