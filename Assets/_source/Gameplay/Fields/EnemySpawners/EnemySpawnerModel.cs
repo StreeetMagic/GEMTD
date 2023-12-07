@@ -57,13 +57,6 @@ namespace Gameplay.Fields.EnemySpawners
                 checkPoints.Add(checkPointModel.CoordinatesValues);
             }
 
-            //sort by number
-
-            // foreach (var chp in checkPoints)
-            // {
-            //     Debug.Log(chp.X + " " + chp.Z);
-            // }
-
             return checkPoints.ToArray();
         }
 
