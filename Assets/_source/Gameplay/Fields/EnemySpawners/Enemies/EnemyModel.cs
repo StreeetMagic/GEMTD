@@ -24,7 +24,7 @@ namespace Gameplay.Fields.EnemySpawners.Enemies
 
         private List<Vector3> GetCheckPoints()
         {
-            CheckPointModel[] positions = CurrentDataService.FieldModel.GetCheckPointModels();
+            CheckPointModel[] positions = CurrentDataService.FieldModel.CellsContainerModel.GetCheckPointModels();
 
             List<Vector3> checkPoints = new();
 

@@ -28,6 +28,7 @@ namespace Gameplay.Fields.Cells
         public BlockModel BlockModel { get; private set; }
         public TowerModel TowerModel { get; private set; }
         public bool TowerIsConfirmed { set; get; }
+        public bool IsPassable => WallModel == null && TowerModel == null;
 
         public Vector3 Position => new Vector3(CoordinatesValues.X, 0, CoordinatesValues.Z);
         public bool IsEmpty => CheckPointModel == null && WallModel == null && TowerModel == null;
