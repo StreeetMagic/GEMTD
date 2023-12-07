@@ -43,14 +43,26 @@ namespace Gameplay.Fields.EnemySpawners
 
         private CoordinatesValues[] GetCheckPoints()
         {
-            CheckPointModel[] positions = CurrentDataService.FieldModel.CellsContainerModel.GetCheckPointModels();
+            CheckpointValues[] checkPointValues = StaticDataService.Get<CheckpointsConfig>().CheckPointSettings;
+
+            foreach (var chp in checkPointValues)
+            {
+                Debug.Log(chp.Number + " " + chp.CoordinatesValues.X + " " + chp.CoordinatesValues.Z);
+            }
 
             List<CoordinatesValues> checkPoints = new();
 
-            foreach (CheckPointModel checkPointModel in positions)
+            foreach (CheckpointValues checkPointModel in checkPointValues)
             {
-                checkPoints.Add(checkPointModel.CellModel.CoordinatesValues);
+                checkPoints.Add(checkPointModel.CoordinatesValues);
             }
+
+            //sort by number
+
+            // foreach (var chp in checkPoints)
+            // {
+            //     Debug.Log(chp.X + " " + chp.Z);
+            // }
 
             return checkPoints.ToArray();
         }
@@ -79,6 +91,7 @@ namespace Gameplay.Fields.EnemySpawners
         private Vector3[] GetPoints()
         {
             CoordinatesValues[] checkPoints = GetCheckPoints();
+
             List<CoordinatesValues> points = new();
             CellModel[] cells = CurrentDataService.FieldModel.CellsContainerModel.CellModels;
 

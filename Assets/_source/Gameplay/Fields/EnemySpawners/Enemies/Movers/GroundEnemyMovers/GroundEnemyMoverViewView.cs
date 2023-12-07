@@ -27,6 +27,12 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
             _enemyMoverModel = enemyMoverModel;
             LastReachedPoint = _enemyMoverModel.Points[0];
             NextPoint = _enemyMoverModel.Points[1];
+            _enemyMoverModel.Dead += OnDead;
+        }
+
+        private void OnDestroy()
+        {
+            _enemyMoverModel.Dead -= OnDead;
         }
 
         public void Move()
@@ -58,6 +64,11 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
             {
                 NextPoint = _enemyMoverModel.Points[0];
             }
+        }
+
+        public void OnDead()
+        {
+            Destroy(gameObject);
         }
     }
 }

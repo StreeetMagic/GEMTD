@@ -18,8 +18,6 @@ namespace Gameplay.Fields.EnemySpawners.Enemies
         public void TakeDamage(float damage)
         {
             Health.Value -= damage;
-            Debug.Log("Получил урон: " + damage);
-            Debug.Log("Осталось здоровья: " + Health.Value);
         }
     }
 }
