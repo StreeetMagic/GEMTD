@@ -9,40 +9,24 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
         private EnemyMoverModel _enemyMoverModel;
         private Rigidbody _rigidbody;
 
-        public Vector3 LastReachedCheckpoint { get; set; }
-        public Vector3 NextCheckpoint { get; set; }
-
-        public void ReachCheckpoint()
-        {
-            int lastReachedCheckpointIndex = Array.IndexOf(_enemyMoverModel.CheckPoints, LastReachedCheckpoint);
-
-            LastReachedCheckpoint = NextCheckpoint;
-
-            if (lastReachedCheckpointIndex < _enemyMoverModel.CheckPoints.Length - 1)
-            {
-                NextCheckpoint = _enemyMoverModel.CheckPoints[lastReachedCheckpointIndex + 1];
-            }
-            else
-            {
-                NextCheckpoint = _enemyMoverModel.CheckPoints[0];
-            }
-        }
+        public Vector3 LastReachedPoint { get; set; }
+        public Vector3 NextPoint { get; set; }
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
         }
 
-        public void Init(EnemyMoverModel enemyMoverModel)
-        {
-            _enemyMoverModel = enemyMoverModel;
-            LastReachedCheckpoint = _enemyMoverModel.CheckPoints[0];
-            NextCheckpoint = _enemyMoverModel.CheckPoints[1];
-        }
-
         private void Update()
         {
             Move();
+        }
+
+        public void Init(EnemyMoverModel enemyMoverModel)
+        {
+            _enemyMoverModel = enemyMoverModel;
+            LastReachedPoint = _enemyMoverModel.Points[0];
+            NextPoint = _enemyMoverModel.Points[1];
         }
 
         public void Move()
@@ -52,12 +36,28 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
             Transform cachedTransform = transform;
             Vector3 position = cachedTransform.position;
 
-            _rigidbody.MovePosition(position + (NextCheckpoint - position).normalized * (_enemyMoverModel.Speed * Time.deltaTime));
+            _rigidbody.MovePosition(position + (NextPoint - position).normalized * (_enemyMoverModel.Speed * Time.deltaTime));
 
-            if (Vector3.Distance(transform.position, NextCheckpoint) < MinDistance)
-                ReachCheckpoint();
+            if (Vector3.Distance(transform.position, NextPoint) < MinDistance)
+                ReachPoint();
 
             _enemyMoverModel.Move(transform.position);
+        }
+
+        private void ReachPoint()
+        {
+            int lastReachedCheckpointIndex = Array.IndexOf(_enemyMoverModel.Points, LastReachedPoint);
+
+            LastReachedPoint = NextPoint;
+
+            if (lastReachedCheckpointIndex < _enemyMoverModel.Points.Length - 1)
+            {
+                NextPoint = _enemyMoverModel.Points[lastReachedCheckpointIndex + 1];
+            }
+            else
+            {
+                NextPoint = _enemyMoverModel.Points[0];
+            }
         }
     }
 }

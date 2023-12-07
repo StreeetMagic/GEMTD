@@ -32,7 +32,7 @@ namespace Gameplay.Fields.EnemySpawners
         private void OnEnemySpawned(EnemyModel enemy)
         {
             Vector3 position = enemy.MoverModel.Position;
-            EnemyView enemyView = GameFactoryService.CreateEnemyView(position);
+            EnemyView enemyView = GameFactoryService.CreateEnemyView(position, enemy);
             enemyView.transform.SetParent(EnemyContainerView.transform);
         }
     }
