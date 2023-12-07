@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Gameplay.Checkpoints;
 using Gameplay.Fields.Cells;
+using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.EnemySpawners;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StaticDataServices;
 
@@ -11,11 +12,13 @@ namespace Gameplay.Fields
     {
         private readonly CellModel[] _cellmodels;
 
-        public FieldModel(CellModel[] cellmodels)
+        public FieldModel(CellModel[] cellmodels, EnemySpawnerModel enemyEnemySpawnerModel)
         {
             _cellmodels = cellmodels;
+            EnemySpawnerModel = enemyEnemySpawnerModel;
         }
 
+        public EnemySpawnerModel EnemySpawnerModel { get; }
         public int RoundNumber { get; set; } = 1;
         public CellModel[] CellModels => _cellmodels.ToArray();
         private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();

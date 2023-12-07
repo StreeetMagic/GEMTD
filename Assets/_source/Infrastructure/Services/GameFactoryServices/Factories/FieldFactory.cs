@@ -1,14 +1,16 @@
 ﻿using System.Linq;
 using GameDesign;
-using Gameplay.Blocks;
-using Gameplay.Checkpoints;
 using Gameplay.Fields;
+using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Cells;
+using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.EnemySpawners;
+using Gameplay.Fields.EnemySpawners.EnemyContainers;
 using Gameplay.Fields.Labytinths;
-using Gameplay.Towers;
-using Gameplay.Towers.Shooters;
-using Gameplay.Towers.TargetDetectors;
-using Gameplay.Walls;
+using Gameplay.Fields.Towers;
+using Gameplay.Fields.Towers.Shooters;
+using Gameplay.Fields.Towers.TargetDetectors;
+using Gameplay.Fields.Walls;
 using Games;
 using InfastuctureCore.Services.AssetProviderServices;
 using InfastuctureCore.Services.StaticDataServices;
@@ -31,8 +33,14 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             _currentDataService = currentDataService;
         }
 
-        public FieldModel CreateFieldData() =>
-            new(CreateCellDatas(_staticDataService.Get<FieldConfig>().FieldSize));
+        public FieldModel CreateFieldModel() =>
+            new(CreateCellModels(_staticDataService.Get<FieldConfig>().FieldSize), CreateEnemySpawnerModel());
+
+        private EnemySpawnerModel CreateEnemySpawnerModel() =>
+            new(CreateEnemyContainerModel());
+
+        private EnemyContainerModel CreateEnemyContainerModel() =>
+            new();
 
         public BlockView CreateBlockView(BlockModel blockModel, Transform parent) =>
             _assetProviderService.Instantiate<BlockView>(Constants.AssetsPath.Prefabs.Block, Vector3.zero)
@@ -53,7 +61,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
                 .With(e => e.transform.localPosition = new Vector3(cellModel.CoordinatesValues.X, 0, cellModel.CoordinatesValues.Z))
                 .With(e => e.name = "Cell (" + cellModel.CoordinatesValues.X + ", " + cellModel.CoordinatesValues.Z + ")");
 
-        public FieldView CreateBlockGridView(FieldModel fieldModel) =>
+        public FieldView CreateFieldView(FieldModel fieldModel) =>
             _assetProviderService.Instantiate<FieldView>(Constants.AssetsPath.Prefabs.Field)
                 .With(e => e.Init(fieldModel));
 
@@ -71,13 +79,13 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
 
         public void CreateCheckpointsDatas()
         {
-            CheckpointSettings[] configs = _staticDataService.Get<CheckpointsConfig>().CheckPointSettings;
+            CheckpointValues[] configs = _staticDataService.Get<CheckpointsConfig>().CheckPointSettings;
 
             CheckPointModel[] checkpointDatas = new CheckPointModel[configs.Length];
 
             for (int i = 0; i < configs.Length; i++)
             {
-                CellModel cell = _currentDataService.FieldModel.GetCellDataByCoordinates(configs[i]._coordinatesValues);
+                CellModel cell = _currentDataService.FieldModel.GetCellDataByCoordinates(configs[i].CoordinatesValues);
                 checkpointDatas[i] = CreateCheckPointData(configs[i].Number, cell);
                 cell.SetCheckpointModel(checkpointDatas[i]);
             }
@@ -102,7 +110,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
         private CheckPointModel CreateCheckPointData(int number, CellModel cell) =>
             new CheckPointModel(number, cell);
 
-        private CellModel[] CreateCellDatas(int size) =>
+        private CellModel[] CreateCellModels(int size) =>
             Enumerable.Range(0, size)
                 .SelectMany(i => Enumerable.Range(0, size)
                     .Select(j => new CellModel(new CoordinatesValues(i, j), new BlockModel())))

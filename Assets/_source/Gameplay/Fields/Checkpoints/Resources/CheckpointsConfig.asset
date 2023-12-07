@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e1b47a16304489a82c923fd6266e759, type: 3}
+  m_Name: CheckpointsConfig
+  m_EditorClassIdentifier: 
+  _checkPointSettings:
+  - Number: 0
+    CoordinatesValues:
+      X: 4
+      Z: 32
+  - Number: 1
+    CoordinatesValues:
+      X: 4
+      Z: 18
+  - Number: 2
+    CoordinatesValues:
+      X: 32
+      Z: 18
+  - Number: 3
+    CoordinatesValues:
+      X: 32
+      Z: 32
+  - Number: 4
+    CoordinatesValues:
+      X: 18
+      Z: 32
+  - Number: 5
+    CoordinatesValues:
+      X: 18
+      Z: 4
+  - Number: 6
+    CoordinatesValues:
+      X: 32
+      Z: 4

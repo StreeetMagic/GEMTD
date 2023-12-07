@@ -7,19 +7,17 @@ namespace Infrastructure.GameStateMachines
 {
     public class GameStateMachineModel
     {
-        public GameStateMachineModel(MonoBehaviour coroutineRunner, string initialSceneName)
+        public GameStateMachineModel(string initialSceneName)
         {
-            CoroutineRunner = coroutineRunner;
-            SceneLoader = new SceneLoader(CoroutineRunner, initialSceneName);
+            SceneLoader = new SceneLoader(initialSceneName);
         }
 
-        public MonoBehaviour CoroutineRunner { get; }
         public SceneLoader SceneLoader { get; }
 
         public void RegisterStates(IStateMachineService<GameStateMachineModel> gameStateMachine, MonoBehaviour coroutineRunner)
         {
             gameStateMachine.Register(new BootstrapState(gameStateMachine, coroutineRunner));
-            gameStateMachine.Register(new LoadLevelState(gameStateMachine));
+            gameStateMachine.Register(new LoadLevelState(gameStateMachine, SceneLoader));
             gameStateMachine.Register(new GameLoopState());
             gameStateMachine.Register(new PrototypeState());
         }

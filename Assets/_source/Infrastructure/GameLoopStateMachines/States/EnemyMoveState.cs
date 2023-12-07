@@ -1,5 +1,7 @@
-﻿using InfastuctureCore.Services.StateMachineServices;
+﻿using InfastuctureCore.ServiceLocators;
+using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StateMachineServices.States;
+using Infrastructure.Services.CurrentDataServices;
 using UnityEngine;
 
 namespace Infrastructure.GameLoopStateMachines.States
@@ -13,10 +15,13 @@ namespace Infrastructure.GameLoopStateMachines.States
             _gameLoopStateMachine = gameLoopStateMachine;
         }
 
+        private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
+
         public void Enter()
         {
             Debug.Log(" Entered EnemyMoveState");
-            _gameLoopStateMachine.Enter<PlaceWallsState>();
+
+            CurrentDataService.FieldModel.EnemySpawnerModel.Spawn(() => { _gameLoopStateMachine.Enter<PlaceWallsState>(); });
         }
 
         public void Exit()
