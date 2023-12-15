@@ -11,6 +11,7 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
 
         public Vector2Int LastReachedPoint { get; set; }
         public Vector2Int NextPoint { get; set; }
+        private int _nextCheckPointIndex;
 
         private void Awake()
         {
@@ -27,6 +28,7 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
             _enemyMoverModel = enemyMoverModel;
             LastReachedPoint = _enemyMoverModel.Points[0];
             NextPoint = _enemyMoverModel.Points[1];
+            _nextCheckPointIndex = 1;
             _enemyMoverModel.Dead += OnDead;
         }
 
@@ -42,28 +44,44 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
             Transform cachedTransform = transform;
             Vector3 position = cachedTransform.position;
 
-            _rigidbody.MovePosition(position + (new Vector3(NextPoint.x - LastReachedPoint.x, 0, NextPoint.y - LastReachedPoint.y)).normalized * (_enemyMoverModel.Speed * Time.deltaTime));
+            float newXposition = Mathf.MoveTowards(position.x, NextPoint.x, _enemyMoverModel.Speed * Time.deltaTime);
+            float newZposition = Mathf.MoveTowards(position.z, NextPoint.y, _enemyMoverModel.Speed * Time.deltaTime);
 
-            if (Vector3.Distance(transform.position, new Vector3(NextPoint.x, 0, NextPoint.y)) < MinDistance)
+            cachedTransform.position = new Vector3(newXposition, 0, newZposition);
+
+            float distance = Vector3.Distance(transform.position, new Vector3(NextPoint.x, 0, NextPoint.y));
+
+            if (distance < MinDistance)
+            {
                 ReachPoint();
+            }
+            else
+            {
+                Debug.LogWarning("Иду дальше");
+            }
 
             _enemyMoverModel.Move(transform.position);
         }
 
         private void ReachPoint()
         {
-            int lastReachedCheckpointIndex = Array.IndexOf(_enemyMoverModel.Points, LastReachedPoint);
+            transform.position = new Vector3(NextPoint.x, 0, NextPoint.y);
 
             LastReachedPoint = NextPoint;
 
-            NextPoint = lastReachedCheckpointIndex < _enemyMoverModel.Points.Length - 1
-                ? _enemyMoverModel.Points[lastReachedCheckpointIndex + 1]
-                : _enemyMoverModel.Points[0];
+            if (LastReachedPoint == _enemyMoverModel.Points[^1])
+            {
+                _enemyMoverModel.Die();
+                return;
+            }
+
+            _nextCheckPointIndex++;
+            NextPoint = _enemyMoverModel.Points[_nextCheckPointIndex];
         }
 
-        public void OnDead()
+        private void OnDead()
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
