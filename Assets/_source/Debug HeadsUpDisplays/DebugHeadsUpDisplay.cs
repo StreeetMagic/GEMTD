@@ -6,6 +6,7 @@ using InfastuctureCore.Services.StateMachineServices.States;
 using InfastuctureCore.Utilities;
 using Infrastructure.GameLoopStateMachines;
 using Infrastructure.GameLoopStateMachines.States;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,10 +15,8 @@ namespace Debug_HeadsUpDisplays
     public class DebugHeadsUpDisplay : MonoBehaviour
     {
         [SerializeField] private Button _finishPlacingWalls;
+        [SerializeField] private TextMeshProUGUI _gameLoopStateMachineActiveState;
 
-        [SerializeField] private Button _timeScaleButton;
-
-        // [SerializeField] private Button _button3;
         private PlaceWallsState _placeWallsState;
         private CoroutineDecorator _coroutine;
 
@@ -25,17 +24,7 @@ namespace Debug_HeadsUpDisplays
 
         private void Awake()
         {
-            _coroutine = new CoroutineDecorator(this, EnableButton);
-            _placeWallsState = GameLoopStateMachine.Get<PlaceWallsState>();
-            _finishPlacingWalls.interactable = false;
-
-            _finishPlacingWalls.onClick.AddListener(() =>
-            {
-                _finishPlacingWalls.interactable = false;
-                _placeWallsState.PlaceWalls();
-            });
-
-            _timeScaleButton.onClick.AddListener(() => { Time.timeScale = 1; });
+            InitFinishWallPlaceButton();
         }
 
         private void OnEnable()
@@ -48,6 +37,51 @@ namespace Debug_HeadsUpDisplays
             _placeWallsState.Entered -= OnPlaceWallsStateEntered;
         }
 
+        private void Update()
+        {
+            if (GameLoopStateMachine != null)
+            {
+                var state = GameLoopStateMachine.ActiveState;
+
+                switch (state)
+                {
+                    case ChooseTowerState:
+                        _gameLoopStateMachineActiveState.text = "ChooseTowerState";
+                        break;
+
+                    case EnemyMoveState:
+                        _gameLoopStateMachineActiveState.text = "EnemyMoveState";
+                        break;
+
+                    case LoseState:
+                        _gameLoopStateMachineActiveState.text = "LoseState";
+                        break;
+
+                    case PlaceWallsState:
+                        _gameLoopStateMachineActiveState.text = "PlaceWallsState";
+                        break;
+
+                    case WinState:
+                        _gameLoopStateMachineActiveState.text = "WinState";
+                        break;
+                }
+            }
+        }
+
+        private void InitFinishWallPlaceButton()
+        {
+            _coroutine = new CoroutineDecorator(this, EnableButton);
+            _placeWallsState = GameLoopStateMachine.Get<PlaceWallsState>();
+            _finishPlacingWalls.interactable = false;
+
+            _finishPlacingWalls.onClick.AddListener(() =>
+            {
+                Debug.Log("Кнопка нажата");
+                _finishPlacingWalls.interactable = false;
+                _placeWallsState.PlaceWalls();
+            });
+        }
+
         private void OnPlaceWallsStateEntered(IExitableState obj)
         {
             _coroutine.Start();
@@ -58,6 +92,10 @@ namespace Debug_HeadsUpDisplays
             yield return null;
 
             _finishPlacingWalls.interactable = true;
+
+            onComplete?.Invoke();
+            
+            _coroutine.Stop();
         }
     }
 }

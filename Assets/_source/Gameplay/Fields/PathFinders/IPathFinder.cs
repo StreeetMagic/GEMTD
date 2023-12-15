@@ -22,8 +22,6 @@ namespace Gameplay.Fields.PathFinders
     {
         public void FindPath(CellModel[] field, Vector2Int startCoordinatesValues, Vector2Int finishCoordinates, List<Vector2Int> path)
         {
-            List<GameObject> debugTexts = new List<GameObject>();
-
             List<Cell> allCells = new List<Cell>();
 
             Cell startCell = null;
@@ -47,12 +45,7 @@ namespace Gameplay.Fields.PathFinders
 
             Queue<Cell> queue = new Queue<Cell>();
 
-            Debug.LogWarning("Стартовая клетка координаты " + startCell.Coordinates);
             queue.Enqueue(startCell);
-
-            var fdt = Object.Instantiate(Resources.Load<CellDebugText>("CellDebugText"), new Vector3(startCell.Coordinates.x, 0, startCell.Coordinates.y), Quaternion.identity);
-            fdt.Text.text = "(" + startCell.Coordinates.x + ", " + startCell.Coordinates.y + ")" + "\n " + startCell.Distance;
-            debugTexts.Add(fdt.gameObject);
 
             while (queue.Count > 0)
             {
@@ -68,11 +61,6 @@ namespace Gameplay.Fields.PathFinders
 
                     cell.IsVisited = true;
 
-                    Debug.LogWarning("Мы нашли конец и закончили поиск пути");
-                    var finishCellText = Object.Instantiate(Resources.Load<CellDebugText>("CellDebugText"), new Vector3(cell.Coordinates.x, 0, cell.Coordinates.y), Quaternion.identity);
-                    finishCellText.Text.text = "(" + cell.Coordinates.x + ", " + cell.Coordinates.y + ")" + "\n " + cell.Distance;
-                    debugTexts.Add(fdt.gameObject);
-
                     int distance = cell.Distance;
 
                     List<Cell> locanReversePath = new List<Cell>();
@@ -80,16 +68,7 @@ namespace Gameplay.Fields.PathFinders
 
                     while (true)
                     {
-                        Debug.LogWarning("Начало форич");
-
-                        foreach (var pathik in locanReversePath)
-                            Debug.LogWarning(pathik.Coordinates);
-
-                        Debug.LogWarning("Конец форич");
-
                         Cell[] localNeighbours = GetCellNeighbours(cell, allCells.ToArray());
-
-                        Debug.LogWarning(localNeighbours.Length);
 
                         CellDebugText localCellText = null;
 
@@ -99,37 +78,18 @@ namespace Gameplay.Fields.PathFinders
                             {
                                 if (localNeighbour.Distance == 0)
                                 {
-                                    Debug.LogWarning("КОНЕЦ");
 
                                     locanReversePath.Add(localNeighbour);
 
                                     locanReversePath.Reverse();
-
-                                    foreach (GameObject variable in debugTexts)
-                                    {
-                                        Object.Destroy(variable);
-                                    }
 
                                     foreach (Cell localCell in locanReversePath)
                                     {
                                         path.Add(localCell.Coordinates);
                                     }
 
-                                    localCellText = Object.Instantiate(Resources.Load<CellDebugText>("CellDebugText"), new Vector3(localNeighbour.Coordinates.x, 0, localNeighbour.Coordinates.y), Quaternion.identity);
-                                    localCellText.Text.text = "(" + localNeighbour.Coordinates.x + ", " + localNeighbour.Coordinates.y + ")" + "\n " + localNeighbour.Distance;
-                                    debugTexts.Add(fdt.gameObject);
-
-                                    foreach (var debugText in debugTexts)
-                                    {
-                                        Object.Destroy(debugText);
-                                    }
-
                                     return;
                                 }
-
-                                localCellText = Object.Instantiate(Resources.Load<CellDebugText>("CellDebugText"), new Vector3(localNeighbour.Coordinates.x, 0, localNeighbour.Coordinates.y), Quaternion.identity);
-                                localCellText.Text.text = "(" + localNeighbour.Coordinates.x + ", " + localNeighbour.Coordinates.y + ")" + "\n " + localNeighbour.Distance;
-                                debugTexts.Add(fdt.gameObject);
 
                                 distance--;
                                 cell = localNeighbour;
@@ -150,10 +110,6 @@ namespace Gameplay.Fields.PathFinders
                         neighbour.IsVisited = true;
                         neighbour.Distance = cell.Distance + 1;
                         queue.Enqueue(neighbour);
-
-                        var cdt = Object.Instantiate(Resources.Load<CellDebugText>("CellDebugText"), new Vector3(neighbour.Coordinates.x, 0, neighbour.Coordinates.y), Quaternion.identity);
-                        cdt.Text.text = "(" + neighbour.Coordinates.x + ", " + neighbour.Coordinates.y + ")" + "\n " + neighbour.Distance;
-                        debugTexts.Add(cdt.gameObject);
                     }
                 }
             }

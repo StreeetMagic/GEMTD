@@ -19,21 +19,16 @@ namespace Infrastructure.GameStateMachines.States
 
         public void Enter(string sceneName)
         {
-            Debug.Log("Entered LoadLevelState");
-
             _sceneLoader.Load(sceneName, OnSceneLoaded);
         }
 
         public void Enter()
         {
-            Debug.Log("Entered LoadLevelState");
-
             _sceneLoader.Load(OnSceneLoaded);
         }
 
         public void Exit()
         {
-            Debug.Log("Exited LoadLevelState");
         }
 
         private void OnSceneLoaded(string name)

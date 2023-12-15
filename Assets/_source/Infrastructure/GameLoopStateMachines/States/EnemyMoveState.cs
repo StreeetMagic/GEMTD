@@ -19,14 +19,11 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         public void Enter()
         {
-            Debug.Log(" Entered EnemyMoveState");
-
             CurrentDataService.FieldModel.EnemySpawnerModel.Spawn(() => { _gameLoopStateMachine.Enter<PlaceWallsState>(); });
         }
 
         public void Exit()
         {
-            Debug.Log("Exited EnemyMoveState");
         }
     }
 }

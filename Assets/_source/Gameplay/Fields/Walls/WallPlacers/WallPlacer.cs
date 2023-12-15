@@ -29,6 +29,7 @@ namespace Gameplay.Fields.Walls.WallPlacers
             RemoveTowers(wallsCoordinates);
             PlaceWalls(wallsCoordinates);
 
+            Debug.Log("Закончил ставить башни");
             onComplete?.Invoke();
         }
 

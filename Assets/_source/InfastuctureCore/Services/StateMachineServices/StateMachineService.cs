@@ -5,7 +5,7 @@ namespace InfastuctureCore.Services.StateMachineServices
 {
     public class StateMachineService<TData> : IStateMachineService<TData> where TData : class
     {
-        private IExitableState _activeState;
+        public IExitableState ActiveState { get; private set; }
 
         public StateMachineService(TData data)
         {
@@ -44,9 +44,9 @@ namespace InfastuctureCore.Services.StateMachineServices
 
         private TState ChangeState<TState>() where TState : class, IExitableState
         {
-            _activeState?.Exit();
+            ActiveState?.Exit();
             var state = Get<TState>();
-            _activeState = state;
+            ActiveState = state;
             return state;
         }
     }

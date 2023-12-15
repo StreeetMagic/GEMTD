@@ -7,12 +7,10 @@ namespace Infrastructure.GameLoopStateMachines.States
     {
         public void Enter()
         {
-            Debug.Log("Entered Win State");
         }
 
         public void Exit()
         {
-            Debug.Log("Exited Win State");
         }
     }
 }
