@@ -18,7 +18,7 @@ namespace Debug_HeadsUpDisplays
         [SerializeField] private TextMeshProUGUI _gameLoopStateMachineActiveState;
 
         private PlaceWallsState _placeWallsState;
-        private CoroutineDecorator _coroutine;
+        // private CoroutineDecorator _coroutine;
 
         private IStateMachineService<GameLoopStateMachineData> GameLoopStateMachine => ServiceLocator.Instance.Get<IStateMachineService<GameLoopStateMachineData>>();
 
@@ -70,32 +70,20 @@ namespace Debug_HeadsUpDisplays
 
         private void InitFinishWallPlaceButton()
         {
-            _coroutine = new CoroutineDecorator(this, EnableButton);
             _placeWallsState = GameLoopStateMachine.Get<PlaceWallsState>();
             _finishPlacingWalls.interactable = false;
 
             _finishPlacingWalls.onClick.AddListener(() =>
             {
                 Debug.Log("Кнопка нажата");
-                _finishPlacingWalls.interactable = false;
+                //_finishPlacingWalls.interactable = false;
                 _placeWallsState.PlaceWalls();
             });
         }
 
         private void OnPlaceWallsStateEntered(IExitableState obj)
         {
-            _coroutine.Start();
-        }
-
-        private IEnumerator EnableButton(Action onComplete)
-        {
-            yield return null;
-
             _finishPlacingWalls.interactable = true;
-
-            onComplete?.Invoke();
-            
-            _coroutine.Stop();
         }
     }
 }
