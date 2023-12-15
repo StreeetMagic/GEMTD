@@ -19,7 +19,8 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         public void Enter()
         {
-            CurrentDataService.FieldModel.EnemySpawnerModel.Spawn(() => { _gameLoopStateMachine.Enter<PlaceWallsState>(); });
+            //CurrentDataService.FieldModel.EnemySpawnerModel.Spawn(() => { _gameLoopStateMachine.Enter<PlaceWallsState>(); });
+            _gameLoopStateMachine.Enter<PlaceWallsState>();
         }
 
         public void Exit()
