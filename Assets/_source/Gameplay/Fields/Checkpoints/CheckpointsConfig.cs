@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using InfastuctureCore.Services;
+using InfastuctureCore.Services.StaticDataServices;
 using UnityEngine;
 using UnityEngine.Serialization;
 

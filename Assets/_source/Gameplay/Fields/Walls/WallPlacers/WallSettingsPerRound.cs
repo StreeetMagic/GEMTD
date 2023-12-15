@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Gameplay.Fields.Cells;
 using UnityEngine;
 
 namespace Gameplay.Fields.Walls.WallPlacers

@@ -40,6 +40,9 @@ namespace Gameplay.Fields.PathFinders
                     finishCell = item;
             }
 
+            if (startCell == null)
+                return;
+
             startCell.Distance = 0;
             startCell.IsVisited = true;
 
@@ -70,15 +73,12 @@ namespace Gameplay.Fields.PathFinders
                     {
                         Cell[] localNeighbours = GetCellNeighbours(cell, allCells.ToArray());
 
-                        CellDebugText localCellText = null;
-
                         foreach (Cell localNeighbour in localNeighbours)
                         {
                             if (localNeighbour.Distance == distance - 1)
                             {
                                 if (localNeighbour.Distance == 0)
                                 {
-
                                     locanReversePath.Add(localNeighbour);
 
                                     locanReversePath.Reverse();

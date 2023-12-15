@@ -2,7 +2,6 @@ using Games;
 using InfastuctureCore.SceneLoaders;
 using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StateMachineServices.States;
-using UnityEngine;
 
 namespace Infrastructure.GameStateMachines.States
 {

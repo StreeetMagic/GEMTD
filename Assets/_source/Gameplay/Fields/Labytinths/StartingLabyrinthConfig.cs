@@ -1,5 +1,5 @@
 using System.Linq;
-using InfastuctureCore.Services;
+using InfastuctureCore.Services.StaticDataServices;
 using UnityEngine;
 
 namespace Gameplay.Fields.Labytinths

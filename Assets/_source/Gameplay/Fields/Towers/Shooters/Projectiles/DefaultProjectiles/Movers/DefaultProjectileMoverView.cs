@@ -1,5 +1,4 @@
-﻿using Gameplay.Fields.EnemySpawners.Enemies;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles.Movers
 {

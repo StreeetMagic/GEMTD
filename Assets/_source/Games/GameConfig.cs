@@ -1,4 +1,4 @@
-using InfastuctureCore.Services;
+using InfastuctureCore.Services.StaticDataServices;
 using UnityEngine;
 
 namespace Games

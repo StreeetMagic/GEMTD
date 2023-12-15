@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using Gameplay.Fields.Cells;
-using InfastuctureCore.Services;
+using InfastuctureCore.Services.StaticDataServices;
 using UnityEngine;
 
 namespace GameDesign

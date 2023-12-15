@@ -1,8 +1,6 @@
 ﻿using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
-using InfastuctureCore.Services.StateMachineServices.States;
 using Infrastructure.Services.CurrentDataServices;
-using UnityEngine;
 
 namespace Infrastructure.GameLoopStateMachines.States
 {
