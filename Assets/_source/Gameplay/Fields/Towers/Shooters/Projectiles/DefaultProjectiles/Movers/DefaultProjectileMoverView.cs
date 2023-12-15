@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Gameplay.Fields.EnemySpawners.Enemies;
+using UnityEngine;
 
 namespace Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles.Movers
 {
@@ -9,7 +10,7 @@ namespace Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles.Movers
         
         private Rigidbody Rigidbody { get; set; }
 
-        public void Init(IProjectileMoverModel moverModel, Transform target)
+        public void Init(IProjectileMoverModel moverModel)
         {
             _moverModel = moverModel;
         }
@@ -21,7 +22,7 @@ namespace Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles.Movers
 
         private void FixedUpdate()
         {
-            Rigidbody.MovePosition(Vector3.MoveTowards(transform.position, _moverModel.Target.position, _moverModel.Speed * Time.fixedDeltaTime));
+            Rigidbody.MovePosition(Vector3.MoveTowards(transform.position, _moverModel.Target.MoverModel.Position, _moverModel.Speed * Time.fixedDeltaTime));
             _moverModel.Move(Rigidbody.position);
         }
     }

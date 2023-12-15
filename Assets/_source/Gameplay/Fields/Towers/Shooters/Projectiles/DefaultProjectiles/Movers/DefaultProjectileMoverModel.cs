@@ -1,16 +1,19 @@
-﻿using UnityEngine;
+﻿using Gameplay.Fields.EnemySpawners.Enemies;
+using UnityEngine;
 
 namespace Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles.Movers
 {
     class DefaultProjectileMoverModel : IProjectileMoverModel
     {
         public float Speed { get; set; } = 10f;
-        public Transform Target { get; set; }
+        public EnemyModel Target { get; set; }
         public Vector3 Position { get; private set; }
+        public IProjectileModel ProjectileModel { get; }
 
-        public DefaultProjectileMoverModel(Transform target)
+        public DefaultProjectileMoverModel(EnemyModel target, IProjectileModel projectileModel)
         {
             Target = target;
+            ProjectileModel = projectileModel;
         }
 
         public void Move(Vector3 position)

@@ -118,3 +118,67 @@ MonoBehaviour:
     - {x: 9, y: 11}
     - {x: 8, y: 11}
     - {x: 6, y: 10}
+  - RoundNumber: 13
+    DestroyList: []
+    PlaceList:
+    - {x: 6, y: 11}
+    - {x: 6, y: 12}
+    - {x: 7, y: 13}
+    - {x: 8, y: 13}
+    - {x: 9, y: 13}
+  - RoundNumber: 14
+    DestroyList: []
+    PlaceList:
+    - {x: 10, y: 14}
+    - {x: 10, y: 13}
+    - {x: 11, y: 13}
+    - {x: 11, y: 11}
+    - {x: 12, y: 11}
+  - RoundNumber: 15
+    DestroyList: []
+    PlaceList:
+    - {x: 9, y: 15}
+    - {x: 8, y: 15}
+    - {x: 7, y: 15}
+    - {x: 6, y: 15}
+    - {x: 5, y: 14}
+  - RoundNumber: 16
+    DestroyList: []
+    PlaceList:
+    - {x: 4, y: 13}
+    - {x: 4, y: 12}
+    - {x: 4, y: 11}
+    - {x: 3, y: 11}
+    - {x: 2, y: 11}
+  - RoundNumber: 17
+    DestroyList: []
+    PlaceList:
+    - {x: 1, y: 11}
+    - {x: 0, y: 13}
+    - {x: 1, y: 13}
+    - {x: 2, y: 13}
+    - {x: 11, y: 14}
+  - RoundNumber: 18
+    DestroyList: []
+    PlaceList:
+    - {x: 11, y: 2}
+    - {x: 11, y: 1}
+    - {x: 10, y: 1}
+    - {x: 9, y: 1}
+    - {x: 8, y: 1}
+  - RoundNumber: 19
+    DestroyList: []
+    PlaceList:
+    - {x: 7, y: 1}
+    - {x: 6, y: 1}
+    - {x: 5, y: 1}
+    - {x: 4, y: 1}
+    - {x: 3, y: 2}
+  - RoundNumber: 20
+    DestroyList: []
+    PlaceList:
+    - {x: 2, y: 3}
+    - {x: 1, y: 4}
+    - {x: 1, y: 5}
+    - {x: 1, y: 6}
+    - {x: 1, y: 7}

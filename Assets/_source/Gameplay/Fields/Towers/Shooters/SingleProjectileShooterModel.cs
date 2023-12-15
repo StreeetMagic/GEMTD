@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Gameplay.Fields.EnemySpawners.Enemies;
 using Gameplay.Fields.Towers.Shooters.Projectiles.ProjectileContainers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.CoroutineRunnerServices;
@@ -12,12 +13,12 @@ namespace Gameplay.Fields.Towers.Shooters
 {
     class SingleProjectileShooterModel : IShooter
     {
-        private Transform _currentTarget;
+        private EnemyModel _currentTarget;
         private CoroutineDecorator _coroutine;
 
-        public List<Transform> Targets { get; set; } = new();
         public Transform ShootingPoint { get; set; }
         public ProjectileContainerModel ProjectileContainerModel { get; set; }
+        public List<EnemyModel> Targets { get; set; } = new();
 
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
         private MonoBehaviour CoroutineRunner => ServiceLocator.Instance.Get<ICoroutineRunnerService>().Instance;
@@ -49,24 +50,26 @@ namespace Gameplay.Fields.Towers.Shooters
             }
         }
 
-        public void AddTarget(Transform otherTransform)
+        public void AddTarget(EnemyModel target)
         {
-            if (!Targets.Contains(otherTransform))
+            if (!Targets.Contains(target))
             {
-                Targets.Add(otherTransform);
+                Targets.Add(target);
+                target.Died += OnTargetDied;
             }
         }
 
-        public void RemoveTarget(Transform otherTransform)
+        public void RemoveTarget(EnemyModel target)
         {
-            if (Targets.Contains(otherTransform))
+            if (Targets.Contains(target))
             {
-                if (_currentTarget == otherTransform)
+                if (_currentTarget == target)
                 {
                     _currentTarget = null;
                 }
 
-                Targets.Remove(otherTransform);
+                Targets.Remove(target);
+                target.Died -= OnTargetDied;
             }
         }
 
@@ -80,6 +83,22 @@ namespace Gameplay.Fields.Towers.Shooters
             }
 
             onComplete?.Invoke();
+        }
+
+        private void OnTargetDied(EnemyModel target)
+        {
+            if (_currentTarget == target)
+            {
+                _currentTarget = null;
+            }
+
+            if (Targets.Contains(target))
+            {
+            }
+
+            {
+                Targets.Remove(target);
+            }
         }
     }
 }

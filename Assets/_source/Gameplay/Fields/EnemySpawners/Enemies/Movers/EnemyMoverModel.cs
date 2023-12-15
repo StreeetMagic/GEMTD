@@ -14,7 +14,7 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers
         public event Action Dead;
 
         public Vector3 Position { get; set; }
-        public float Speed { get; set; } = 20;
+        public float Speed { get; set; } = 5;
         public Vector2Int[] Points { get; }
 
         public void Move(Vector3 position)

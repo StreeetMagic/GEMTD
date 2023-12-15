@@ -8,10 +8,10 @@ namespace Gameplay.Fields.EnemySpawners.Enemies
 {
     public class EnemyModel
     {
-        public ReactiveProperty<float> Health { get; } = new();
+        public ReactiveProperty<float> Health { get; } = new() { Value = 50 };
         public EnemyMoverModel MoverModel { get; set; }
 
-        public event Action Died;
+        public event Action<EnemyModel> Died;
 
         public EnemyModel(Vector3 position, Vector2Int[] points)
         {
@@ -24,7 +24,7 @@ namespace Gameplay.Fields.EnemySpawners.Enemies
 
             if (Health.Value <= 0)
             {
-                Died?.Invoke();
+                Died?.Invoke(this);
             }
         }
     }
