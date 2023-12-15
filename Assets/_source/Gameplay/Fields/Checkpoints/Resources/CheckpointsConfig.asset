@@ -14,30 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _checkPointSettings:
   - Number: 0
-    CoordinatesValues:
-      X: 4
-      Z: 32
+    Coordinates: {x: 1, y: 7}
   - Number: 1
-    CoordinatesValues:
-      X: 4
-      Z: 18
+    Coordinates: {x: 1, y: 4}
   - Number: 2
-    CoordinatesValues:
-      X: 32
-      Z: 18
+    Coordinates: {x: 7, y: 4}
   - Number: 3
-    CoordinatesValues:
-      X: 32
-      Z: 32
+    Coordinates: {x: 7, y: 7}
   - Number: 4
-    CoordinatesValues:
-      X: 18
-      Z: 32
+    Coordinates: {x: 4, y: 7}
   - Number: 5
-    CoordinatesValues:
-      X: 18
-      Z: 4
+    Coordinates: {x: 4, y: 1}
   - Number: 6
-    CoordinatesValues:
-      X: 32
-      Z: 4
+    Coordinates: {x: 7, y: 1}
