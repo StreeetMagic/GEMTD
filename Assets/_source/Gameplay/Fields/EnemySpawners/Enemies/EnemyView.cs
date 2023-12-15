@@ -1,4 +1,5 @@
-﻿using Gameplay.Fields.EnemySpawners.Enemies.Movers;
+﻿using System;
+using Gameplay.Fields.EnemySpawners.Enemies.Movers;
 using Gameplay.Fields.EnemySpawners.Enemies.TriggerAreas;
 using UnityEngine;
 
@@ -24,6 +25,18 @@ namespace Gameplay.Fields.EnemySpawners.Enemies
             EnemyModel = enemyModel;
             _enemyMoverView.Init(EnemyModel.MoverModel);
             _triggerAreaView.Init(EnemyModel);
+            
+            EnemyModel.Died += OnDied;
+        }
+
+        private void OnDestroy()
+        {
+            EnemyModel.Died -= OnDied; 
+        }
+
+        private void OnDied()
+        {
+             gameObject.SetActive(false);
         }
     }
 }

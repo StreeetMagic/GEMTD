@@ -34,7 +34,6 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         public void PlaceWalls()
         {
-            Debug.Log("Зашли в метод PlaceWalls");
             _towerPlacer.PlaceTowers(onComplete: () => { _gameLoopStateMachine.Enter<EnemyMoveState>(); });
         }
     }
