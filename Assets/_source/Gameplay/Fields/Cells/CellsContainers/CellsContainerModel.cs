@@ -14,10 +14,10 @@ namespace Gameplay.Fields.Cells.CellsContainers
         public CellModel[] CellModels { get; set; }
 
         public CellModel GetCellModel(Vector2Int coordinatesValues) =>
-            CellModels.FirstOrDefault(cellData => cellData.CoordinatesValues.Equals(coordinatesValues));
+            CellModels.FirstOrDefault(cellData => cellData.Coordinates.Equals(coordinatesValues));
 
         public CellModel GetCellModelByCoordinates(Vector2Int coordinatesValues) =>
-            CellModels.FirstOrDefault(cellData => cellData.CoordinatesValues.x == coordinatesValues.x && cellData.CoordinatesValues.y == coordinatesValues.y);
+            CellModels.FirstOrDefault(cellData => cellData.Coordinates.x == coordinatesValues.x && cellData.Coordinates.y == coordinatesValues.y);
 
         public CheckPointModel[] GetCheckPointModels() =>
             CellModels

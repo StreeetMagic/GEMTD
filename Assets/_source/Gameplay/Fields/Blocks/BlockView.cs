@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Gameplay.Fields.Blocks
 {
-    [RequireComponent(typeof(Renderer))]
     public class BlockView : MonoBehaviour
     {
         private Material _defaultMaterial;

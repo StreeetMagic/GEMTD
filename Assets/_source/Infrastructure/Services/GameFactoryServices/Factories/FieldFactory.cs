@@ -58,8 +58,8 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             _assetProviderService.Instantiate<CellView>(Constants.AssetsPath.Prefabs.Cell, Vector3.zero)
                 .With(e => e.Init(cellModel))
                 .With(e => e.transform.SetParent(transform))
-                .With(e => e.transform.localPosition = new Vector3(cellModel.CoordinatesValues.x, 0, cellModel.CoordinatesValues.y))
-                .With(e => e.name = "Cell (" + cellModel.CoordinatesValues.x + ", " + cellModel.CoordinatesValues.y + ")");
+                .With(e => e.transform.localPosition = new Vector3(cellModel.Coordinates.x, 0, cellModel.Coordinates.y))
+                .With(e => e.name = "Cell (" + cellModel.Coordinates.x + ", " + cellModel.Coordinates.y + ")");
 
         public FieldView CreateFieldView(FieldModel fieldModel) =>
             _assetProviderService.Instantiate<FieldView>(Constants.AssetsPath.Prefabs.Field)
