@@ -75,8 +75,7 @@ namespace Debug_HeadsUpDisplays
 
             _finishPlacingWalls.onClick.AddListener(() =>
             {
-                Debug.Log("Кнопка нажата");
-                //_finishPlacingWalls.interactable = false;
+                _finishPlacingWalls.interactable = false;
                 _placeWallsState.PlaceWalls();
             });
         }

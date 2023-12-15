@@ -60,7 +60,7 @@ namespace Gameplay.Fields.EnemySpawners
             Vector2Int[] points = GetPoints();
 
             WaitForSeconds wait = new(0.5f);
-            int count = 1;
+            int count = 10;
 
             Vector2Int coordinates = StaticDataService.Get<CheckpointsConfig>().CheckPointSettings[0].Coordinates;
             Vector3 startingPosition = new(coordinates.x, 0, coordinates.y);
