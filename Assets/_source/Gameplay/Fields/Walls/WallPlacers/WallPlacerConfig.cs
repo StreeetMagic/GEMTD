@@ -9,11 +9,10 @@ namespace Gameplay.Fields.Walls.WallPlacers
     [CreateAssetMenu(fileName = "WallPlacerConfig", menuName = "Configs/WallPlacerConfig")]
     public class WallPlacerConfig : ScriptableObject, IStaticData
     {
-        public int SAVER;
         public int towerPerRound = 5;
         public List<WallSettingsPerRound> WallSettingsPerRounds = new();
 
-        public void AddPlacedTower(CoordinatesValues coordinatesValues)
+        public void AddPlacedTower(Vector2Int coordinatesValues)
         {
             if (WallSettingsPerRounds.Count == 0)
             {
@@ -32,7 +31,7 @@ namespace Gameplay.Fields.Walls.WallPlacers
                 lastWallSettingsPerRound.PlaceList.Add(coordinatesValues);
         }
 
-        public void RemovePlacedTower(CoordinatesValues coordinatesValues)
+        public void RemovePlacedTower(Vector2Int coordinatesValues)
         {
             var lastWallSettingsPerRound = WallSettingsPerRounds.LastOrDefault();
 

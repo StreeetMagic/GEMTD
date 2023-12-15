@@ -4,6 +4,7 @@ using Gameplay.Fields.Cells.CellsContainers;
 using Gameplay.Fields.EnemySpawners;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StaticDataServices;
+using UnityEngine;
 
 namespace Gameplay.Fields
 {
@@ -21,11 +22,11 @@ namespace Gameplay.Fields
 
         private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
 
-        public CoordinatesValues[] GetCentralWalls(int towerPerRound)
+        public Vector2Int[] GetCentralWalls(int towerPerRound)
         {
             int size = StaticDataService.Get<FieldConfig>().FieldSize;
             int centralCoordinate = size / 2 + 1;
-            List<CoordinatesValues> coordinates = new List<CoordinatesValues>();
+            List<Vector2Int> coordinates = new List<Vector2Int>();
 
             while (coordinates.Count < towerPerRound)
             {
@@ -50,17 +51,17 @@ namespace Gameplay.Fields
             return coordinates.ToArray();
         }
 
-        private void FindValidCoordinates(int centralCoordinate, int i, List<CoordinatesValues> coordinates, int towerPerRound)
+        private void FindValidCoordinates(int centralCoordinate, int i, List<Vector2Int> coordinates, int towerPerRound)
         {
             for (int x = centralCoordinate - i; x < centralCoordinate + i; x++)
             {
                 for (int z = centralCoordinate - i; z < centralCoordinate + i; z++)
                 {
-                    CellModel cellModel = CellsContainerModel.GetCellModel(new CoordinatesValues(x, z));
+                    CellModel cellModel = CellsContainerModel.GetCellModel(new Vector2Int(x, z));
 
                     if (cellModel.CanBeReplacedWithTower)
                     {
-                        coordinates.Add(new CoordinatesValues(x, z));
+                        coordinates.Add(new Vector2Int(x, z));
                     }
 
                     if (coordinates.Count == towerPerRound)
@@ -71,7 +72,7 @@ namespace Gameplay.Fields
             }
         }
 
-        private bool HasSameCoordinates(CoordinatesValues[] coordinates)
+        private bool HasSameCoordinates(Vector2Int[] coordinates)
         {
             for (int i = 0; i < coordinates.Length; i++)
             {

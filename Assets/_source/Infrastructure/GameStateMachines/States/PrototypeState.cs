@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Infrastructure.GameStateMachines.States
 {
-    public class PrototypeState : IState
+    public class PrototypeState : IGameStateMachineState
     {
         public void Enter()
         {

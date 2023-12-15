@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Infrastructure.GameLoopStateMachines.States
 {
-    public class WinState : IState
+    public class WinState : IGameLoopStateMachineState
     {
         public void Enter()
         {

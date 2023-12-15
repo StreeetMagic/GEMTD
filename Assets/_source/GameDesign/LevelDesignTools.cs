@@ -26,10 +26,10 @@ namespace GameDesign
         [Button]
         public void SaveWallCoordinates()
         {
-            MapWallsConfig.Coordinates = new List<CoordinatesValues>();
+            MapWallsConfig.Coordinates = new List<Vector2Int>();
             WallView[] wallViews = FindObjectsOfType<WallView>();
 
-            CoordinatesValues[] coordinates = new CoordinatesValues[wallViews.Length];
+            Vector2Int[] coordinates = new Vector2Int[wallViews.Length];
 
             for (int i = 0; i < wallViews.Length; i++)
             {
@@ -49,7 +49,7 @@ namespace GameDesign
         [Button]
         public void SavePaintedBlockCoordinates()
         {
-            PaintedBlockConfig.Coordinates = new List<CoordinatesValues>();
+            PaintedBlockConfig.Coordinates = new List<Vector2Int>();
             List<CellView> cellViews = FindObjectsOfType<CellView>().ToList();
 
             foreach (var cellView in cellViews)

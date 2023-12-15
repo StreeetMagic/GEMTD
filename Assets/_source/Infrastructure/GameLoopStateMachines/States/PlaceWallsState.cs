@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Infrastructure.GameLoopStateMachines.States
 {
-    public class PlaceWallsState : IState
+    public class PlaceWallsState : IGameLoopStateMachineState
     {
         private readonly TowerPlacer _towerPlacer = new();
         private readonly IStateMachineService<GameLoopStateMachineData> _gameLoopStateMachine;

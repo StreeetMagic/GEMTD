@@ -21,7 +21,7 @@ using StaticDataService = InfastuctureCore.Services.StaticDataServices.StaticDat
 
 namespace Infrastructure.GameStateMachines.States
 {
-    public class BootstrapState : IState
+    public class BootstrapState : IGameStateMachineState
     {
         private readonly IStateMachineService<GameStateMachineModel> _gameStateMachine;
         private readonly MonoBehaviour _coroutineRunner;

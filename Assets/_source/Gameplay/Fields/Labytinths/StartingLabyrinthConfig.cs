@@ -8,13 +8,13 @@ namespace Gameplay.Fields.Labytinths
     [CreateAssetMenu(menuName = "Configs/Starting Labyrinth Config", fileName = "StartingLabyrinthConfig")]
     public class StartingLabyrinthConfig : ScriptableObject, IStaticData
     {
-        public CoordinatesValues[] _coordinates;
+        public Vector2Int[] _coordinates;
 
-        public void SetCoordinates(CoordinatesValues[] coordinates)
+        public void SetCoordinates(Vector2Int[] coordinates)
         {
             _coordinates = coordinates;
         }
 
-        public CoordinatesValues[] Coordinates => _coordinates.ToArray();
+        public Vector2Int[] Coordinates => _coordinates.ToArray();
     }
 }

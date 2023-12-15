@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class GroundEnemyMoverViewView : MonoBehaviour, IEnemyMoverView
+    public sealed class GroundEnemyMoverViewView : MonoBehaviour, IEnemyMoverView
     {
         private EnemyMoverModel _enemyMoverModel;
         private Rigidbody _rigidbody;

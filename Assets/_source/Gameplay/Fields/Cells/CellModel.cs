@@ -9,7 +9,7 @@ namespace Gameplay.Fields.Cells
 {
     public class CellModel
     {
-        public CellModel(CoordinatesValues coordinatesValues, BlockModel blockModel)
+        public CellModel(Vector2Int coordinatesValues, BlockModel blockModel)
         {
             CoordinatesValues = coordinatesValues;
             BlockModel = blockModel;
@@ -22,7 +22,7 @@ namespace Gameplay.Fields.Cells
         public event Action TowerModelRemoved;
         public event Action TowerModelConfirmed;
 
-        public CoordinatesValues CoordinatesValues { get; }
+        public Vector2Int CoordinatesValues { get; }
         public CheckPointModel CheckPointModel { get; private set; }
         public WallModel WallModel { get; private set; }
         public BlockModel BlockModel { get; private set; }
@@ -30,7 +30,7 @@ namespace Gameplay.Fields.Cells
         public bool TowerIsConfirmed { set; get; }
         public bool IsPassable => WallModel == null && TowerModel == null;
 
-        public Vector3 Position => new Vector3(CoordinatesValues.X, 0, CoordinatesValues.Z);
+        public Vector3 Position => new Vector3(CoordinatesValues.x, 0, CoordinatesValues.y);
         public bool IsEmpty => CheckPointModel == null && WallModel == null && TowerModel == null;
         public bool HasWall => WallModel != null;
         public bool CanBeReplacedWithTower => WallModel != null && TowerModel == null && CheckPointModel == null && TowerIsConfirmed == false;

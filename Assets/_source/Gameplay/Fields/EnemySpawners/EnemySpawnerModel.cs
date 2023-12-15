@@ -41,20 +41,20 @@ namespace Gameplay.Fields.EnemySpawners
             _spawningCoroutine.Start(onComplete);
         }
 
-        private CoordinatesValues[] GetCheckPoints()
+        private Vector2Int[] GetCheckPoints()
         {
             CheckpointValues[] checkPointValues = StaticDataService.Get<CheckpointsConfig>().CheckPointSettings;
 
             foreach (var chp in checkPointValues)
             {
-                Debug.Log(chp.Number + " " + chp.CoordinatesValues.X + " " + chp.CoordinatesValues.Z);
+                Debug.Log(chp.Number + " " + chp.Coordinates.x + " " + chp.Coordinates.y);
             }
 
-            List<CoordinatesValues> checkPoints = new();
+            List<Vector2Int> checkPoints = new();
 
             foreach (CheckpointValues checkPointModel in checkPointValues)
             {
-                checkPoints.Add(checkPointModel.CoordinatesValues);
+                checkPoints.Add(checkPointModel.Coordinates);
             }
 
             return checkPoints.ToArray();
@@ -67,8 +67,8 @@ namespace Gameplay.Fields.EnemySpawners
             WaitForSeconds wait = new(0.5f);
             int count = 1;
 
-            CoordinatesValues coordinates = StaticDataService.Get<CheckpointsConfig>().CheckPointSettings[0].CoordinatesValues;
-            Vector3 startingPosition = new(coordinates.X, 0, coordinates.Z);
+            Vector2Int coordinates = StaticDataService.Get<CheckpointsConfig>().CheckPointSettings[0].Coordinates;
+            Vector3 startingPosition = new(coordinates.x, 0, coordinates.y);
 
             for (int i = 0; i < count; i++)
             {
@@ -83,9 +83,9 @@ namespace Gameplay.Fields.EnemySpawners
 
         private Vector3[] GetPoints()
         {
-            CoordinatesValues[] checkPoints = GetCheckPoints();
+            Vector2Int[] checkPoints = GetCheckPoints();
 
-            List<CoordinatesValues> foundPoints = new();
+            List<Vector2Int> foundPoints = new();
             
             CellModel[] cells = CurrentDataService.FieldModel.CellsContainerModel.CellModels;
 
@@ -98,7 +98,7 @@ namespace Gameplay.Fields.EnemySpawners
 
             foreach (var point in foundPoints)
             {
-                vectorPoints.Add(new Vector3(point.X, 0, point.Z));
+                vectorPoints.Add(new Vector3(point.x, 0, point.y));
             }
 
             return vectorPoints.ToArray();
