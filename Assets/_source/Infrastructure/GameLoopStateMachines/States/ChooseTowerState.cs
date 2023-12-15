@@ -7,12 +7,10 @@ namespace Infrastructure.GameLoopStateMachines.States
     {
         public void Enter()
         {
-            Debug.Log("Entered ChooseTower State");
         }
 
         public void Exit()
         {
-            Debug.Log("Exited ChooseTower State");
         }
     }
 }

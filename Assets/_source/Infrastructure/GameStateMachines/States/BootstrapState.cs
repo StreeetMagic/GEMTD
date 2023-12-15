@@ -36,8 +36,6 @@ namespace Infrastructure.GameStateMachines.States
 
         public void Enter()
         {
-            Debug.Log("Entered Bootstrap State");
-
             RegisterServices(_coroutineRunner);
             RegisterConfigs();
             EnterNextState();
@@ -45,7 +43,6 @@ namespace Infrastructure.GameStateMachines.States
 
         public void Exit()
         {
-            Debug.Log("Exited Bootstrap State");
         }
 
         private void RegisterServices(MonoBehaviour coroutineRunner)

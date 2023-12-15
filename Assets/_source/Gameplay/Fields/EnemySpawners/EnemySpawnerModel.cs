@@ -45,11 +45,6 @@ namespace Gameplay.Fields.EnemySpawners
         {
             CheckpointValues[] checkPointValues = StaticDataService.Get<CheckpointsConfig>().CheckPointSettings;
 
-            foreach (CheckpointValues chp in checkPointValues)
-            {
-                Debug.Log(chp.Number + " " + chp.Coordinates.x + " " + chp.Coordinates.y);
-            }
-
             List<Vector2Int> checkPoints = new();
 
             foreach (CheckpointValues checkPointModel in checkPointValues)
@@ -89,12 +84,10 @@ namespace Gameplay.Fields.EnemySpawners
 
             CellModel[] cells = CurrentDataService.FieldModel.CellsContainerModel.CellModels;
 
-            // for (int i = 0; i < checkPoints.Length - 1; i++)
-            // {
-            //     _pathFinder.FindPath(cells, checkPoints[i], checkPoints[i + 1], foundPoints);
-            // }
-            
-            _pathFinder.FindPath(cells, checkPoints[0], checkPoints[1], foundPoints); // костыль надо убрать
+            for (int i = 0; i < checkPoints.Length - 1; i++)
+            {
+                _pathFinder.FindPath(cells, checkPoints[i], checkPoints[i + 1], foundPoints);
+            }
 
             List<Vector2Int> vectorPoints = new();
 
@@ -102,7 +95,6 @@ namespace Gameplay.Fields.EnemySpawners
             {
                 var vector2Int = new Vector2Int(point.x, point.y);
                 vectorPoints.Add(vector2Int);
-                Debug.LogWarning(vector2Int);
             }
 
             return vectorPoints.ToArray();

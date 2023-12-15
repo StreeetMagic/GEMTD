@@ -32,7 +32,7 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
 
         public void Move()
         {
-            const float MinDistance = 0.1f;
+            const float MinDistance = 0.01f;
 
             Transform cachedTransform = transform;
             Vector3 position = cachedTransform.position;

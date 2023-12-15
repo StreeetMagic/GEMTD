@@ -25,17 +25,16 @@ namespace Infrastructure.GameLoopStateMachines.States
         public void Enter()
         {
             Entered?.Invoke(this);
-            Debug.Log(" Entered PlaceWallsState");
         }
 
         public void Exit()
         {
             CurrentDataService.FieldModel.RoundNumber++;
-            Debug.Log("Exited PlaceWallsState");
         }
 
         public void PlaceWalls()
         {
+            Debug.Log("Зашли в метод PlaceWalls");
             _towerPlacer.PlaceTowers(onComplete: () => { _gameLoopStateMachine.Enter<EnemyMoveState>(); });
         }
     }

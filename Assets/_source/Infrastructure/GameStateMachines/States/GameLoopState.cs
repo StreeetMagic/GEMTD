@@ -21,7 +21,6 @@ namespace Infrastructure.GameStateMachines.States
 
         public void Enter()
         {
-            Debug.Log("Entered GameLoop State");
             CurrentDataService.FieldModel = GameFactoryService.FieldFactory.CreateFieldModel();
             GameFactoryService.FieldFactory.CreateFieldView(CurrentDataService.FieldModel);
             GameFactoryService.FieldFactory.CreateCheckpointsDatas();
@@ -34,7 +33,6 @@ namespace Infrastructure.GameStateMachines.States
 
         public void Exit()
         {
-            Debug.Log("Exited GameLoop State");
         }
 
         private IStateMachineService<GameLoopStateMachineData> CreateGameLoopStateMachine()
