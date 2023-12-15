@@ -4,6 +4,5 @@ namespace Infrastructure.GameStateMachines.States
 {
     public interface IGameStateMachineState : IState
     {
-        
     }
 }

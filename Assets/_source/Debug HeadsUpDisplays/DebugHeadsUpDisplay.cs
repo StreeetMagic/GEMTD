@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StateMachineServices.States;
-using InfastuctureCore.Utilities;
 using Infrastructure.GameLoopStateMachines;
 using Infrastructure.GameLoopStateMachines.States;
 using TMPro;

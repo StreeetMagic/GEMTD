@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Gameplay.Fields.Cells;
 using Gameplay.Fields.Towers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StaticDataServices;

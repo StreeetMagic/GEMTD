@@ -1,7 +1,4 @@
-﻿using InfastuctureCore.Services.StateMachineServices.States;
-using UnityEngine;
-
-namespace Infrastructure.GameLoopStateMachines.States
+﻿namespace Infrastructure.GameLoopStateMachines.States
 {
     public class WinState : IGameLoopStateMachineState
     {

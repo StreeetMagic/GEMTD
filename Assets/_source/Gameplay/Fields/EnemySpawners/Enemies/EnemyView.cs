@@ -1,5 +1,4 @@
-﻿using System;
-using Gameplay.Fields.EnemySpawners.Enemies.Movers;
+﻿using Gameplay.Fields.EnemySpawners.Enemies.Movers;
 using Gameplay.Fields.EnemySpawners.Enemies.TriggerAreas;
 using UnityEngine;
 
@@ -36,8 +35,9 @@ namespace Gameplay.Fields.EnemySpawners.Enemies
 
         private void OnDied(EnemyModel enemyModel)
         {
-            gameObject.SetActive(false);
-            Destroy(gameObject);
+            GameObject cachedGameObject;
+            (cachedGameObject = gameObject).SetActive(false);
+            Destroy(cachedGameObject);
         }
     }
 }

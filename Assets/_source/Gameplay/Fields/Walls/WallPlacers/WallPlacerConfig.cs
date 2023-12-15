@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Gameplay.Fields.Cells;
-using InfastuctureCore.Services;
+using InfastuctureCore.Services.StaticDataServices;
 using UnityEngine;
 
 namespace Gameplay.Fields.Walls.WallPlacers
