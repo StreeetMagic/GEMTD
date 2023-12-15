@@ -19,7 +19,7 @@ namespace Gameplay.Fields.EnemySpawners
     public class EnemySpawnerModel
     {
         private CoroutineDecorator _spawningCoroutine;
-        private IPathFinder _pathFinder = new BreadthFirstPathFinder();
+        private IPathFinder _pathFinder = new CheckPointPathFinder();
 
         public EnemySpawnerModel(EnemyContainerModel containerModel)
         {

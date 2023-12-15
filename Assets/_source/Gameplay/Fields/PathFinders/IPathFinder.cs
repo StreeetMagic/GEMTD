@@ -11,11 +11,20 @@ namespace Gameplay.Fields.PathFinders
         void FindPath(CellModel[] field, Vector2Int startCoordinatesValues, Vector2Int finishCoordinates, List<Vector2Int> path);
     }
 
+    public class CheckPointPathFinder : IPathFinder
+    {
+        public void FindPath(CellModel[] field, Vector2Int startCoordinatesValues, Vector2Int finishCoordinates, List<Vector2Int> path)
+        {
+            path.Add(startCoordinatesValues);
+            path.Add(finishCoordinates);
+        }
+    }
+
     public class BreadthFirstPathFinder : IPathFinder
     {
         public void FindPath(CellModel[] field, Vector2Int startCoordinatesValues, Vector2Int finishCoordinates, List<Vector2Int> path)
         {
-            Debug.Log("Строю маршрут от " + startCoordinatesValues.x + " " + startCoordinatesValues.y + " до " + finishCoordinates.x + " " + finishCoordinates.y);
+            Debug.LogWarning("Строю маршрут от " + startCoordinatesValues.x + " " + startCoordinatesValues.y + " до " + finishCoordinates.x + " " + finishCoordinates.y);
 
             List<Cell> allCells = new List<Cell>();
 
@@ -60,13 +69,13 @@ namespace Gameplay.Fields.PathFinders
 
                             int finishDistance = currentCell.Distance;
 
-                            Debug.Log("Определили конец: " + finishDistance);
+                            Debug.LogWarning("Определили конец: " + finishDistance);
 
                             while (finishDistance > 0)
                             {
                                 finishDistance--;
 
-                                Debug.Log("Distance: " + finishDistance);
+                                Debug.LogWarning("Distance: " + finishDistance);
 
                                 Cell[] newNeighbours = GetCellNeighbours(currentCell, allCells.ToArray());
 
@@ -74,7 +83,7 @@ namespace Gameplay.Fields.PathFinders
                                 {
                                     if (newNeighbour.Distance == 0)
                                     {
-                                        Debug.Log("ДАААААА СУКААА");
+                                        Debug.LogWarning("ДАААААА СУКААА");
 
                                         currentCell = newNeighbour;
 
@@ -82,7 +91,7 @@ namespace Gameplay.Fields.PathFinders
 
                                         localPath.Reverse();
 
-                                        Debug.Log("Нашелся путь: " + localPath.Count);
+                                        Debug.LogWarning("Нашелся путь: " + localPath.Count);
 
                                         path.AddRange(localPath);
 
