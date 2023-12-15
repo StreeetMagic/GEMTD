@@ -34,7 +34,7 @@ namespace GameDesign
             for (int i = 0; i < wallViews.Length; i++)
             {
                 WallView wallView = wallViews[i];
-                coordinates[i] = wallView.GetComponentInParent<CellView>().CelLModel.CoordinatesValues;
+                coordinates[i] = wallView.GetComponentInParent<CellView>().CelLModel.Coordinates;
             }
 
             MapWallsConfig.Coordinates = coordinates.ToList();
@@ -56,7 +56,7 @@ namespace GameDesign
             {
                 if (cellView.IsPainted)
                 {
-                    PaintedBlockConfig.Coordinates.Add(cellView.CelLModel.CoordinatesValues);
+                    PaintedBlockConfig.Coordinates.Add(cellView.CelLModel.Coordinates);
                 }
             }
         }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
@@ -7,16 +6,10 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
     public sealed class GroundEnemyMoverViewView : MonoBehaviour, IEnemyMoverView
     {
         private EnemyMoverModel _enemyMoverModel;
-        private Rigidbody _rigidbody;
 
         public Vector2Int LastReachedPoint { get; set; }
         public Vector2Int NextPoint { get; set; }
         private int _nextCheckPointIndex;
-
-        private void Awake()
-        {
-            _rigidbody = GetComponent<Rigidbody>();
-        }
 
         private void Update()
         {
@@ -54,10 +47,6 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
             if (distance < MinDistance)
             {
                 ReachPoint();
-            }
-            else
-            {
-                Debug.LogWarning("Иду дальше");
             }
 
             _enemyMoverModel.Move(transform.position);

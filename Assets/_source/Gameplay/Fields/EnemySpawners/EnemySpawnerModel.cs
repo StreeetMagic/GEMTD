@@ -19,7 +19,7 @@ namespace Gameplay.Fields.EnemySpawners
     public class EnemySpawnerModel
     {
         private CoroutineDecorator _spawningCoroutine;
-        private IPathFinder _pathFinder = new CheckPointPathFinder();
+        private IPathFinder _pathFinder = new BreadthFirstPathFinder();
 
         public EnemySpawnerModel(EnemyContainerModel containerModel)
         {
@@ -89,16 +89,20 @@ namespace Gameplay.Fields.EnemySpawners
 
             CellModel[] cells = CurrentDataService.FieldModel.CellsContainerModel.CellModels;
 
-            for (int i = 0; i < checkPoints.Length - 1; i++)
-            {
-                _pathFinder.FindPath(cells, checkPoints[i], checkPoints[i + 1], foundPoints);
-            }
+            // for (int i = 0; i < checkPoints.Length - 1; i++)
+            // {
+            //     _pathFinder.FindPath(cells, checkPoints[i], checkPoints[i + 1], foundPoints);
+            // }
+            
+            _pathFinder.FindPath(cells, checkPoints[0], checkPoints[1], foundPoints); // костыль надо убрать
 
             List<Vector2Int> vectorPoints = new();
 
             foreach (Vector2Int point in foundPoints)
             {
-                vectorPoints.Add(new Vector2Int(point.x, point.y));
+                var vector2Int = new Vector2Int(point.x, point.y);
+                vectorPoints.Add(vector2Int);
+                Debug.LogWarning(vector2Int);
             }
 
             return vectorPoints.ToArray();

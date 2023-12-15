@@ -70,7 +70,7 @@ namespace GameDesign
         {
             if (PlaceWall(out var cellData))
             {
-                WallPlacerConfig.AddPlacedTower(cellData.CoordinatesValues);
+                WallPlacerConfig.AddPlacedTower(cellData.Coordinates);
             }
         }
 
@@ -78,7 +78,7 @@ namespace GameDesign
         {
             if (RemoveWall(out var removedCellData))
             {
-                WallPlacerConfig.RemovePlacedTower(removedCellData.CoordinatesValues);
+                WallPlacerConfig.RemovePlacedTower(removedCellData.Coordinates);
             }
         }
 
