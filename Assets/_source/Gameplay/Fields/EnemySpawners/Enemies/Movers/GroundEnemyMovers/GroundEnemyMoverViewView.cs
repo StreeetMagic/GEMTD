@@ -9,8 +9,8 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
         private EnemyMoverModel _enemyMoverModel;
         private Rigidbody _rigidbody;
 
-        public Vector3 LastReachedPoint { get; set; }
-        public Vector3 NextPoint { get; set; }
+        public Vector2Int LastReachedPoint { get; set; }
+        public Vector2Int NextPoint { get; set; }
 
         private void Awake()
         {
@@ -42,9 +42,9 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
             Transform cachedTransform = transform;
             Vector3 position = cachedTransform.position;
 
-            _rigidbody.MovePosition(position + (NextPoint - position).normalized * (_enemyMoverModel.Speed * Time.deltaTime));
+            _rigidbody.MovePosition(position + (new Vector3(NextPoint.x - LastReachedPoint.x, 0, NextPoint.y - LastReachedPoint.y)).normalized * (_enemyMoverModel.Speed * Time.deltaTime));
 
-            if (Vector3.Distance(transform.position, NextPoint) < MinDistance)
+            if (Vector3.Distance(transform.position, new Vector3(NextPoint.x, 0, NextPoint.y)) < MinDistance)
                 ReachPoint();
 
             _enemyMoverModel.Move(transform.position);
@@ -56,14 +56,9 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
 
             LastReachedPoint = NextPoint;
 
-            if (lastReachedCheckpointIndex < _enemyMoverModel.Points.Length - 1)
-            {
-                NextPoint = _enemyMoverModel.Points[lastReachedCheckpointIndex + 1];
-            }
-            else
-            {
-                NextPoint = _enemyMoverModel.Points[0];
-            }
+            NextPoint = lastReachedCheckpointIndex < _enemyMoverModel.Points.Length - 1
+                ? _enemyMoverModel.Points[lastReachedCheckpointIndex + 1]
+                : _enemyMoverModel.Points[0];
         }
 
         public void OnDead()

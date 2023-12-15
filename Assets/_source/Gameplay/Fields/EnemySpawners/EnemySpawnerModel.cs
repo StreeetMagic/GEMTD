@@ -45,7 +45,7 @@ namespace Gameplay.Fields.EnemySpawners
         {
             CheckpointValues[] checkPointValues = StaticDataService.Get<CheckpointsConfig>().CheckPointSettings;
 
-            foreach (var chp in checkPointValues)
+            foreach (CheckpointValues chp in checkPointValues)
             {
                 Debug.Log(chp.Number + " " + chp.Coordinates.x + " " + chp.Coordinates.y);
             }
@@ -62,7 +62,7 @@ namespace Gameplay.Fields.EnemySpawners
 
         private IEnumerator Spawning(Action onComplete)
         {
-            Vector3[] points = GetPoints();
+            Vector2Int[] points = GetPoints();
 
             WaitForSeconds wait = new(0.5f);
             int count = 1;
@@ -81,12 +81,12 @@ namespace Gameplay.Fields.EnemySpawners
             onComplete?.Invoke();
         }
 
-        private Vector3[] GetPoints()
+        private Vector2Int[] GetPoints()
         {
             Vector2Int[] checkPoints = GetCheckPoints();
 
             List<Vector2Int> foundPoints = new();
-            
+
             CellModel[] cells = CurrentDataService.FieldModel.CellsContainerModel.CellModels;
 
             for (int i = 0; i < checkPoints.Length - 1; i++)
@@ -94,11 +94,11 @@ namespace Gameplay.Fields.EnemySpawners
                 _pathFinder.FindPath(cells, checkPoints[i], checkPoints[i + 1], foundPoints);
             }
 
-            List<Vector3> vectorPoints = new();
+            List<Vector2Int> vectorPoints = new();
 
-            foreach (var point in foundPoints)
+            foreach (Vector2Int point in foundPoints)
             {
-                vectorPoints.Add(new Vector3(point.x, 0, point.y));
+                vectorPoints.Add(new Vector2Int(point.x, point.y));
             }
 
             return vectorPoints.ToArray();

@@ -10,7 +10,7 @@ namespace Gameplay.Fields.EnemySpawners.Enemies
         public ReactiveProperty<float> Health { get; } = new();
         public EnemyMoverModel MoverModel { get; set; }
 
-        public EnemyModel(Vector3 position, Vector3[] points)
+        public EnemyModel(Vector3 position, Vector2Int[] points)
         {
             MoverModel = new EnemyMoverModel(position, points.ToArray());
         }

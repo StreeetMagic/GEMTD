@@ -17,7 +17,7 @@ namespace Infrastructure.Services.GameFactoryServices
 
         void CreateProjectile(Transform shootingPoint, Transform target);
 
-        EnemyModel CreateEnemyModel(Vector3 at, Vector3[] points);
+        EnemyModel CreateEnemyModel(Vector3 at, Vector2Int[] points);
 
         EnemyView CreateEnemyView(Vector3 position, EnemyModel model);
     }
@@ -42,7 +42,7 @@ namespace Infrastructure.Services.GameFactoryServices
             _assetProvider.Instantiate<DefaultProjectileView>(Constants.AssetsPath.Prefabs.Projectile, shootingPoint.position)
                 .With(e => e.Init(new DefaultProjectileModel(target), target));
 
-        public EnemyModel CreateEnemyModel(Vector3 at, Vector3[] points) =>
+        public EnemyModel CreateEnemyModel(Vector3 at, Vector2Int[] points) =>
             new EnemyModel(at, points);
 
         public EnemyView CreateEnemyView(Vector3 position, EnemyModel model) =>
