@@ -5,7 +5,7 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers
 {
     public class EnemyMoverModel
     {
-        public EnemyMoverModel(Vector3 position, Vector3[] points)
+        public EnemyMoverModel(Vector3 position, Vector2Int[] points)
         {
             Position = position;
             Points = points;
@@ -15,13 +15,15 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers
 
         public Vector3 Position { get; set; }
         public float Speed { get; set; } = 5f;
-        public Vector3[] Points { get; set; }
+        public Vector2Int[] Points { get; }
 
         public void Move(Vector3 position)
         {
+            const float Tolerance = 0.01f;
+
             Position = position;
 
-            if (Position == Points[Points.Length - 1])
+            if (Math.Abs(Position.x - Points[^1].x) < Tolerance && Math.Abs(Position.z - Points[^1].y) < Tolerance)
             {
                 Die();
             }
