@@ -34,7 +34,7 @@ namespace Gameplay.Fields.Walls.WallPlacers
         }
 
         private List<Vector2Int> GetWallCoordinates() =>
-            CurrentDataService.FieldModel.RoundNumber < WallPlacerConfig.WallSettingsPerRounds.Count
+            CurrentDataService.FieldModel.RoundNumber <= WallPlacerConfig.WallSettingsPerRounds.Count
                 ? WallPlacerConfig.WallSettingsPerRounds[CurrentDataService.FieldModel.RoundNumber - 1].PlaceList
                 : CurrentDataService.FieldModel.GetCentralWalls(WallPlacerConfig.towerPerRound).ToList();
 
