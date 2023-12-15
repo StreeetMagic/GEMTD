@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Infrastructure.GameStateMachines.States
 {
-    public class LoadLevelState : IState, IPayloadedState<string>
+    public class LoadLevelState : IGameStateMachineState, IPayloadedState<string>
     {
         private readonly IStateMachineService<GameStateMachineModel> _gameStateMachine;
         private readonly SceneLoader _sceneLoader;

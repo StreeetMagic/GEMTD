@@ -8,6 +8,6 @@ namespace GameDesign
     [CreateAssetMenu(menuName = "Configs/MapWallsConfig", fileName = "MapWallsConfig")]
     public class MapWallsConfig : ScriptableObject, IStaticData
     {
-        public List<CoordinatesValues> Coordinates;
+        public List<Vector2Int> Coordinates;
     }
 }

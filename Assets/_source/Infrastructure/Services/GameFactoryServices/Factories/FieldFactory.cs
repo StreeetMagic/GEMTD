@@ -58,8 +58,8 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             _assetProviderService.Instantiate<CellView>(Constants.AssetsPath.Prefabs.Cell, Vector3.zero)
                 .With(e => e.Init(cellModel))
                 .With(e => e.transform.SetParent(transform))
-                .With(e => e.transform.localPosition = new Vector3(cellModel.CoordinatesValues.X, 0, cellModel.CoordinatesValues.Z))
-                .With(e => e.name = "Cell (" + cellModel.CoordinatesValues.X + ", " + cellModel.CoordinatesValues.Z + ")");
+                .With(e => e.transform.localPosition = new Vector3(cellModel.CoordinatesValues.x, 0, cellModel.CoordinatesValues.y))
+                .With(e => e.name = "Cell (" + cellModel.CoordinatesValues.x + ", " + cellModel.CoordinatesValues.y + ")");
 
         public FieldView CreateFieldView(FieldModel fieldModel) =>
             _assetProviderService.Instantiate<FieldView>(Constants.AssetsPath.Prefabs.Field)
@@ -85,7 +85,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
 
             for (int i = 0; i < configs.Length; i++)
             {
-                CellModel cell = _currentDataService.FieldModel.CellsContainerModel.GetCellModelByCoordinates(configs[i].CoordinatesValues);
+                CellModel cell = _currentDataService.FieldModel.CellsContainerModel.GetCellModelByCoordinates(configs[i].Coordinates);
                 checkpointDatas[i] = CreateCheckPointData(configs[i].Number, cell);
                 cell.SetCheckpointModel(checkpointDatas[i]);
             }
@@ -113,7 +113,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
         private CellModel[] CreateCellModels(int size) =>
             Enumerable.Range(0, size)
                 .SelectMany(i => Enumerable.Range(0, size)
-                    .Select(j => new CellModel(new CoordinatesValues(i, j), new BlockModel())))
+                    .Select(j => new CellModel(new Vector2Int(i, j), new BlockModel())))
                 .ToArray();
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Infrastructure.GameLoopStateMachines.States
 {
-    public class EnemyMoveState : IState
+    public class EnemyMoveState : IGameLoopStateMachineState
     {
         private IStateMachineService<GameLoopStateMachineData> _gameLoopStateMachine;
 

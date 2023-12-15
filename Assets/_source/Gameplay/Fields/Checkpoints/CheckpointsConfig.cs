@@ -3,6 +3,7 @@ using System.Linq;
 using Gameplay.Fields.Cells;
 using InfastuctureCore.Services;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.Fields.Checkpoints
 {
@@ -19,6 +20,7 @@ namespace Gameplay.Fields.Checkpoints
     {
         [Range(0, 6)] public int Number;
 
-        public CoordinatesValues CoordinatesValues;
+        [FormerlySerializedAs("CoordinatesValues")]
+        public Vector2Int Coordinates;
     }
 }

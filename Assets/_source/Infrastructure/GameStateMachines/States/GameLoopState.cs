@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Infrastructure.GameStateMachines.States
 {
-    public class GameLoopState : IState
+    public class GameLoopState : IGameStateMachineState
     {
         private IStateMachineService<GameLoopStateMachineData> _gameLoopStateMachine;
 

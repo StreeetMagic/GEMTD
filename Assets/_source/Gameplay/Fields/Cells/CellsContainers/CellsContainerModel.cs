@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Gameplay.Fields.Checkpoints;
+using UnityEngine;
 
 namespace Gameplay.Fields.Cells.CellsContainers
 {
@@ -12,11 +13,11 @@ namespace Gameplay.Fields.Cells.CellsContainers
 
         public CellModel[] CellModels { get; set; }
 
-        public CellModel GetCellModel(CoordinatesValues coordinatesValues) =>
+        public CellModel GetCellModel(Vector2Int coordinatesValues) =>
             CellModels.FirstOrDefault(cellData => cellData.CoordinatesValues.Equals(coordinatesValues));
 
-        public CellModel GetCellModelByCoordinates(CoordinatesValues coordinatesValues) =>
-            CellModels.FirstOrDefault(cellData => cellData.CoordinatesValues.X == coordinatesValues.X && cellData.CoordinatesValues.Z == coordinatesValues.Z);
+        public CellModel GetCellModelByCoordinates(Vector2Int coordinatesValues) =>
+            CellModels.FirstOrDefault(cellData => cellData.CoordinatesValues.x == coordinatesValues.x && cellData.CoordinatesValues.y == coordinatesValues.y);
 
         public CheckPointModel[] GetCheckPointModels() =>
             CellModels

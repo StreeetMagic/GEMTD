@@ -8,14 +8,14 @@ namespace Gameplay.Fields.PathFinders
 {
     public interface IPathFinder
     {
-        void FindPath(CellModel[] field, CoordinatesValues startCoordinatesValues, CoordinatesValues finishCoordinates, List<CoordinatesValues> path);
+        void FindPath(CellModel[] field, Vector2Int startCoordinatesValues, Vector2Int finishCoordinates, List<Vector2Int> path);
     }
 
     public class BreadthFirstPathFinder : IPathFinder
     {
-        public void FindPath(CellModel[] field, CoordinatesValues startCoordinatesValues, CoordinatesValues finishCoordinates, List<CoordinatesValues> path)
+        public void FindPath(CellModel[] field, Vector2Int startCoordinatesValues, Vector2Int finishCoordinates, List<Vector2Int> path)
         {
-            Debug.Log("Строю маршрут от " + startCoordinatesValues.X + " " + startCoordinatesValues.Z + " до " + finishCoordinates.X + " " + finishCoordinates.Z);
+            Debug.Log("Строю маршрут от " + startCoordinatesValues.x + " " + startCoordinatesValues.y + " до " + finishCoordinates.x + " " + finishCoordinates.y);
 
             List<Cell> allCells = new List<Cell>();
 
@@ -23,10 +23,8 @@ namespace Gameplay.Fields.PathFinders
                 allCells.Add(new Cell(cell.CoordinatesValues, cell.IsPassable));
 
             TryGetCell(allCells, startCoordinatesValues, out Cell startCell);
-            startCell.IsStart = true;
 
             TryGetCell(allCells, finishCoordinates, out Cell finishCell);
-            finishCell.IsFinish = true;
 
             Queue<Cell> queue = new Queue<Cell>();
 
@@ -52,11 +50,11 @@ namespace Gameplay.Fields.PathFinders
 
                         queue.Enqueue(neighbour);
 
-                        if (neighbour.CoordinatesValues.X == finishCoordinates.X && neighbour.CoordinatesValues.Z == finishCoordinates.Z)
+                        if (neighbour.CoordinatesValues.x == finishCoordinates.x && neighbour.CoordinatesValues.y == finishCoordinates.y)
                         {
                             currentCell = neighbour;
 
-                            List<CoordinatesValues> localPath = new List<CoordinatesValues>();
+                            List<Vector2Int> localPath = new List<Vector2Int>();
 
                             localPath.Add(currentCell.CoordinatesValues);
 
@@ -105,11 +103,11 @@ namespace Gameplay.Fields.PathFinders
             }
         }
 
-        private bool TryGetCell(List<Cell> allCells, CoordinatesValues coordinatesValues, out Cell thisCell)
+        private bool TryGetCell(List<Cell> allCells, Vector2Int coordinatesValues, out Cell thisCell)
         {
             foreach (Cell cell in allCells)
             {
-                if (cell.CoordinatesValues.X == coordinatesValues.X && cell.CoordinatesValues.Z == coordinatesValues.Z)
+                if (cell.CoordinatesValues.x == coordinatesValues.x && cell.CoordinatesValues.y == coordinatesValues.y)
                 {
                     thisCell = cell;
                     return true;
@@ -123,20 +121,20 @@ namespace Gameplay.Fields.PathFinders
         private Cell[] GetCellNeighbours(Cell cell, Cell[] field)
         {
             List<Cell> fieldList = new List<Cell>(field);
-            CoordinatesValues cellCoordinates = cell.CoordinatesValues;
+            Vector2Int cellCoordinates = cell.CoordinatesValues;
 
             List<Cell> neighbours = new List<Cell>();
 
-            if (TryGetCell(fieldList, new CoordinatesValues(cellCoordinates.X - 1, cellCoordinates.Z), out Cell leftCell) && leftCell.IsVisited == false && leftCell.IsPassable)
+            if (TryGetCell(fieldList, new Vector2Int(cellCoordinates.x - 1, cellCoordinates.y), out Cell leftCell) && leftCell.IsVisited == false && leftCell.IsPassable)
                 neighbours.Add(leftCell);
 
-            if (TryGetCell(fieldList, new CoordinatesValues(cellCoordinates.X + 1, cellCoordinates.Z), out Cell rightCell) && rightCell.IsVisited == false && rightCell.IsPassable)
+            if (TryGetCell(fieldList, new Vector2Int(cellCoordinates.x + 1, cellCoordinates.y), out Cell rightCell) && rightCell.IsVisited == false && rightCell.IsPassable)
                 neighbours.Add(rightCell);
 
-            if (TryGetCell(fieldList, new CoordinatesValues(cellCoordinates.X, cellCoordinates.Z - 1), out Cell downCell) && downCell.IsVisited == false && downCell.IsPassable)
+            if (TryGetCell(fieldList, new Vector2Int(cellCoordinates.x, cellCoordinates.y - 1), out Cell downCell) && downCell.IsVisited == false && downCell.IsPassable)
                 neighbours.Add(downCell);
 
-            if (TryGetCell(fieldList, new CoordinatesValues(cellCoordinates.X, cellCoordinates.Z + 1), out Cell upCell) && upCell.IsVisited == false && upCell.IsPassable)
+            if (TryGetCell(fieldList, new Vector2Int(cellCoordinates.x, cellCoordinates.y + 1), out Cell upCell) && upCell.IsVisited == false && upCell.IsPassable)
                 neighbours.Add(upCell);
 
             return neighbours.ToArray();
@@ -144,14 +142,12 @@ namespace Gameplay.Fields.PathFinders
 
         private class Cell
         {
-            public CoordinatesValues CoordinatesValues;
-            public bool IsFinish;
-            public bool IsStart;
+            public Vector2Int CoordinatesValues;
             public bool IsVisited;
             public int Distance;
             public bool IsPassable;
 
-            public Cell(CoordinatesValues coordinatesValues, bool isPassable)
+            public Cell(Vector2Int coordinatesValues, bool isPassable)
             {
                 CoordinatesValues = coordinatesValues;
                 IsPassable = isPassable;
