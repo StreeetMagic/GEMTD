@@ -1,4 +1,6 @@
-﻿using Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles.Movers;
+﻿using System;
+using Gameplay.Fields.EnemySpawners.Enemies;
+using Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles.Movers;
 using UnityEngine;
 
 namespace Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles
@@ -9,10 +11,22 @@ namespace Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles
 
         public IProjectileModel ProjectileModel { get; set; }
 
-        public void Init(IProjectileModel projectileModel, Transform target)
+        public void Init(IProjectileModel projectileModel)
         {
             ProjectileModel = projectileModel;
-            MoverView.Init(ProjectileModel.Mover, target);
+            MoverView.Init(ProjectileModel.Mover);
+            ProjectileModel.Mover.Target.Died += OnTargetDied;
+        }
+
+        private void OnDestroy()
+        {
+            ProjectileModel.Mover.Target.Died -= OnTargetDied;
+        }
+
+        private void OnTargetDied(EnemyModel enemyModel)
+        {
+            gameObject.SetActive(false);
+            Destroy();
         }
 
         public void Destroy() =>

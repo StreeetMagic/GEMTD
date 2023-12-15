@@ -25,18 +25,19 @@ namespace Gameplay.Fields.EnemySpawners.Enemies
             EnemyModel = enemyModel;
             _enemyMoverView.Init(EnemyModel.MoverModel);
             _triggerAreaView.Init(EnemyModel);
-            
+
             EnemyModel.Died += OnDied;
         }
 
         private void OnDestroy()
         {
-            EnemyModel.Died -= OnDied; 
+            EnemyModel.Died -= OnDied;
         }
 
-        private void OnDied()
+        private void OnDied(EnemyModel enemyModel)
         {
-             gameObject.SetActive(false);
+            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

@@ -15,19 +15,19 @@ namespace Gameplay.Fields.Towers.TargetDetectors
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out EnemyView _))
+            if (other.TryGetComponent(out EnemyView view))
             {
-                _shooter.AddTarget(other.transform);
+                _shooter.AddTarget(view.EnemyModel);
             }
         }
 
         public void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(out EnemyView _))
+            if (other.TryGetComponent(out EnemyView view))
             {
-                if (_shooter.Targets.Contains(other.transform))
+                if (_shooter.Targets.Contains(view.EnemyModel))
                 {
-                    _shooter.RemoveTarget(other.transform);
+                    _shooter.RemoveTarget(view.EnemyModel);
                 }
             }
         }
