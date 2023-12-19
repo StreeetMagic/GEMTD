@@ -18,8 +18,8 @@ namespace Gameplay.Fields.EnemySpawners
 {
     public class EnemySpawnerModel
     {
-        private CoroutineDecorator _spawningCoroutine;
-        private IPathFinder _pathFinder = new BreadthFirstPathFinder();
+        private readonly CoroutineDecorator _spawningCoroutine;
+        private readonly IPathFinder _pathFinder = new BreadthFirstPathFinder();
 
         public EnemySpawnerModel(EnemyContainerModel containerModel)
         {
@@ -29,14 +29,14 @@ namespace Gameplay.Fields.EnemySpawners
 
         public event Action<EnemyModel> EnemySpawned;
 
-        public EnemyContainerModel ContainerModel { get; }
+        private EnemyContainerModel ContainerModel { get; }
 
         private MonoBehaviour CoroutineRunner => ServiceLocator.Instance.Get<ICoroutineRunnerService>().Instance;
         private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
         private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
 
-        public void Spawn(Action onComplete)
+        public void Spawn(Action onComplete = null)
         {
             _spawningCoroutine.Start(onComplete);
         }
@@ -59,8 +59,8 @@ namespace Gameplay.Fields.EnemySpawners
         {
             Vector2Int[] points = GetPoints();
 
-            WaitForSeconds wait = new(0.3f);
-            int count = 8;
+            WaitForSeconds wait = new(0.5f);
+            int count = 3;
 
             Vector2Int coordinates = StaticDataService.Get<CheckpointsConfig>().CheckPointSettings[0].Coordinates;
             Vector3 startingPosition = new(coordinates.x, 0, coordinates.y);
@@ -68,7 +68,7 @@ namespace Gameplay.Fields.EnemySpawners
             for (int i = 0; i < count; i++)
             {
                 EnemyModel enemy = GameFactoryService.CreateEnemyModel(startingPosition, points);
-                ContainerModel.Enemies.Add(enemy);
+                ContainerModel.AddEnemy(enemy);
                 EnemySpawned?.Invoke(enemy);
                 yield return wait;
             }

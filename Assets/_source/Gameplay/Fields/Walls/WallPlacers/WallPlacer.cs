@@ -30,9 +30,11 @@ namespace Gameplay.Fields.Walls.WallPlacers
         public async UniTask ConfirmTower(CellModel cellModel)
         {
             List<Vector2Int> wallsCoordinates = GetWallCoordinates().ToList();
+            
             await UniTask.Delay(_wallPlacementDelay);
             cellModel.ConfirmTower();
             wallsCoordinates.Remove(cellModel.Coordinates);
+            
             await ReplaceTowersWithWalls(wallsCoordinates);
         }
 
