@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using Gameplay.Fields.Walls.WallPlacers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
@@ -9,12 +10,13 @@ namespace Infrastructure.GameLoopStateMachines.States
 {
     public class PlaceWallsState : IGameLoopStateMachineState
     {
-        private readonly TowerPlacer _towerPlacer = new();
+        private readonly TowerPlacer _towerPlacer;
         private readonly IStateMachineService<GameLoopStateMachineData> _gameLoopStateMachine;
 
-        public PlaceWallsState(IStateMachineService<GameLoopStateMachineData> gameLoopStateMachine)
+        public PlaceWallsState(IStateMachineService<GameLoopStateMachineData> gameLoopStateMachine, TowerPlacer towerPlacer)
         {
             _gameLoopStateMachine = gameLoopStateMachine;
+            _towerPlacer = towerPlacer;
         }
 
         public event Action<IState> Entered;
@@ -23,17 +25,20 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         public void Enter()
         {
+            CurrentDataService.FieldModel.RoundNumber++;
             Entered?.Invoke(this);
+
+            UniTask asd = PlaceWalls();
         }
 
         public void Exit()
         {
-            CurrentDataService.FieldModel.RoundNumber++;
         }
 
-        public void PlaceWalls()
+        private async UniTask PlaceWalls()
         {
-            _towerPlacer.PlaceTowers(onComplete: () => { _gameLoopStateMachine.Enter<EnemyMoveState>(); });
+            await _towerPlacer.PlaceTowers();
+            _gameLoopStateMachine.Enter<ChooseTowerState>();
         }
     }
 }

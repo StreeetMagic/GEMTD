@@ -7,6 +7,7 @@ using InfastuctureCore.Utilities;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices.Factories;
 using UnityEngine;
+using UserInterface;
 using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticDataService;
 
 namespace Infrastructure.Services.GameFactoryServices
@@ -15,6 +16,8 @@ namespace Infrastructure.Services.GameFactoryServices
     {
         FieldFactory FieldFactory { get; }
 
+        UserInterfaceFactory UserInterfaceFactory { get; }
+        
         void CreateProjectile(Transform shootingPoint, EnemyModel target);
 
         EnemyModel CreateEnemyModel(Vector3 at, Vector2Int[] points);
@@ -32,11 +35,13 @@ namespace Infrastructure.Services.GameFactoryServices
         {
             FieldFactory = new FieldFactory(assetProvider, staticData, currentData);
             _assetProvider = assetProvider;
+            UserInterfaceFactory = new UserInterfaceFactory(_assetProvider);
             // _staticData = staticData;
             // _currentData = currentData;
         }
 
         public FieldFactory FieldFactory { get; }
+        public UserInterfaceFactory UserInterfaceFactory { get; }
 
         public void CreateProjectile(Transform shootingPoint, EnemyModel target) =>
             _assetProvider.Instantiate<DefaultProjectileView>(Constants.AssetsPath.Prefabs.Projectile, shootingPoint.position)
@@ -48,5 +53,18 @@ namespace Infrastructure.Services.GameFactoryServices
         public EnemyView CreateEnemyView(Vector3 position, EnemyModel model) =>
             _assetProvider.Instantiate<EnemyView>(Constants.AssetsPath.Prefabs.Enemy, position)
                 .With(e => e.Init(model));
+    }
+
+    public class UserInterfaceFactory
+    {
+        private IAssetProviderService _assetProvider;
+
+        public UserInterfaceFactory(IAssetProviderService assetProvider)
+        {
+            _assetProvider = assetProvider;
+        }
+        
+        public HeadUpDisplay CreateHeadUpDisplay() =>
+            _assetProvider.Instantiate<HeadUpDisplay>(Constants.AssetsPath.Prefabs.HeadUpDisplay);
     }
 }

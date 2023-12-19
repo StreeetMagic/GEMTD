@@ -1,4 +1,5 @@
-﻿using InfastuctureCore.Services.StateMachineServices;
+﻿using Gameplay.Fields.Walls.WallPlacers;
+using InfastuctureCore.Services.StateMachineServices;
 using Infrastructure.GameLoopStateMachines.States;
 
 namespace Infrastructure.GameLoopStateMachines
@@ -7,8 +8,10 @@ namespace Infrastructure.GameLoopStateMachines
     {
         public void RegisterStates(IStateMachineService<GameLoopStateMachineData> gameLoopStateMachine)
         {
-            gameLoopStateMachine.Register(new PlaceWallsState(gameLoopStateMachine));
-            gameLoopStateMachine.Register(new ChooseTowerState());
+            TowerPlacer towerPlacer = new();
+
+            gameLoopStateMachine.Register(new PlaceWallsState(gameLoopStateMachine, towerPlacer));
+            gameLoopStateMachine.Register(new ChooseTowerState(towerPlacer, gameLoopStateMachine));
             gameLoopStateMachine.Register(new EnemyMoveState(gameLoopStateMachine));
             gameLoopStateMachine.Register(new WinState());
             gameLoopStateMachine.Register(new LoseState());

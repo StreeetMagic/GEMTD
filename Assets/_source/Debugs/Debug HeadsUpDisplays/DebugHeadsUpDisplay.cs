@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Debug_HeadsUpDisplays
+namespace Debugs.Debug_HeadsUpDisplays
 {
     public class DebugHeadsUpDisplay : MonoBehaviour
     {
@@ -36,33 +36,20 @@ namespace Debug_HeadsUpDisplays
 
         private void Update()
         {
-            if (GameLoopStateMachine != null)
+            if (GameLoopStateMachine == null)
+                return;
+
+            IExitableState state = GameLoopStateMachine.ActiveState;
+
+            _gameLoopStateMachineActiveState.text = state switch
             {
-                var state = GameLoopStateMachine.ActiveState;
-
-                switch (state)
-                {
-                    case ChooseTowerState:
-                        _gameLoopStateMachineActiveState.text = "ChooseTowerState";
-                        break;
-
-                    case EnemyMoveState:
-                        _gameLoopStateMachineActiveState.text = "EnemyMoveState";
-                        break;
-
-                    case LoseState:
-                        _gameLoopStateMachineActiveState.text = "LoseState";
-                        break;
-
-                    case PlaceWallsState:
-                        _gameLoopStateMachineActiveState.text = "PlaceWallsState";
-                        break;
-
-                    case WinState:
-                        _gameLoopStateMachineActiveState.text = "WinState";
-                        break;
-                }
-            }
+                ChooseTowerState => "ChooseTowerState",
+                EnemyMoveState => "EnemyMoveState",
+                LoseState => "LoseState",
+                PlaceWallsState => "PlaceWallsState",
+                WinState => "WinState",
+                _ => _gameLoopStateMachineActiveState.text
+            };
         }
 
         private void InitFinishWallPlaceButton()
@@ -73,7 +60,6 @@ namespace Debug_HeadsUpDisplays
             _finishPlacingWalls.onClick.AddListener(() =>
             {
                 _finishPlacingWalls.interactable = false;
-                _placeWallsState.PlaceWalls();
             });
         }
 

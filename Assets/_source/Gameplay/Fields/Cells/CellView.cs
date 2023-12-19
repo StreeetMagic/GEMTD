@@ -12,12 +12,12 @@ namespace Gameplay.Fields.Cells
     public class CellView : MonoBehaviour, IPointerDownHandler
     {
         public CellModel CelLModel { get; private set; }
-        
+
         public BlockView BlockView { get; private set; }
         public CheckpointView CheckpointView { get; private set; }
         public WallView WallView { get; private set; }
         public TowerView TowerView { get; private set; }
-        
+
         public bool IsPainted { get; set; }
 
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
@@ -41,7 +41,7 @@ namespace Gameplay.Fields.Cells
             CelLModel.WallModelRemoved += OnWallModelRemoved;
             CelLModel.TowerModelSet += OnTowerModelSet;
             CelLModel.TowerModelRemoved += OnTowerModelRemoved;
-            CelLModel.TowerModelConfirmed += OnTowerModelConfirmed; 
+            CelLModel.TowerModelConfirmed += OnTowerModelConfirmed;
         }
 
         private void OnTowerModelConfirmed()
@@ -65,7 +65,7 @@ namespace Gameplay.Fields.Cells
             {
                 return;
             }
-            
+
             Destroy(TowerView.gameObject);
             TowerView = null;
         }
