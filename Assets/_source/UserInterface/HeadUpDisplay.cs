@@ -26,11 +26,9 @@ namespace UserInterface
         private void Awake()
         {
             _gameLoopStateMachine = ServiceLocator.Instance.Get<IStateMachineService<GameLoopStateMachineData>>();
-
-            OnChooseTowerStateEntered();
         }
 
-        private void OnChooseTowerStateEntered()
+        public void OnChooseTowerStateEntered()
         {
             int roundNumber = CurrentDataService.FieldModel.RoundNumber;
             WallSettingsPerRound[] towerIndexes = WallPlacerConfig.WallSettingsPerRounds.ToArray();
@@ -42,11 +40,8 @@ namespace UserInterface
                 Button towerButton = TowerButtons[i];
 
                 towerButton.GetComponentInChildren<TextMeshProUGUI>().text = cellModel.TowerModel.Type.ToString() + cellModel.TowerModel.Level;
-                
-                towerButton.onClick.AddListener( () =>
-                {
-                    _gameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cellModel);
-                });
+
+                towerButton.onClick.AddListener(() => { _gameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cellModel); });
             }
         }
     }
