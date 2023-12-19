@@ -22,12 +22,12 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
             LastReachedPoint = _enemyMoverModel.Points[0];
             NextPoint = _enemyMoverModel.Points[1];
             _nextCheckPointIndex = 1;
-            _enemyMoverModel.Dead += OnDead;
+            _enemyMoverModel.Model.Died += OnDead;
         }
 
         private void OnDestroy()
         {
-            _enemyMoverModel.Dead -= OnDead;
+            _enemyMoverModel.Model.Died -= OnDead;
         }
 
         public void Move()
@@ -60,7 +60,7 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
 
             if (LastReachedPoint == _enemyMoverModel.Points[^1])
             {
-                _enemyMoverModel.Die();
+                _enemyMoverModel.Model.Die();
                 return;
             }
 
@@ -68,7 +68,7 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
             NextPoint = _enemyMoverModel.Points[_nextCheckPointIndex];
         }
 
-        private void OnDead()
+        private void OnDead(EnemyModel enemy)
         {
             gameObject.SetActive(false);
         }

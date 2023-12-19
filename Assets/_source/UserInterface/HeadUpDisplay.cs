@@ -18,15 +18,10 @@ namespace UserInterface
     {
         [field: SerializeField] public Button[] TowerButtons { get; private set; }
 
-        private IStateMachineService<GameLoopStateMachineData> _gameLoopStateMachine;
+        private IStateMachineService<GameLoopStateMachineData> GameLoopStateMachine => ServiceLocator.Instance.Get<IStateMachineService<GameLoopStateMachineData>>();
 
         private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
         private WallPlacerConfig WallPlacerConfig => ServiceLocator.Instance.Get<IStaticDataService>().Get<WallPlacerConfig>();
-
-        private void Awake()
-        {
-            _gameLoopStateMachine = ServiceLocator.Instance.Get<IStateMachineService<GameLoopStateMachineData>>();
-        }
 
         public void OnChooseTowerStateEntered()
         {
@@ -41,7 +36,8 @@ namespace UserInterface
 
                 towerButton.GetComponentInChildren<TextMeshProUGUI>().text = cellModel.TowerModel.Type.ToString() + cellModel.TowerModel.Level;
 
-                towerButton.onClick.AddListener(() => { _gameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cellModel); });
+                towerButton.onClick.RemoveAllListeners();
+                towerButton.onClick.AddListener(() => { GameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cellModel); });
             }
         }
     }

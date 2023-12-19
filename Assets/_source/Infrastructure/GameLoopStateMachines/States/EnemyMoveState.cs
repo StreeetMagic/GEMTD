@@ -1,4 +1,5 @@
-﻿using InfastuctureCore.ServiceLocators;
+﻿using Cysharp.Threading.Tasks;
+using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
 using Infrastructure.Services.CurrentDataServices;
 
@@ -17,7 +18,7 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         public void Enter()
         {
-            CurrentDataService.FieldModel.EnemySpawnerModel.Spawn(() => { _gameLoopStateMachine.Enter<PlaceWallsState>(); });
+            CurrentDataService.FieldModel.EnemySpawnerModel.Spawn();
         }
 
         public void Exit()

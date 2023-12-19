@@ -46,7 +46,8 @@ namespace Gameplay.Fields.Cells
 
         private void OnTowerModelConfirmed()
         {
-            TowerView.ReduceScale();
+            if (TowerView != null)
+                TowerView.ReduceScale();
         }
 
         private void Unsubscribe()
@@ -61,13 +62,11 @@ namespace Gameplay.Fields.Cells
 
         private void OnTowerModelRemoved()
         {
-            if (TowerView == null)
+            if (TowerView != null)
             {
-                return;
+                Destroy(TowerView.gameObject);
+                TowerView = null;
             }
-
-            Destroy(TowerView.gameObject);
-            TowerView = null;
         }
 
         private void OnCheckpointModelSet()

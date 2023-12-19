@@ -5,14 +5,14 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers
 {
     public class EnemyMoverModel
     {
-        public EnemyMoverModel(Vector3 position, Vector2Int[] points)
+        public EnemyMoverModel(Vector3 position, Vector2Int[] points, EnemyModel model)
         {
             Position = position;
             Points = points;
+            Model = model;
         }
 
-        public event Action Dead;
-
+        public EnemyModel Model { get; }
         public Vector3 Position { get; set; }
         public float Speed { get; set; } = 5;
         public Vector2Int[] Points { get; }
@@ -20,11 +20,6 @@ namespace Gameplay.Fields.EnemySpawners.Enemies.Movers
         public void Move(Vector3 position)
         {
             Position = position;
-        }
-
-        public void Die()
-        {
-            Dead?.Invoke();
         }
     }
 }
