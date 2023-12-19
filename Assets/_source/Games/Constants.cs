@@ -22,6 +22,7 @@ namespace Games
                 public const string Tower = nameof(Tower);
                 public const string Projectile = nameof(Projectile);
                 public const string Enemy = nameof(Enemy);
+                public const string HeadUpDisplay = nameof(HeadUpDisplay);
             }
 
             //TODO сделать через ассет провайдер

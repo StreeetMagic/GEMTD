@@ -1,4 +1,4 @@
-using Debug_HeadsUpDisplays;
+using Debugs.Debug_HeadsUpDisplays;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.AssetProviderServices;
 using InfastuctureCore.Services.StateMachineServices;
@@ -21,7 +21,7 @@ namespace Infrastructure.GameStateMachines.States
         {
             CurrentDataService.FieldModel = GameFactoryService.FieldFactory.CreateFieldModel();
             GameFactoryService.FieldFactory.CreateFieldView(CurrentDataService.FieldModel);
-            GameFactoryService.FieldFactory.CreateCheckpointsDatas();
+            GameFactoryService.FieldFactory.CreateCheckpointsModels();
             GameFactoryService.FieldFactory.CreateStartingLabyrinth();
             _gameLoopStateMachine = CreateGameLoopStateMachine();
             AssetProviderService.Instantiate<DebugHeadsUpDisplay>();
@@ -30,6 +30,7 @@ namespace Infrastructure.GameStateMachines.States
 
         public void Exit()
         {
+            _gameLoopStateMachine = null;
         }
 
         private IStateMachineService<GameLoopStateMachineData> CreateGameLoopStateMachine()

@@ -76,7 +76,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
                 .With(e => e.transform.SetParent(transform))
                 .With(e => e.transform.localPosition = Vector3.zero);
 
-        public void CreateCheckpointsDatas()
+        public void CreateCheckpointsModels()
         {
             CheckpointValues[] configs = _staticDataService.Get<CheckpointsConfig>().CheckPointSettings;
 
@@ -85,15 +85,15 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             for (int i = 0; i < configs.Length; i++)
             {
                 CellModel cell = _currentDataService.FieldModel.CellsContainerModel.GetCellModelByCoordinates(configs[i].Coordinates);
-                checkpointDatas[i] = CreateCheckPointData(configs[i].Number, cell);
+                checkpointDatas[i] = CreateCheckPointModel(configs[i].Number, cell);
                 cell.SetCheckpointModel(checkpointDatas[i]);
             }
         }
 
-        public WallModel CreateWallData() =>
+        public WallModel CreateWallModel() =>
             new WallModel();
 
-        public TowerModel CreateTowerData(TowerType towerType, int level)
+        public TowerModel CreateTowerModel(TowerType towerType, int level)
         {
             var singleProjectileShooterModel = new SingleProjectileShooterModel();
             return new TowerModel(towerType, level, singleProjectileShooterModel, new TargetDetetcorModel(singleProjectileShooterModel));
@@ -101,9 +101,9 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
 
         public void CreateStartingLabyrinth() =>
             _staticDataService.Get<StartingLabyrinthConfig>().Coordinates.ToList().ForEach(coordinate => _currentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinate)
-                .SetWallModel(CreateWallData()));
+                .SetWallModel(CreateWallModel()));
 
-        private CheckPointModel CreateCheckPointData(int number, CellModel cell) =>
+        private CheckPointModel CreateCheckPointModel(int number, CellModel cell) =>
             new CheckPointModel(number, cell);
 
         private CellModel[] CreateCellModels(int size) =>

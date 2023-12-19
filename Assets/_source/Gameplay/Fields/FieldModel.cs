@@ -18,7 +18,7 @@ namespace Gameplay.Fields
 
         public CellsContainerModel CellsContainerModel { get; }
         public EnemySpawnerModel EnemySpawnerModel { get; }
-        public int RoundNumber { get; set; } = 1;
+        public int RoundNumber { get; set; } = 0;
 
         private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
 

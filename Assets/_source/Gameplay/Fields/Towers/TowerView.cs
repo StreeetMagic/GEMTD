@@ -1,6 +1,5 @@
 using Gameplay.Fields.Towers.Shooters;
 using Gameplay.Fields.Towers.TargetDetectors;
-using Games;
 using UnityEngine;
 
 namespace Gameplay.Fields.Towers
@@ -36,8 +35,7 @@ namespace Gameplay.Fields.Towers
         {
             var shooter = new SingleProjectileShooterModel();
             var targetDetector = new TargetDetetcorModel(shooter);
-            var material = Resources.Load<Material>(Constants.AssetsPath.Materials.Highlighted);
-            Init(new TowerModel(TowerType.B, 1, shooter, targetDetector), material);
+            Init(new TowerModel(TowerType.B, 1, shooter, targetDetector), Material);
         }
 
         public void ReduceScale()
