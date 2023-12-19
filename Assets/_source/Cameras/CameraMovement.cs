@@ -2,7 +2,7 @@
 using Infrastructure.Services.InputServices;
 using UnityEngine;
 
-namespace GameDesign
+namespace Cameras
 {
     public class CameraMovement : MonoBehaviour
     {

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using GameDesign;
 using Gameplay.Fields;
 using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Cells;
@@ -93,9 +92,6 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
 
         public WallModel CreateWallData() =>
             new WallModel();
-
-        public void PaintBlocks() =>
-            _staticDataService.Get<PaintedBlockConfig>().Coordinates.ForEach(coordinates => { _currentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinates).BlockModel.Paint(); });
 
         public TowerModel CreateTowerData(TowerType towerType, int level)
         {
