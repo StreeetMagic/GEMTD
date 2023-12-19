@@ -22,7 +22,6 @@ namespace Infrastructure.GameStateMachines.States
             CurrentDataService.FieldModel = GameFactoryService.FieldFactory.CreateFieldModel();
             GameFactoryService.FieldFactory.CreateFieldView(CurrentDataService.FieldModel);
             GameFactoryService.FieldFactory.CreateCheckpointsDatas();
-            GameFactoryService.FieldFactory.PaintBlocks();
             GameFactoryService.FieldFactory.CreateStartingLabyrinth();
             _gameLoopStateMachine = CreateGameLoopStateMachine();
             AssetProviderService.Instantiate<DebugHeadsUpDisplay>();

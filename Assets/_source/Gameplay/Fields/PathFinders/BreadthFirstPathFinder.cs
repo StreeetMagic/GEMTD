@@ -7,99 +7,96 @@ namespace Gameplay.Fields.PathFinders
 {
     public class BreadthFirstPathFinder : IPathFinder
     {
-        public void FindPath(CellModel[] field, Vector2Int startCoordinatesValues, Vector2Int finishCoordinates, List<Vector2Int> path)
+        public void FindPath(CellModel[] field, Vector2Int startCoordinates, Vector2Int finishCoordinates, List<Vector2Int> path)
         {
-            List<Cell> allCells = new();
-            Cell startCell = null;
-            Cell finishCell = null;
+            List<Cell> allCells = InitializeCells(field);
 
-            foreach (CellModel cellModel in field)
-            {
-                var item = new Cell(cellModel.Coordinates, cellModel.IsPassable);
+            Cell startCell = allCells.FirstOrDefault(cell => cell.Coordinates.Equals(startCoordinates));
+            Cell finishCell = allCells.FirstOrDefault(cell => cell.Coordinates.Equals(finishCoordinates));
 
-                allCells.Add(item);
-
-                if (cellModel.Coordinates.x == startCoordinatesValues.x && cellModel.Coordinates.y == startCoordinatesValues.y)
-                    startCell = item;
-
-                if (cellModel.Coordinates.x == finishCoordinates.x && cellModel.Coordinates.y == finishCoordinates.y)
-                    finishCell = item;
-            }
-
-            if (startCell == null)
+            if (startCell == null || finishCell == null)
                 return;
 
-            startCell.Distance = 0;
-            startCell.IsVisited = true;
+            SetInitialValues(startCell);
 
-            Queue<Cell> queue = new();
-
+            var queue = new Queue<Cell>();
             queue.Enqueue(startCell);
 
             while (queue.Count > 0)
             {
-                Cell cell = queue.Dequeue();
-                cell.IsVisited = true;
+                Cell currentCell = queue.Dequeue();
 
-                if (cell.Coordinates.x == finishCoordinates.x && cell.Coordinates.y == finishCoordinates.y)
+                if (currentCell.Coordinates.Equals(finishCoordinates))
                 {
-                    foreach (Cell visitedCell in allCells)
-                    {
-                        visitedCell.IsVisited = false;
-                    }
-
-                    cell.IsVisited = true;
-
-                    int distance = cell.Distance;
-
-                    List<Cell> locanReversePath = new()
-                    {
-                        finishCell
-                    };
-
-                    while (true)
-                    {
-                        Cell[] localNeighbours = GetCellNeighbours(cell, allCells.ToArray());
-
-                        foreach (Cell localNeighbour in localNeighbours)
-                        {
-                            if (localNeighbour.Distance != distance - 1)
-                                continue;
-
-                            if (localNeighbour.Distance == 0)
-                            {
-                                locanReversePath.Add(localNeighbour);
-
-                                locanReversePath.Reverse();
-
-                                path.AddRange(locanReversePath.Select(localCell => localCell.Coordinates));
-
-                                return;
-                            }
-
-                            distance--;
-                            cell = localNeighbour;
-                            locanReversePath.Add(localNeighbour);
-
-                            break;
-                        }
-                    }
+                    RetrievePath(allCells, finishCell, path);
+                    return;
                 }
 
-                Cell[] neighbours = GetCellNeighbours(cell, allCells.ToArray());
+                UpdateNeighbours(currentCell, allCells, queue);
+            }
+        }
+        
+        private List<Cell> InitializeCells(CellModel[] field) =>
+            field.Select(cellModel => new Cell(cellModel.Coordinates, cellModel.IsPassable)).ToList();
 
-                foreach (Cell neighbour in neighbours)
-                {
-                    if (neighbour.IsVisited || !neighbour.IsPassable)
-                        continue;
+        private void SetInitialValues(Cell startCell)
+        {
+            startCell.Distance = 0;
+            startCell.IsVisited = true;
+        }
 
-                    neighbour.IsVisited = true;
-                    neighbour.Distance = cell.Distance + 1;
-                    queue.Enqueue(neighbour);
-                }
+        private void UpdateNeighbours(Cell currentCell, List<Cell> allCells, Queue<Cell> queue)
+        {
+            Cell[] neighbours = GetCellNeighbours(currentCell, allCells.ToArray());
+
+            foreach (Cell neighbour in neighbours)
+            {
+                if (neighbour.IsVisited || !neighbour.IsPassable)
+                    continue;
+
+                neighbour.IsVisited = true;
+                neighbour.Distance = currentCell.Distance + 1;
+                queue.Enqueue(neighbour);
             }
         }
 
+        private void RetrievePath(List<Cell> allCells, Cell finishCell, List<Vector2Int> path)
+        {
+            foreach (Cell visitedCell in allCells)
+            {
+                visitedCell.IsVisited = false;
+            }
+
+            finishCell.IsVisited = true;
+
+            int distance = finishCell.Distance;
+            var reversePath = new List<Cell> { finishCell };
+
+            while (true)
+            {
+                Cell[] localNeighbours = GetCellNeighbours(finishCell, allCells.ToArray());
+
+                foreach (Cell localNeighbour in localNeighbours)
+                {
+                    if (localNeighbour.Distance != distance - 1)
+                        continue;
+
+                    if (localNeighbour.Distance == 0)
+                    {
+                        reversePath.Add(localNeighbour);
+                        reversePath.Reverse();
+                        path.AddRange(reversePath.Select(cell => cell.Coordinates));
+                        return;
+                    }
+
+                    distance--;
+                    finishCell = localNeighbour;
+                    reversePath.Add(localNeighbour);
+                    break;
+                }
+            }
+        }
+        
         private bool TryGetCell(List<Cell> allCells, Vector2Int coordinatesValues, out Cell thisCell)
         {
             thisCell = allCells.FirstOrDefault(cell => cell.Coordinates.x == coordinatesValues.x && cell.Coordinates.y == coordinatesValues.y);

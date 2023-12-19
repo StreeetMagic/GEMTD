@@ -1,5 +1,4 @@
-﻿using GameDesign;
-using Gameplay.Fields;
+﻿using Gameplay.Fields;
 using Gameplay.Fields.Checkpoints;
 using Gameplay.Fields.Labytinths;
 using Gameplay.Fields.Towers;
@@ -63,9 +62,7 @@ namespace Infrastructure.GameStateMachines.States
             StaticDataService.Register<GameConfig>();
             StaticDataService.Register<FieldConfig>();
             StaticDataService.Register<CheckpointsConfig>();
-            StaticDataService.Register<MapWallsConfig>();
             StaticDataService.Register<StartingLabyrinthConfig>();
-            StaticDataService.Register<PaintedBlockConfig>();
             StaticDataService.Register<WallPlacerConfig>();
             StaticDataService.Register<TowerConfig>();
         }
