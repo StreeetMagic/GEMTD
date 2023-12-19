@@ -102,34 +102,28 @@ namespace Gameplay.Fields.PathFinders
 
         private bool TryGetCell(List<Cell> allCells, Vector2Int coordinatesValues, out Cell thisCell)
         {
-            foreach (Cell cell in allCells.Where(cell => cell.Coordinates.x == coordinatesValues.x && cell.Coordinates.y == coordinatesValues.y))
-            {
-                thisCell = cell;
-                return true;
-            }
-
-            thisCell = null;
-            return false;
+            thisCell = allCells.FirstOrDefault(cell => cell.Coordinates.x == coordinatesValues.x && cell.Coordinates.y == coordinatesValues.y);
+            return thisCell != null;
         }
 
         private Cell[] GetCellNeighbours(Cell cell, Cell[] field)
         {
-            List<Cell> fieldList = new List<Cell>(field);
             Vector2Int cellCoordinates = cell.Coordinates;
+            var fieldList = new List<Cell>(field);
 
-            List<Cell> neighbours = new List<Cell>();
+            var directions = new List<Vector2Int>
+            {
+                new(-1, 0),
+                new(1, 0),
+                new(0, -1),
+                new(0, 1)
+            };
 
-            if (TryGetCell(fieldList, new Vector2Int(cellCoordinates.x - 1, cellCoordinates.y), out Cell leftCell) && leftCell.IsVisited == false && leftCell.IsPassable)
-                neighbours.Add(leftCell);
+            var neighbours = new List<Cell>();
 
-            if (TryGetCell(fieldList, new Vector2Int(cellCoordinates.x + 1, cellCoordinates.y), out Cell rightCell) && rightCell.IsVisited == false && rightCell.IsPassable)
-                neighbours.Add(rightCell);
-
-            if (TryGetCell(fieldList, new Vector2Int(cellCoordinates.x, cellCoordinates.y - 1), out Cell downCell) && downCell.IsVisited == false && downCell.IsPassable)
-                neighbours.Add(downCell);
-
-            if (TryGetCell(fieldList, new Vector2Int(cellCoordinates.x, cellCoordinates.y + 1), out Cell upCell) && upCell.IsVisited == false && upCell.IsPassable)
-                neighbours.Add(upCell);
+            foreach (Vector2Int neighbourCoords in directions.Select(direction => new Vector2Int(cellCoordinates.x + direction.x, cellCoordinates.y + direction.y)))
+                if (TryGetCell(fieldList, neighbourCoords, out Cell neighbourCell) && !neighbourCell.IsVisited && neighbourCell.IsPassable)
+                    neighbours.Add(neighbourCell);
 
             return neighbours.ToArray();
         }
