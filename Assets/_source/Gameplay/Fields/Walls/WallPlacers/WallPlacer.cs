@@ -2,7 +2,6 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Gameplay.Fields.Cells;
-using Gameplay.Fields.CellsContainers;
 using Gameplay.Fields.Towers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StaticDataServices;
@@ -29,12 +28,12 @@ namespace Gameplay.Fields.Walls.WallPlacers
             {
                 TowerType.B1,
                 TowerType.D1,
-                TowerType.E1,
-                TowerType.P1,
-                TowerType.Q1,
-                TowerType.R1,
-                TowerType.Y1,
-                TowerType.G1,
+                // TowerType.E1,
+                // TowerType.P1,
+                // TowerType.Q1,
+                // TowerType.R1,
+                // TowerType.Y1,
+                // TowerType.G1,
             };
 
             _levels = new[]

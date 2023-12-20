@@ -3,6 +3,8 @@ using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Checkpoints;
 using Gameplay.Fields.Towers;
 using Gameplay.Fields.Walls;
+using InfastuctureCore.ServiceLocators;
+using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;
 
 namespace Gameplay.Fields.Cells
@@ -34,6 +36,8 @@ namespace Gameplay.Fields.Cells
         public bool HasWall => WallModel != null;
         public bool CanBeReplacedWithTower => WallModel != null && TowerModel == null && CheckPointModel == null && TowerIsConfirmed == false;
         public bool HasCheckPoint => CheckPointModel != null;
+
+        private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
 
         public void SetCheckpointModel(CheckPointModel checkPointModel)
         {
@@ -69,6 +73,12 @@ namespace Gameplay.Fields.Cells
         {
             TowerModelConfirmed?.Invoke();
             TowerIsConfirmed = true;
+        }
+
+        public void Upgrade(TowerType towerType, int level)
+        {
+            RemoveTowerModel();
+            SetTowerModel(GameFactoryService.FieldFactory.CreateTowerModel(towerType, level));
         }
     }
 }

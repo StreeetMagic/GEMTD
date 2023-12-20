@@ -15,5 +15,8 @@ namespace InfastuctureCore.Services.AssetProviderServices
 
         public T Get<T>() where T : Object =>
             (T)(Resources.Load(typeof(T).Name));
+
+        public T Get<T>(string path) where T : Object =>
+            (T)(Resources.Load(path));
     }
 }

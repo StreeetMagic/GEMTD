@@ -5,6 +5,7 @@ namespace Gameplay.Fields.Towers
     [Serializable]
     public enum TowerType
     {
+        None = -1,
         B1 = 0,
         D1 = 1,
         Y1 = 2,

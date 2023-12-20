@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Walls.WallPlacers;
 using InfastuctureCore.ServiceLocators;
+using InfastuctureCore.Services.StaticDataServices;
+using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
+using UnityEngine;
 using UserInterface;
 
 namespace Infrastructure.GameLoopStateMachines.States
@@ -20,13 +24,20 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         public event Action<IGameLoopStateMachineState> Entered;
 
+        private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
         private IGameFactoryService GameFactory => ServiceLocator.Instance.Get<IGameFactoryService>();
+        private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
 
         public void Enter()
         {
             Entered?.Invoke(this);
             _headsUpDisplay.ChooseTowerPanel.gameObject.SetActive(true);
-            _headsUpDisplay.ChooseTowerPanel.OnChooseTowerStateEntered();
+
+            int roundNumber = CurrentDataService.FieldModel.RoundNumber;
+            WallSettingsPerRound[] towerIndexes = StaticDataService.Get<WallPlacerConfig>().WallSettingsPerRounds.ToArray();
+            List<Vector2Int> wallsCoordinates = towerIndexes[roundNumber - 1].PlaceList;
+
+            _headsUpDisplay.ChooseTowerPanel.OnChooseTowerStateEntered(wallsCoordinates);
         }
 
         public void Exit()
