@@ -38,7 +38,7 @@ namespace UserInterface
                 towerButton.onClick.RemoveAllListeners();
                 towerButton.onClick.AddListener(() =>
                 {
-                    GameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cellModel);
+                    GameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cellModel, () => GameLoopStateMachine.Enter<EnemyMoveState>());
                     gameObject.SetActive(false);
                 });
             }

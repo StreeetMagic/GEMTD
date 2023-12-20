@@ -10,6 +10,7 @@ namespace Gameplay.Fields.Enemies
     {
         public ReactiveProperty<float> Health { get; }
         public EnemyMoverModel MoverModel { get; set; }
+        public Vector3 DamagePosition { get; set; }
 
         public event Action<EnemyModel> Died;
 

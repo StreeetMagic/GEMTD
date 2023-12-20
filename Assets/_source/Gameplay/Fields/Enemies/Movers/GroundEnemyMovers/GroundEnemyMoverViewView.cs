@@ -5,6 +5,8 @@ namespace Gameplay.Fields.Enemies.Movers.GroundEnemyMovers
     [RequireComponent(typeof(Rigidbody))]
     public sealed class GroundEnemyMoverViewView : MonoBehaviour, IEnemyMoverView
     {
+        [SerializeField] private Transform _damagePoint;
+
         private EnemyMoverModel _enemyMoverModel;
 
         public Vector2Int LastReachedPoint { get; set; }
@@ -49,7 +51,7 @@ namespace Gameplay.Fields.Enemies.Movers.GroundEnemyMovers
                 ReachPoint();
             }
 
-            _enemyMoverModel.Move(transform.position);
+            _enemyMoverModel.Move(transform.position, _damagePoint.position);
         }
 
         private void ReachPoint()

@@ -1,9 +1,7 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Walls.WallPlacers;
 using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.StateMachineServices;
 using Infrastructure.Services.GameFactoryServices;
 using UserInterface;
 
@@ -11,14 +9,12 @@ namespace Infrastructure.GameLoopStateMachines.States
 {
     public class ChooseTowerState : IGameLoopStateMachineState
     {
-        private readonly IStateMachineService<GameLoopStateMachineData> _gameLoopStateMachine;
         private readonly TowerPlacer _towerPlacer;
         private readonly HeadsUpDisplay _headsUpDisplay;
 
-        public ChooseTowerState(TowerPlacer towerPlacer, IStateMachineService<GameLoopStateMachineData> gameLoopStateMachine)
+        public ChooseTowerState(TowerPlacer towerPlacer)
         {
             _towerPlacer = towerPlacer;
-            _gameLoopStateMachine = gameLoopStateMachine;
             _headsUpDisplay = GameFactory.UserInterfaceFactory.CreateHeadUpDisplay();
         }
 
@@ -37,10 +33,10 @@ namespace Infrastructure.GameLoopStateMachines.States
         {
         }
 
-        public async UniTask ConfirmTower(CellModel cellModel)
+        public async void ConfirmTower(CellModel cellModel, Action onComplete = null)
         {
             await _towerPlacer.ConfirmTower(cellModel);
-            _gameLoopStateMachine.Enter<EnemyMoveState>();
+            onComplete?.Invoke();
         }
     }
 }

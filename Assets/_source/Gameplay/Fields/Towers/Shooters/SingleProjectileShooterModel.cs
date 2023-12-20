@@ -14,8 +14,8 @@ namespace Gameplay.Fields.Towers.Shooters
     class SingleProjectileShooterModel : IShooter
     {
         private EnemyModel _currentTarget;
-        private CoroutineDecorator _coroutine;
-        private float _cooldown = 1f;
+        private readonly CoroutineDecorator _coroutine;
+        private readonly float _cooldown = .5f;
 
         public Transform ShootingPoint { get; set; }
         public ProjectileContainerModel ProjectileContainerModel { get; set; }
