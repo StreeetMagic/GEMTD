@@ -9,7 +9,7 @@ namespace Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles
         public event Action Died;
 
         public IProjectileMoverModel Mover { get; }
-        public float Damage { get; set; } = 5f;
+        public float Damage { get; set; } = 10f;
 
         public DefaultProjectileModel(EnemyModel target)
         {

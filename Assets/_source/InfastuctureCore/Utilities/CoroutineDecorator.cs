@@ -8,7 +8,7 @@ namespace InfastuctureCore.Utilities
     {
         private readonly MonoBehaviour _runner;
         private Coroutine _coroutine;
-        private readonly Func<Action, IEnumerator> _coroutineFunc; // Modified Func signature
+        private readonly Func<Action, IEnumerator> _coroutineFunc;
 
         public CoroutineDecorator(MonoBehaviour runner, Func<Action, IEnumerator> coroutineFunc)
         {
@@ -23,18 +23,18 @@ namespace InfastuctureCore.Utilities
             if (IsRunning && _coroutine != null)
                 _runner.StopCoroutine(_coroutine);
 
-            _coroutine = _runner.StartCoroutine(_coroutineFunc(onComplete)); // Pass onComplete as an Action parameter
+            _coroutine = _runner.StartCoroutine(_coroutineFunc(onComplete)); 
             IsRunning = true;
         }
 
         public void Stop()
         {
-            if (_coroutine != null)
-            {
-                _runner.StopCoroutine(_coroutine);
-                IsRunning = false;
-                _coroutine = null;
-            }
+            if (_coroutine == null)
+                return;
+
+            _runner.StopCoroutine(_coroutine);
+            IsRunning = false;
+            _coroutine = null;
         }
     }
 }

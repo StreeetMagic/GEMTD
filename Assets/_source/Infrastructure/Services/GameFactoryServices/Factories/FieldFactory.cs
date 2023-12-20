@@ -6,6 +6,7 @@ using Gameplay.Fields.Checkpoints;
 using Gameplay.Fields.EnemyContainers;
 using Gameplay.Fields.EnemySpawners;
 using Gameplay.Fields.Labytinths;
+using Gameplay.Fields.Thrones;
 using Gameplay.Fields.Towers;
 using Gameplay.Fields.Towers.Shooters;
 using Gameplay.Fields.Towers.TargetDetectors;
@@ -111,5 +112,8 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
                 .SelectMany(i => Enumerable.Range(0, size)
                     .Select(j => new CellModel(new Vector2Int(i, j), new BlockModel())))
                 .ToArray();
+
+        public ThroneModel CreateThroneModel() =>
+            new(_staticDataService.Get<GameConfig>().ThroneHealth);
     }
 }

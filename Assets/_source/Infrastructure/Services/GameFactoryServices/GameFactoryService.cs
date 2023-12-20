@@ -1,4 +1,5 @@
 ﻿using Gameplay.Fields.Enemies;
+using Gameplay.Fields.Thrones;
 using Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles;
 using Games;
 using InfastuctureCore.Services;
@@ -23,6 +24,8 @@ namespace Infrastructure.Services.GameFactoryServices
         EnemyView CreateEnemyView(Vector3 position, EnemyModel model);
 
         EnemyModel CreateEnemyModel(Vector3 at, Vector2Int[] points, EnemyValues values);
+
+        void CreateThrone(Vector3 position);
     }
 
     public class GameFactoryService : IGameFactoryService
@@ -50,6 +53,11 @@ namespace Infrastructure.Services.GameFactoryServices
         public EnemyModel CreateEnemyModel(Vector3 at, Vector2Int[] points, EnemyValues values) =>
             new EnemyModel(at, points, values);
 
+        public void CreateThrone(Vector3 position)
+        {
+            _assetProvider.Instantiate<ThroneView>(Constants.AssetsPath.Prefabs.Throne, position);
+        }
+
         public EnemyView CreateEnemyView(Vector3 position, EnemyModel model) =>
             _assetProvider.Instantiate<EnemyView>(Constants.AssetsPath.Prefabs.Enemy, position)
                 .With(e => e.Init(model));
@@ -64,7 +72,7 @@ namespace Infrastructure.Services.GameFactoryServices
             _assetProvider = assetProvider;
         }
 
-        public HeadUpDisplay CreateHeadUpDisplay() =>
-            _assetProvider.Instantiate<HeadUpDisplay>(Constants.AssetsPath.Prefabs.HeadUpDisplay);
+        public HeadsUpDisplay CreateHeadUpDisplay() =>
+            _assetProvider.Instantiate<HeadsUpDisplay>(Constants.AssetsPath.Prefabs.HeadsUpDisplay);
     }
 }

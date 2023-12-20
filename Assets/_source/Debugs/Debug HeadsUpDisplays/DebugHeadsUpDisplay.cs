@@ -11,28 +11,11 @@ namespace Debugs.Debug_HeadsUpDisplays
 {
     public class DebugHeadsUpDisplay : MonoBehaviour
     {
-        [SerializeField] private Button _finishPlacingWalls;
         [SerializeField] private TextMeshProUGUI _gameLoopStateMachineActiveState;
 
         private PlaceWallsState _placeWallsState;
-        // private CoroutineDecorator _coroutine;
 
         private IStateMachineService<GameLoopStateMachineData> GameLoopStateMachine => ServiceLocator.Instance.Get<IStateMachineService<GameLoopStateMachineData>>();
-
-        private void Awake()
-        {
-            InitFinishWallPlaceButton();
-        }
-
-        private void OnEnable()
-        {
-            _placeWallsState.Entered += OnPlaceWallsStateEntered;
-        }
-
-        private void OnDisable()
-        {
-            _placeWallsState.Entered -= OnPlaceWallsStateEntered;
-        }
 
         private void Update()
         {
@@ -50,22 +33,6 @@ namespace Debugs.Debug_HeadsUpDisplays
                 WinState => "WinState",
                 _ => _gameLoopStateMachineActiveState.text
             };
-        }
-
-        private void InitFinishWallPlaceButton()
-        {
-            _placeWallsState = GameLoopStateMachine.Get<PlaceWallsState>();
-            _finishPlacingWalls.interactable = false;
-
-            _finishPlacingWalls.onClick.AddListener(() =>
-            {
-                _finishPlacingWalls.interactable = false;
-            });
-        }
-
-        private void OnPlaceWallsStateEntered(IExitableState obj)
-        {
-            _finishPlacingWalls.interactable = true;
         }
     }
 }

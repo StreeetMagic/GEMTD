@@ -1,4 +1,5 @@
-﻿using Gameplay.Fields.Enemies.Movers;
+﻿using Gameplay.Fields.Enemies.HealthBars;
+using Gameplay.Fields.Enemies.Movers;
 using Gameplay.Fields.Enemies.TriggerAreas;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace Gameplay.Fields.Enemies
     [RequireComponent(typeof(Collider)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(IEnemyMoverView))]
     public class EnemyView : MonoBehaviour
     {
+        [SerializeField] private HealthBarView _healthBarView;
+        
         private IEnemyMoverView _enemyMoverView;
         private TriggerAreaView _triggerAreaView;
 
@@ -15,7 +18,6 @@ namespace Gameplay.Fields.Enemies
         private void Awake()
         {
             _enemyMoverView = GetComponent<IEnemyMoverView>();
-
             _triggerAreaView = GetComponentInChildren<TriggerAreaView>();
         }
 
@@ -24,8 +26,8 @@ namespace Gameplay.Fields.Enemies
             EnemyModel = enemyModel;
             _enemyMoverView.Init(EnemyModel.MoverModel);
             _triggerAreaView.Init(EnemyModel);
-
             EnemyModel.Died += OnDied;
+            _healthBarView.gameObject.SetActive(true);
         }
 
         private void OnDestroy()
