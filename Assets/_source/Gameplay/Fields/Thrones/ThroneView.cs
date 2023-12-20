@@ -7,11 +7,11 @@ namespace Gameplay.Fields.Thrones
 {
     public class ThroneView : MonoBehaviour
     {
-        public ThroneModel Model => ServiceLocator.Instance.Get<ICurrentDataService>().ThroneModel;
+        private ThroneModel Model => ServiceLocator.Instance.Get<ICurrentDataService>().ThroneModel;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out EnemyView enemyView))
+            if (other.TryGetComponent(out EnemyView _))
             {
                 Model.Health.Value -= 5;
             }

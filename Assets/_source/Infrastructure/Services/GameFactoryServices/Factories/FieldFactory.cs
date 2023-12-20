@@ -97,7 +97,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
         public TowerModel CreateTowerModel(TowerType towerType, int level)
         {
             var singleProjectileShooterModel = new SingleProjectileShooterModel();
-            return new TowerModel(towerType, level, singleProjectileShooterModel, new TargetDetetcorModel(singleProjectileShooterModel));
+            return new TowerModel(towerType, singleProjectileShooterModel, new TargetDetetcorModel(singleProjectileShooterModel));
         }
 
         public void CreateStartingLabyrinth() =>

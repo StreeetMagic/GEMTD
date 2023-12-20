@@ -35,7 +35,7 @@ namespace Gameplay.Fields.Towers
         {
             var shooter = new SingleProjectileShooterModel();
             var targetDetector = new TargetDetetcorModel(shooter);
-            Init(new TowerModel(TowerType.B, 1, shooter, targetDetector), Material);
+            Init(new TowerModel(TowerType.B1, shooter, targetDetector), Material);
         }
 
         public void ReduceScale()
