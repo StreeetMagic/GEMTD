@@ -59,77 +59,71 @@ namespace UserInterface
 
             if (towerTypes.Count == wallsCoordinates.Count)
             {
-                Debug.Log("Nothing to merge");
+                return;
             }
-            else
+
+            foreach (KeyValuePair<TowerType, int> pair in towerTypes)
             {
-                int index = 0;
-
-                foreach (KeyValuePair<TowerType, int> pair in towerTypes)
+                if (pair.Value > 1)
                 {
-                    if (pair.Value > 1)
+                    TowerType towerType = pair.Key;
+
+                    for (int i = 0; i < cells.Length; i++)
                     {
-                        TowerType towerType = pair.Key;
+                        CellModel cell = cells[i];
 
-                        for (int i = 0; i < cells.Length; i++)
+                        if (cell.TowerModel.Type != towerType)
+                            continue;
+
+                        TowerType singleMergeType = StaticDataService.Get<TowersConfig>().GetTowerValues(towerType).SingleMergeType;
+
+                        if (singleMergeType == TowerType.None)
+                            continue;
+
+                        Button singleMergeTowerButton = SingleMergeTowerButtons[i];
+                        singleMergeTowerButton.gameObject.SetActive(true);
+                        singleMergeTowerButton.GetComponentInChildren<TextMeshProUGUI>().text = singleMergeType.ToString();
+
+                        singleMergeTowerButton.onClick.RemoveAllListeners();
+                        singleMergeTowerButton.onClick.AddListener(() =>
                         {
-                            CellModel cell = cells[i];
-
-                            if (cell.TowerModel.Type == towerType)
-                            {
-                                TowerType singleMergeType = StaticDataService.Get<TowersConfig>().GetTowerValues(towerType).SingleMergeType;
-
-                                if (singleMergeType != TowerType.None)
-                                {
-                                    Button singleMergeTowerButton = SingleMergeTowerButtons[i];
-                                    singleMergeTowerButton.gameObject.SetActive(true);
-                                    singleMergeTowerButton.GetComponentInChildren<TextMeshProUGUI>().text = singleMergeType.ToString();
-
-                                    singleMergeTowerButton.onClick.RemoveAllListeners();
-                                    singleMergeTowerButton.onClick.AddListener(() =>
-                                    {
-                                        int singleUpgradeLevel = cell.TowerModel.Level + 1;
-                                        cell.Upgrade(singleMergeType, singleUpgradeLevel);
-                                        GameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cell, () => GameLoopStateMachine.Enter<EnemyMoveState>());
-                                        gameObject.SetActive(false);
-                                    });
-                                }
-                            }
-                        }
+                            int singleUpgradeLevel = cell.TowerModel.Level + 1;
+                            cell.Upgrade(singleMergeType, singleUpgradeLevel);
+                            GameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cell, () => GameLoopStateMachine.Enter<EnemyMoveState>());
+                            gameObject.SetActive(false);
+                        });
                     }
+                }
 
-                    if (pair.Value > 3)
+                if (pair.Value <= 3)
+                    continue;
+
+                TowerType towerType2 = pair.Key;
+
+                for (int i = 0; i < cells.Length; i++)
+                {
+                    CellModel cell = cells[i];
+
+                    if (cell.TowerModel.Type != towerType2)
+                        continue;
+
+                    TowerType doubleMergeType = StaticDataService.Get<TowersConfig>().GetTowerValues(cell.TowerModel.Type).DoubleMergeType;
+
+                    if (doubleMergeType == TowerType.None)
+                        continue;
+
+                    Button doubleMergeTowerButton = DoubleMergeTowerButtons[i];
+                    doubleMergeTowerButton.gameObject.SetActive(true);
+                    doubleMergeTowerButton.GetComponentInChildren<TextMeshProUGUI>().text = doubleMergeType.ToString();
+
+                    doubleMergeTowerButton.onClick.RemoveAllListeners();
+                    doubleMergeTowerButton.onClick.AddListener(() =>
                     {
-                        TowerType towerType = pair.Key;
-
-                        for (int i = 0; i < cells.Length; i++)
-                        {
-                            CellModel cell = cells[i];
-
-                            if (cell.TowerModel.Type == towerType)
-                            {
-                                TowerType doubleMergeType = StaticDataService.Get<TowersConfig>().GetTowerValues(cell.TowerModel.Type).DoubleMergeType;
-
-                                if (doubleMergeType != TowerType.None)
-                                {
-                                    Button doubleMergeTowerButton = DoubleMergeTowerButtons[i];
-                                    doubleMergeTowerButton.gameObject.SetActive(true);
-                                    doubleMergeTowerButton.GetComponentInChildren<TextMeshProUGUI>().text = doubleMergeType.ToString();
-
-                                    doubleMergeTowerButton.onClick.RemoveAllListeners();
-                                    doubleMergeTowerButton.onClick.AddListener(() =>
-                                    {
-                                        int doubleUpgradeLevel = cell.TowerModel.Level + 2;
-                                        cell.Upgrade(doubleMergeType, doubleUpgradeLevel);
-                                        GameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cell, () => GameLoopStateMachine.Enter<EnemyMoveState>());
-                                        gameObject.SetActive(false);
-                                    });
-                                }
-                            }
-                        }
-                    }
-
-                    index++;
+                        int doubleUpgradeLevel = cell.TowerModel.Level + 2;
+                        cell.Upgrade(doubleMergeType, doubleUpgradeLevel);
+                        GameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cell, () => GameLoopStateMachine.Enter<EnemyMoveState>());
+                        gameObject.SetActive(false);
+                    });
                 }
             }
         }
