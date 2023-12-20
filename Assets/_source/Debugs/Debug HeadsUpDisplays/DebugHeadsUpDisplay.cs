@@ -5,7 +5,6 @@ using Infrastructure.GameLoopStateMachines;
 using Infrastructure.GameLoopStateMachines.States;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Debugs.Debug_HeadsUpDisplays
 {

@@ -35,7 +35,6 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         public void Exit()
         {
-
         }
 
         public async UniTask ConfirmTower(CellModel cellModel)

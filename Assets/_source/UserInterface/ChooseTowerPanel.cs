@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Walls.WallPlacers;
 using InfastuctureCore.ServiceLocators;
@@ -34,7 +33,7 @@ namespace UserInterface
                 CellModel cellModel = CurrentDataService.FieldModel.CellsContainerModel.GetCellModelByCoordinates(wallsCoordinates[i]);
                 Button towerButton = TowerButtons[i];
 
-                towerButton.GetComponentInChildren<TextMeshProUGUI>().text = cellModel.TowerModel.Type.ToString() + cellModel.TowerModel.Level;
+                towerButton.GetComponentInChildren<TextMeshProUGUI>().text = cellModel.TowerModel.Type.ToString();
 
                 towerButton.onClick.RemoveAllListeners();
                 towerButton.onClick.AddListener(() =>

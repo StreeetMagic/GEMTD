@@ -20,7 +20,8 @@ namespace Gameplay.Fields.Enemies.HealthBars
 
         private void RotateToCamera()
         {
-            _healthBar.transform.rotation = Quaternion.LookRotation(_camera.transform.forward, _camera.transform.up);
+            Transform transform1 = _camera.transform;
+            _healthBar.transform.rotation = Quaternion.LookRotation(transform1.forward, transform1.up);
         }
     }
 }

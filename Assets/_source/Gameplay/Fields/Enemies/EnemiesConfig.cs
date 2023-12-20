@@ -19,9 +19,10 @@ namespace Gameplay.Fields.Enemies
     [Serializable]
     public struct EnemyValues
     {
-        [Header(" ")]
-        public int RoundNumber;
+        [Header(" ")] public int RoundNumber;
+        
         public int HealthPoints;
+        
         public int MovementSpeed;
     }
 }
