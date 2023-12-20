@@ -6,6 +6,8 @@ namespace Gameplay.Fields.Towers
 {
     public class TowerView : MonoBehaviour
     {
+        [SerializeField] private Transform _meshModel;
+        
         private SingleProjectileShooterView _shooterView;
         private TargetDetetcorView _targetDetetcorView;
 
@@ -31,16 +33,9 @@ namespace Gameplay.Fields.Towers
             _targetDetetcorView = GetComponentInChildren<TargetDetetcorView>();
         }
 
-        // private void Start()
-        // {
-        //     var shooter = new SingleProjectileShooterModel();
-        //     var targetDetector = new TargetDetetcorModel(shooter);
-        //     Init(new TowerModel(TowerType.B1, shooter, targetDetector), Material);
-        // }
-
-        public void ReduceScale()
+        public void SetScale(Vector3 scale)
         {
-            transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            _meshModel.transform.localScale = scale;
         }
     }
 }

@@ -60,13 +60,13 @@ namespace Infrastructure.GameStateMachines.States
 
         private void RegisterConfigs()
         {
-            StaticDataService.Register<GameConfig>();
-            StaticDataService.Register<FieldConfig>();
-            StaticDataService.Register<CheckpointsConfig>();
-            StaticDataService.Register<StartingLabyrinthConfig>();
-            StaticDataService.Register<WallPlacerConfig>();
-            StaticDataService.Register<TowersConfig>();
-            StaticDataService.Register<EnemiesConfig>();
+            StaticDataService.RegisterScriptable<GameConfig>();
+            StaticDataService.RegisterScriptable<FieldConfig>();
+            StaticDataService.RegisterScriptable<CheckpointsConfig>();
+            StaticDataService.RegisterScriptable<StartingLabyrinthConfig>();
+            StaticDataService.RegisterScriptable<WallPlacerConfig>();
+            StaticDataService.RegisterScriptable<EnemiesConfig>();
+            StaticDataService.RegisterScript(new TowersConfig());
         }
 
         private void EnterNextState() =>

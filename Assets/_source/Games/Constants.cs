@@ -31,6 +31,14 @@ namespace Games
             {
                 public const string Highlighted = nameof(Highlighted);
                 public const string Painted = nameof(Painted);
+                public const string BMaterial = nameof(BMaterial);
+                public const string DMaterial = nameof(DMaterial);
+                public const string EMaterial = nameof(EMaterial);
+                public const string GMaterial = nameof(GMaterial);
+                public const string PMaterial = nameof(PMaterial);
+                public const string QMaterial = nameof(QMaterial);
+                public const string RMaterial = nameof(RMaterial);
+                public const string YMaterial = nameof(YMaterial);
             }
         }
     }

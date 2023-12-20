@@ -45,8 +45,8 @@ namespace Gameplay.Fields.Cells
 
         private void OnTowerModelConfirmed()
         {
-            if (TowerView != null)
-                TowerView.ReduceScale();
+            // if (TowerView != null)
+            //     TowerView.SetScale();
         }
 
         private void Unsubscribe()

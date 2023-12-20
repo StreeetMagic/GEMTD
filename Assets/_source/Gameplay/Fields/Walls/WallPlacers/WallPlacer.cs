@@ -16,16 +16,43 @@ namespace Gameplay.Fields.Walls.WallPlacers
     public class TowerPlacer
     {
         private readonly int _wallPlacementDelay = 100;
+        private readonly TowerType[] _towerTypes;
+        private readonly int[] _levels;
 
         private WallPlacerConfig WallPlacerConfig => ServiceLocator.Instance.Get<IStaticDataService>().Get<WallPlacerConfig>();
         private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
         private IGameFactoryService GameFactory => ServiceLocator.Instance.Get<IGameFactoryService>();
 
+        public TowerPlacer()
+        {
+            _towerTypes = new[]
+            {
+                TowerType.B1,
+                TowerType.D1,
+                TowerType.E1,
+                TowerType.P1,
+                TowerType.Q1,
+                TowerType.R1,
+                TowerType.Y1,
+                TowerType.G1,
+            };
+
+            _levels = new[]
+            {
+                1,
+                1,
+                1,
+                1,
+                1,
+            };
+        }
+
         public async UniTask PlaceTowers()
         {
             List<Vector2Int> wallsCoordinates = GetWallCoordinates();
             RemovePlacedWalls(CurrentDataService.FieldModel.RoundNumber - 1);
-            await SetTowers(wallsCoordinates, new TowerType[] { TowerType.B1, TowerType.B2, TowerType.B3, TowerType.B4, TowerType.B5 });
+
+            await SetTowers(wallsCoordinates, _towerTypes, _levels);
         }
 
         public async UniTask ConfirmTower(CellModel cellModel)
@@ -56,24 +83,28 @@ namespace Gameplay.Fields.Walls.WallPlacers
                 CurrentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinates).RemoveWallModel();
         }
 
-        private async UniTask SetTowers(List<Vector2Int> wallsCoordinates, TowerType[] towerTypes)
+        private async UniTask SetTowers(List<Vector2Int> wallsCoordinates, TowerType[] towerTypes, int[] levels)
         {
             for (int i = 0; i < wallsCoordinates.ToList().Count; i++)
             {
                 Vector2Int vector2Int = wallsCoordinates.ToList()[i];
-                SetTower(vector2Int, towerTypes[i]);
+
+                TowerType randomTowerType = towerTypes[Random.Range(0, towerTypes.Length)];
+                int randomLevel = levels[Random.Range(0, levels.Length)];
+
+                SetTower(vector2Int, randomTowerType, randomLevel);
                 await UniTask.Delay(_wallPlacementDelay);
             }
         }
 
-        private void SetTower(Vector2Int coordinatesValues, TowerType towerType)
+        private void SetTower(Vector2Int coordinatesValues, TowerType towerType, int level)
         {
             CellModel cellModel = CurrentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinatesValues);
 
             if (cellModel.WallModel != null)
                 cellModel.RemoveWallModel();
 
-            cellModel.SetTowerModel(GameFactory.FieldFactory.CreateTowerModel(towerType));
+            cellModel.SetTowerModel(GameFactory.FieldFactory.CreateTowerModel(towerType, level));
         }
 
         private async UniTask ReplaceTowersWithWalls(IEnumerable<Vector2Int> wallsCoordinates)
