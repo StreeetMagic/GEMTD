@@ -15,6 +15,7 @@ namespace Gameplay.Fields.Towers.Shooters
     {
         private EnemyModel _currentTarget;
         private CoroutineDecorator _coroutine;
+        private float _cooldown = 1f;
 
         public Transform ShootingPoint { get; set; }
         public ProjectileContainerModel ProjectileContainerModel { get; set; }
@@ -77,9 +78,8 @@ namespace Gameplay.Fields.Towers.Shooters
         {
             while (_currentTarget != null)
             {
-                yield return new WaitForSeconds(.2f);
-
                 GameFactoryService.CreateProjectile(ShootingPoint, _currentTarget);
+                yield return new WaitForSeconds(_cooldown);
             }
 
             onComplete?.Invoke();

@@ -13,14 +13,13 @@ namespace Infrastructure.GameLoopStateMachines.States
     {
         private readonly IStateMachineService<GameLoopStateMachineData> _gameLoopStateMachine;
         private readonly TowerPlacer _towerPlacer;
-        private readonly HeadUpDisplay _headUpDisplay;
+        private readonly HeadsUpDisplay _headsUpDisplay;
 
         public ChooseTowerState(TowerPlacer towerPlacer, IStateMachineService<GameLoopStateMachineData> gameLoopStateMachine)
         {
             _towerPlacer = towerPlacer;
             _gameLoopStateMachine = gameLoopStateMachine;
-            _headUpDisplay = GameFactory.UserInterfaceFactory.CreateHeadUpDisplay();
-            _headUpDisplay.gameObject.SetActive(false);
+            _headsUpDisplay = GameFactory.UserInterfaceFactory.CreateHeadUpDisplay();
         }
 
         public event Action<IGameLoopStateMachineState> Entered;
@@ -30,13 +29,13 @@ namespace Infrastructure.GameLoopStateMachines.States
         public void Enter()
         {
             Entered?.Invoke(this);
-            _headUpDisplay.gameObject.SetActive(true);
-            _headUpDisplay.ChooseTowerPanel.OnChooseTowerStateEntered();
+            _headsUpDisplay.ChooseTowerPanel.gameObject.SetActive(true);
+            _headsUpDisplay.ChooseTowerPanel.OnChooseTowerStateEntered();
         }
 
         public void Exit()
         {
-            _headUpDisplay.gameObject.SetActive(false);
+
         }
 
         public async UniTask ConfirmTower(CellModel cellModel)

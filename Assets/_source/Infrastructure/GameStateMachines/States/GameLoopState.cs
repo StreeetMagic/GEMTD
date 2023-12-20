@@ -6,6 +6,7 @@ using Infrastructure.GameLoopStateMachines;
 using Infrastructure.GameLoopStateMachines.States;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
+using UnityEngine;
 
 namespace Infrastructure.GameStateMachines.States
 {
@@ -20,9 +21,11 @@ namespace Infrastructure.GameStateMachines.States
         public void Enter()
         {
             CurrentDataService.FieldModel = GameFactoryService.FieldFactory.CreateFieldModel();
+            CurrentDataService.ThroneModel = GameFactoryService.FieldFactory.CreateThroneModel();
             GameFactoryService.FieldFactory.CreateFieldView(CurrentDataService.FieldModel);
             GameFactoryService.FieldFactory.CreateCheckpointsModels();
             GameFactoryService.FieldFactory.CreateStartingLabyrinth();
+            GameFactoryService.CreateThrone(new Vector3(15, 0, 1));
             _gameLoopStateMachine = CreateGameLoopStateMachine();
             AssetProviderService.Instantiate<DebugHeadsUpDisplay>();
             _gameLoopStateMachine.Enter<PlaceWallsState>();
