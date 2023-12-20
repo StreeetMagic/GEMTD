@@ -1,8 +1,9 @@
 ﻿using System.Linq;
+using Gameplay.Fields.Cells;
 using Gameplay.Fields.Checkpoints;
 using UnityEngine;
 
-namespace Gameplay.Fields.Cells.CellsContainers
+namespace Gameplay.Fields.CellsContainers
 {
     public class CellsContainerModel
     {

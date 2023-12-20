@@ -1,8 +1,8 @@
-﻿using Gameplay.Fields.EnemySpawners.Enemies.Movers;
-using Gameplay.Fields.EnemySpawners.Enemies.TriggerAreas;
+﻿using Gameplay.Fields.Enemies.Movers;
+using Gameplay.Fields.Enemies.TriggerAreas;
 using UnityEngine;
 
-namespace Gameplay.Fields.EnemySpawners.Enemies
+namespace Gameplay.Fields.Enemies
 {
     [RequireComponent(typeof(Collider)), RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(IEnemyMoverView))]
     public class EnemyView : MonoBehaviour

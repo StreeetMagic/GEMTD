@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.FlyingEnemyMovers
+namespace Gameplay.Fields.Enemies.Movers.FlyingEnemyMovers
 {
     public class FlyingEnemyMoverViewView : MonoBehaviour, IEnemyMoverView
     {

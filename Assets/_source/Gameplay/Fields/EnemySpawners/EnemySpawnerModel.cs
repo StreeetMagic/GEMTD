@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Checkpoints;
-using Gameplay.Fields.EnemySpawners.Enemies;
-using Gameplay.Fields.EnemySpawners.EnemyContainers;
+using Gameplay.Fields.Enemies;
+using Gameplay.Fields.EnemyContainers;
 using Gameplay.Fields.PathFinders;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.CoroutineRunnerServices;
@@ -60,14 +60,16 @@ namespace Gameplay.Fields.EnemySpawners
             Vector2Int[] points = GetPoints();
 
             WaitForSeconds wait = new(0.5f);
-            int count = 3;
+            int count = 10;
 
             Vector2Int coordinates = StaticDataService.Get<CheckpointsConfig>().CheckPointSettings[0].Coordinates;
             Vector3 startingPosition = new(coordinates.x, 0, coordinates.y);
+            EnemiesConfig enemiesConfig = StaticDataService.Get<EnemiesConfig>();
+            int roundNumber = CurrentDataService.FieldModel.RoundNumber;
 
             for (int i = 0; i < count; i++)
             {
-                EnemyModel enemy = GameFactoryService.CreateEnemyModel(startingPosition, points);
+                EnemyModel enemy = GameFactoryService.CreateEnemyModel(startingPosition, points, enemiesConfig.Enemies[roundNumber]);
                 ContainerModel.AddEnemy(enemy);
                 EnemySpawned?.Invoke(enemy);
                 yield return wait;

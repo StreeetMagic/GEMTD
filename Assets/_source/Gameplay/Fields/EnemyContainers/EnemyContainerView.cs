@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Gameplay.Fields.EnemySpawners.EnemyContainers
+namespace Gameplay.Fields.EnemyContainers
 {
     public class EnemyContainerView : MonoBehaviour
     {

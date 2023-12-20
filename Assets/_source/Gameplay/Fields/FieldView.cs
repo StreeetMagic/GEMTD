@@ -1,5 +1,5 @@
 using System.Linq;
-using Gameplay.Fields.Cells.CellsContainers;
+using Gameplay.Fields.CellsContainers;
 using Gameplay.Fields.EnemySpawners;
 using InfastuctureCore.ServiceLocators;
 using Infrastructure.Services.GameFactoryServices;

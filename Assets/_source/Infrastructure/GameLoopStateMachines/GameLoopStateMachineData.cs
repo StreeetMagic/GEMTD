@@ -12,7 +12,7 @@ namespace Infrastructure.GameLoopStateMachines
 
             gameLoopStateMachine.Register(new PlaceWallsState(gameLoopStateMachine, towerPlacer));
             gameLoopStateMachine.Register(new ChooseTowerState(towerPlacer, gameLoopStateMachine));
-            gameLoopStateMachine.Register(new EnemyMoveState(gameLoopStateMachine));
+            gameLoopStateMachine.Register(new EnemyMoveState());
             gameLoopStateMachine.Register(new WinState());
             gameLoopStateMachine.Register(new LoseState());
         }

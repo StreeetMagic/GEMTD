@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace Gameplay.Fields.EnemySpawners.Enemies.Movers
+namespace Gameplay.Fields.Enemies.Movers
 {
     public class EnemyMoverModel
     {

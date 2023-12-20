@@ -28,7 +28,7 @@ namespace Infrastructure.GameLoopStateMachines.States
             CurrentDataService.FieldModel.RoundNumber++;
             Entered?.Invoke(this);
 
-            UniTask asd = PlaceWalls();
+            PlaceWalls();
         }
 
         public void Exit()

@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Linq;
-using Gameplay.Fields.EnemySpawners.Enemies.Movers;
+using Gameplay.Fields.Enemies.Movers;
 using InfastuctureCore.Utilities;
 using UnityEngine;
 
-namespace Gameplay.Fields.EnemySpawners.Enemies
+namespace Gameplay.Fields.Enemies
 {
     public class EnemyModel
     {
-        public ReactiveProperty<float> Health { get; } = new() { Value = 20 };
+        public ReactiveProperty<float> Health { get; }
         public EnemyMoverModel MoverModel { get; set; }
 
         public event Action<EnemyModel> Died;
 
-        public EnemyModel(Vector3 position, Vector2Int[] points)
+        public EnemyModel(Vector3 position, Vector2Int[] points, EnemyValues values)
         {
             MoverModel = new EnemyMoverModel(position, points.ToArray(), this);
+            Health = new ReactiveProperty<float>(values.HealthPoints);
         }
 
         public void TakeDamage(float damage)
