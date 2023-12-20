@@ -11,7 +11,7 @@ namespace Infrastructure.GameLoopStateMachines
             TowerPlacer towerPlacer = new();
 
             gameLoopStateMachine.Register(new PlaceWallsState(gameLoopStateMachine, towerPlacer));
-            gameLoopStateMachine.Register(new ChooseTowerState(towerPlacer, gameLoopStateMachine));
+            gameLoopStateMachine.Register(new ChooseTowerState(towerPlacer));
             gameLoopStateMachine.Register(new EnemyMoveState());
             gameLoopStateMachine.Register(new WinState());
             gameLoopStateMachine.Register(new LoseState());

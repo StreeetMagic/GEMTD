@@ -23,12 +23,12 @@ namespace Infrastructure.GameLoopStateMachines.States
 
         private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
 
-        public void Enter()
+        public async void Enter()
         {
             CurrentDataService.FieldModel.RoundNumber++;
             Entered?.Invoke(this);
 
-            PlaceWalls();
+            await PlaceWalls();
         }
 
         public void Exit()

@@ -15,20 +15,29 @@ namespace Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles
             ProjectileModel = projectileModel;
             MoverView.Init(ProjectileModel.Mover);
             ProjectileModel.Mover.Target.Died += OnTargetDied;
+            ProjectileModel.Died += OnDied;
         }
 
         private void OnDestroy()
         {
             ProjectileModel.Mover.Target.Died -= OnTargetDied;
+            ProjectileModel.Died -= OnDied;
         }
 
         private void OnTargetDied(EnemyModel enemyModel)
         {
-            gameObject.SetActive(false);
+            ProjectileModel.Die();
+        }
+
+        private void OnDied()
+        {
             Destroy();
         }
 
-        public void Destroy() =>
+        public void Destroy()
+        {
+            //gameObject.SetActive(false);
             Destroy(gameObject);
+        }
     }
 }

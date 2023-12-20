@@ -6,7 +6,7 @@ namespace Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles.Movers
     public class DefaultProjectileMoverView : MonoBehaviour
     {
         private IProjectileMoverModel _moverModel;
-        
+
         private Rigidbody Rigidbody { get; set; }
 
         public void Init(IProjectileMoverModel moverModel)
@@ -21,7 +21,12 @@ namespace Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles.Movers
 
         private void FixedUpdate()
         {
-            Rigidbody.MovePosition(Vector3.MoveTowards(transform.position, _moverModel.Target.MoverModel.Position, _moverModel.Speed * Time.fixedDeltaTime));
+            Vector3 current = transform.position;
+            Vector3 target = _moverModel.Target.DamagePosition;
+            float maxDistanceDelta = _moverModel.Speed * Time.fixedDeltaTime;
+            
+            Rigidbody.MovePosition(Vector3.MoveTowards(current, target, maxDistanceDelta));
+            
             _moverModel.Move(Rigidbody.position);
         }
     }

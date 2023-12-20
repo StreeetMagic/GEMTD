@@ -48,9 +48,5 @@ namespace InfastuctureCore.Utilities
 
         public override string ToString() =>
             Value.ToString();
-
-        public void SetValue(T value)
-        {
-        }
     }
 }
