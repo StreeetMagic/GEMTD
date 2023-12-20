@@ -11,8 +11,7 @@ namespace Gameplay.Fields.Cells
 {
     public class CellView : MonoBehaviour, IPointerDownHandler
     {
-        public CellModel CelLModel { get; private set; }
-
+        public CellModel CellModel { get; private set; }
         public BlockView BlockView { get; private set; }
         public CheckpointView CheckpointView { get; private set; }
         public WallView WallView { get; private set; }
@@ -24,8 +23,8 @@ namespace Gameplay.Fields.Cells
 
         public void Init(CellModel cellModel)
         {
-            CelLModel = cellModel;
-            BlockView = GameFactoryService.FieldFactory.CreateBlockView(CelLModel.BlockModel, transform);
+            CellModel = cellModel;
+            BlockView = GameFactoryService.FieldFactory.CreateBlockView(CellModel.BlockModel, transform);
             Subscribe();
         }
 
@@ -36,12 +35,12 @@ namespace Gameplay.Fields.Cells
 
         private void Subscribe()
         {
-            CelLModel.ChekpointModelSet += OnCheckpointModelSet;
-            CelLModel.WallModelSet += OnWallModelSet;
-            CelLModel.WallModelRemoved += OnWallModelRemoved;
-            CelLModel.TowerModelSet += OnTowerModelSet;
-            CelLModel.TowerModelRemoved += OnTowerModelRemoved;
-            CelLModel.TowerModelConfirmed += OnTowerModelConfirmed;
+            CellModel.ChekpointModelSet += OnCheckpointModelSet;
+            CellModel.WallModelSet += OnWallModelSet;
+            CellModel.WallModelRemoved += OnWallModelRemoved;
+            CellModel.TowerModelSet += OnTowerModelSet;
+            CellModel.TowerModelRemoved += OnTowerModelRemoved;
+            CellModel.TowerModelConfirmed += OnTowerModelConfirmed;
         }
 
         private void OnTowerModelConfirmed()
@@ -52,12 +51,12 @@ namespace Gameplay.Fields.Cells
 
         private void Unsubscribe()
         {
-            CelLModel.ChekpointModelSet -= OnCheckpointModelSet;
-            CelLModel.WallModelSet -= OnWallModelSet;
-            CelLModel.WallModelRemoved -= OnWallModelRemoved;
-            CelLModel.TowerModelSet -= OnTowerModelSet;
-            CelLModel.TowerModelRemoved -= OnTowerModelRemoved;
-            CelLModel.TowerModelConfirmed -= OnTowerModelConfirmed;
+            CellModel.ChekpointModelSet -= OnCheckpointModelSet;
+            CellModel.WallModelSet -= OnWallModelSet;
+            CellModel.WallModelRemoved -= OnWallModelRemoved;
+            CellModel.TowerModelSet -= OnTowerModelSet;
+            CellModel.TowerModelRemoved -= OnTowerModelRemoved;
+            CellModel.TowerModelConfirmed -= OnTowerModelConfirmed;
         }
 
         private void OnTowerModelRemoved()
@@ -71,7 +70,7 @@ namespace Gameplay.Fields.Cells
 
         private void OnCheckpointModelSet()
         {
-            CheckpointView = GameFactoryService.FieldFactory.CreateCheckpointView(CelLModel.CheckPointModel, transform);
+            CheckpointView = GameFactoryService.FieldFactory.CreateCheckpointView(CellModel.CheckPointModel, transform);
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -92,12 +91,12 @@ namespace Gameplay.Fields.Cells
 
         private void OnWallModelSet()
         {
-            WallView = GameFactoryService.FieldFactory.CreateWallView(CelLModel.WallModel, transform);
+            WallView = GameFactoryService.FieldFactory.CreateWallView(CellModel.WallModel, transform);
         }
 
         private void OnTowerModelSet()
         {
-            TowerView = GameFactoryService.FieldFactory.CreateTowerView(CelLModel.TowerModel, transform);
+            TowerView = GameFactoryService.FieldFactory.CreateTowerView(CellModel.TowerModel, transform);
         }
 
         private void OnWallModelRemoved()

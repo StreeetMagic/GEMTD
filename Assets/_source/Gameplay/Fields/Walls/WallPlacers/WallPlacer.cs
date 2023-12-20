@@ -2,6 +2,7 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Gameplay.Fields.Cells;
+using Gameplay.Fields.CellsContainers;
 using Gameplay.Fields.Towers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StaticDataServices;
@@ -24,17 +25,17 @@ namespace Gameplay.Fields.Walls.WallPlacers
         {
             List<Vector2Int> wallsCoordinates = GetWallCoordinates();
             RemovePlacedWalls(CurrentDataService.FieldModel.RoundNumber - 1);
-            await SetTowers(wallsCoordinates);
+            await SetTowers(wallsCoordinates, new TowerType[] { TowerType.B1, TowerType.B2, TowerType.B3, TowerType.B4, TowerType.B5 });
         }
 
         public async UniTask ConfirmTower(CellModel cellModel)
         {
             List<Vector2Int> wallsCoordinates = GetWallCoordinates().ToList();
-            
+
             await UniTask.Delay(_wallPlacementDelay);
             cellModel.ConfirmTower();
             wallsCoordinates.Remove(cellModel.Coordinates);
-            
+
             await ReplaceTowersWithWalls(wallsCoordinates);
         }
 
@@ -55,31 +56,34 @@ namespace Gameplay.Fields.Walls.WallPlacers
                 CurrentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinates).RemoveWallModel();
         }
 
-        private async UniTask SetTowers(List<Vector2Int> wallsCoordinates)
+        private async UniTask SetTowers(List<Vector2Int> wallsCoordinates, TowerType[] towerTypes)
         {
-            foreach (Vector2Int vector2Int in wallsCoordinates.ToList())
+            for (int i = 0; i < wallsCoordinates.ToList().Count; i++)
             {
-                SetTower(vector2Int);
+                Vector2Int vector2Int = wallsCoordinates.ToList()[i];
+                SetTower(vector2Int, towerTypes[i]);
                 await UniTask.Delay(_wallPlacementDelay);
             }
         }
 
-        private void SetTower(Vector2Int coordinatesValues)
+        private void SetTower(Vector2Int coordinatesValues, TowerType towerType)
         {
-            if (CurrentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinatesValues).WallModel != null)
-                CurrentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinatesValues).RemoveWallModel();
+            CellModel cellModel = CurrentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinatesValues);
 
-            CurrentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinatesValues).SetTowerModel(GameFactory.FieldFactory.CreateTowerModel((TowerType)Random.Range(0, 8), 1));
+            if (cellModel.WallModel != null)
+                cellModel.RemoveWallModel();
+
+            cellModel.SetTowerModel(GameFactory.FieldFactory.CreateTowerModel(towerType));
         }
 
         private async UniTask ReplaceTowersWithWalls(IEnumerable<Vector2Int> wallsCoordinates)
         {
             foreach (Vector2Int coordinates in wallsCoordinates)
             {
-                if (CurrentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinates).TowerIsConfirmed == false)
-                {
-                    CurrentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinates).RemoveTowerModel();
-                }
+                CellModel cellModel = CurrentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinates);
+
+                if (cellModel.TowerIsConfirmed == false)
+                    cellModel.RemoveTowerModel();
 
                 await UniTask.Delay(_wallPlacementDelay);
 

@@ -73,7 +73,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
 
         public TowerView CreateTowerView(TowerModel towerModel, Transform transform) =>
             _assetProviderService.Instantiate<TowerView>(Constants.AssetsPath.Prefabs.Tower, Vector3.zero)
-                .With(e => e.Init(towerModel, _staticDataService.Get<TowersConfig>().TowerMaterials[towerModel.Type]))
+                .With(e => e.Init(towerModel, _staticDataService.Get<TowersConfig>().TowerValues[towerModel.Type].Material))
                 .With(e => e.transform.SetParent(transform))
                 .With(e => e.transform.localPosition = Vector3.zero);
 
@@ -94,7 +94,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
         public WallModel CreateWallModel() =>
             new WallModel();
 
-        public TowerModel CreateTowerModel(TowerType towerType, int level)
+        public TowerModel CreateTowerModel(TowerType towerType)
         {
             var singleProjectileShooterModel = new SingleProjectileShooterModel();
             return new TowerModel(towerType, singleProjectileShooterModel, new TargetDetetcorModel(singleProjectileShooterModel));

@@ -31,12 +31,12 @@ namespace Gameplay.Fields.Towers
             _targetDetetcorView = GetComponentInChildren<TargetDetetcorView>();
         }
 
-        private void Start()
-        {
-            var shooter = new SingleProjectileShooterModel();
-            var targetDetector = new TargetDetetcorModel(shooter);
-            Init(new TowerModel(TowerType.B1, shooter, targetDetector), Material);
-        }
+        // private void Start()
+        // {
+        //     var shooter = new SingleProjectileShooterModel();
+        //     var targetDetector = new TargetDetetcorModel(shooter);
+        //     Init(new TowerModel(TowerType.B1, shooter, targetDetector), Material);
+        // }
 
         public void ReduceScale()
         {

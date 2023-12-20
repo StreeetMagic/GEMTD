@@ -1,5 +1,8 @@
-﻿namespace Gameplay.Fields.Towers
+﻿using System;
+
+namespace Gameplay.Fields.Towers
 {
+    [Serializable]
     public enum TowerType
     {
         B1 = 0,
