@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Gameplay.Fields.EnemySpawners.Enemies;
+using Gameplay.Fields.Enemies;
 using Gameplay.Fields.Towers.Shooters.Projectiles.ProjectileContainers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.CoroutineRunnerServices;

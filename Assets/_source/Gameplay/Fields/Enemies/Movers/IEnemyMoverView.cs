@@ -1,4 +1,4 @@
-﻿namespace Gameplay.Fields.EnemySpawners.Enemies.Movers
+﻿namespace Gameplay.Fields.Enemies.Movers
 {
     public interface IEnemyMoverView
     {

@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using Gameplay.Fields.EnemySpawners.Enemies;
+using Gameplay.Fields.Enemies;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
 using Infrastructure.GameLoopStateMachines;
 using Infrastructure.GameLoopStateMachines.States;
-using UnityEngine;
 
-namespace Gameplay.Fields.EnemySpawners.EnemyContainers
+namespace Gameplay.Fields.EnemyContainers
 {
     public class EnemyContainerModel
     {

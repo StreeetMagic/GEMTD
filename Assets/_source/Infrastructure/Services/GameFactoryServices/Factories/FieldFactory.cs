@@ -3,8 +3,8 @@ using Gameplay.Fields;
 using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.EnemyContainers;
 using Gameplay.Fields.EnemySpawners;
-using Gameplay.Fields.EnemySpawners.EnemyContainers;
 using Gameplay.Fields.Labytinths;
 using Gameplay.Fields.Towers;
 using Gameplay.Fields.Towers.Shooters;
@@ -72,7 +72,7 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
 
         public TowerView CreateTowerView(TowerModel towerModel, Transform transform) =>
             _assetProviderService.Instantiate<TowerView>(Constants.AssetsPath.Prefabs.Tower, Vector3.zero)
-                .With(e => e.Init(towerModel, _staticDataService.Get<TowerConfig>().TowerMaterials[towerModel.Type]))
+                .With(e => e.Init(towerModel, _staticDataService.Get<TowersConfig>().TowerMaterials[towerModel.Type]))
                 .With(e => e.transform.SetParent(transform))
                 .With(e => e.transform.localPosition = Vector3.zero);
 

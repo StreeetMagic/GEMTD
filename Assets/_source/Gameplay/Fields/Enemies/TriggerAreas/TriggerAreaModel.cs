@@ -1,7 +1,7 @@
 ﻿using Gameplay.Fields.Towers.Shooters.Projectiles;
 using UnityEngine;
 
-namespace Gameplay.Fields.EnemySpawners.Enemies.TriggerAreas
+namespace Gameplay.Fields.Enemies.TriggerAreas
 {
     public class TriggerAreaModel
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Gameplay.Fields.Cells;
-using Gameplay.Fields.Cells.CellsContainers;
+using Gameplay.Fields.CellsContainers;
 using Gameplay.Fields.EnemySpawners;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StaticDataServices;

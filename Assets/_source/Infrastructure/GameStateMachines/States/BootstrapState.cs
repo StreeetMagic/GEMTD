@@ -1,5 +1,6 @@
 ﻿using Gameplay.Fields;
 using Gameplay.Fields.Checkpoints;
+using Gameplay.Fields.Enemies;
 using Gameplay.Fields.Labytinths;
 using Gameplay.Fields.Towers;
 using Gameplay.Fields.Walls.WallPlacers;
@@ -64,7 +65,8 @@ namespace Infrastructure.GameStateMachines.States
             StaticDataService.Register<CheckpointsConfig>();
             StaticDataService.Register<StartingLabyrinthConfig>();
             StaticDataService.Register<WallPlacerConfig>();
-            StaticDataService.Register<TowerConfig>();
+            StaticDataService.Register<TowersConfig>();
+            StaticDataService.Register<EnemiesConfig>();
         }
 
         private void EnterNextState() =>

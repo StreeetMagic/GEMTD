@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Gameplay.Fields.EnemySpawners.Enemies.TriggerAreas
+namespace Gameplay.Fields.Enemies.TriggerAreas
 {
     public class TriggerAreaView : MonoBehaviour
     {

@@ -1,4 +1,4 @@
-﻿using Gameplay.Fields.EnemySpawners.Enemies;
+﻿using Gameplay.Fields.Enemies;
 using UnityEngine;
 
 namespace Gameplay.Fields.Towers.Shooters.Projectiles

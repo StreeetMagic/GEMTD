@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Gameplay.Fields.Towers
 {
-    [CreateAssetMenu(fileName = "TowerConfig", menuName = "Configs/TowerConfig")]
-    public class TowerConfig : SerializedScriptableObject, IStaticData
+    [CreateAssetMenu(fileName = "TowersConfig", menuName = "Configs/TowersConfig")]
+    public class TowersConfig : SerializedScriptableObject, IStaticData
     {
         public Dictionary<TowerType, Material> TowerMaterials = new();
     }

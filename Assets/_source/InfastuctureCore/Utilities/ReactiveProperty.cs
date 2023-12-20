@@ -29,9 +29,9 @@ namespace InfastuctureCore.Utilities
             }
         }
 
-        public ReactiveProperty()
+        public ReactiveProperty(T value)
         {
-            Value = default;
+            Value = value;
         }
 
         public ReactiveProperty(Func<T, T> valueSetter)

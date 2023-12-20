@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Gameplay.Fields.EnemySpawners.Enemies;
+using Gameplay.Fields.Enemies;
 using Gameplay.Fields.Towers.Shooters.Projectiles.ProjectileContainers;
 using UnityEngine;
 

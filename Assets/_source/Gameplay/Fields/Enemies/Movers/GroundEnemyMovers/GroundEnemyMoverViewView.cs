@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay.Fields.EnemySpawners.Enemies.Movers.GroundEnemyMovers
+namespace Gameplay.Fields.Enemies.Movers.GroundEnemyMovers
 {
     [RequireComponent(typeof(Rigidbody))]
     public sealed class GroundEnemyMoverViewView : MonoBehaviour, IEnemyMoverView
