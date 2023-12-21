@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Towers;
 using InfastuctureCore.ServiceLocators;
@@ -13,23 +15,32 @@ using UnityEngine.UI;
 
 namespace UserInterface
 {
-    public class ChooseTowerPanel : MonoBehaviour
+    public class ChooseTowerPanelView : MonoBehaviour
     {
-        [field: SerializeField] public Button[] TowerButtons { get; private set; }
-        [field: SerializeField] public Button[] SingleMergeTowerButtons { get; private set; }
-        [field: SerializeField] public Button[] DoubleMergeTowerButtons { get; private set; }
+        public List<Button> DowngradeButtons { get; private set; }
+        public List<Button> PlacedTowerButtons { get; private set; }
+        public List<Button> SingleMergeTowerButtons { get; private set; }
+        public List<Button> DoubleMergeTowerButtons { get; private set; }
 
         private IStateMachineService<GameLoopStateMachineData> GameLoopStateMachine => ServiceLocator.Instance.Get<IStateMachineService<GameLoopStateMachineData>>();
         private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
         private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
+
+        private void Awake()
+        {
+            DowngradeButtons = GetComponentInChildren<DowngradeButtonsView>().GetComponentsInChildren<Button>().ToList();
+            PlacedTowerButtons = GetComponentInChildren<PlacedButtonsView>().GetComponentsInChildren<Button>().ToList();
+            SingleMergeTowerButtons = GetComponentInChildren<SingleMergeButtonsView>().GetComponentsInChildren<Button>().ToList();
+            DoubleMergeTowerButtons = GetComponentInChildren<DowngradeButtonsView>().GetComponentsInChildren<Button>().ToList();
+        }
 
         public void OnChooseTowerStateEntered(List<Vector2Int> wallsCoordinates)
         {
             DisableMergeButtons();
             gameObject.SetActive(true);
 
-            for (int i = 0; i < TowerButtons.Length; i++)
-                InitButton(TowerButtons[i], CurrentDataService.FieldModel.CellsContainerModel.GetCellModelByCoordinates(wallsCoordinates[i]));
+            for (int i = 0; i < PlacedTowerButtons.Count; i++)
+                InitButton(PlacedTowerButtons[i], CurrentDataService.FieldModel.CellsContainerModel.GetCellModelByCoordinates(wallsCoordinates[i]));
 
             FindMerges(wallsCoordinates);
         }
@@ -141,8 +152,9 @@ namespace UserInterface
 
         private void DisableMergeButtons()
         {
-            for (int i = 0; i < SingleMergeTowerButtons.Length; i++)
+            for (int i = 0; i < SingleMergeTowerButtons.Count; i++)
             {
+                DowngradeButtons[i].gameObject.SetActive(false);
                 SingleMergeTowerButtons[i].gameObject.SetActive(false);
                 DoubleMergeTowerButtons[i].gameObject.SetActive(false);
             }

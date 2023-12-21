@@ -8,18 +8,19 @@ using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;
 using UserInterface;
+using UserInterface.HeadsUpDisplays;
 
 namespace Infrastructure.GameLoopStateMachines.States
 {
     public class ChooseTowerState : IGameLoopStateMachineState
     {
         private readonly TowerPlacer _towerPlacer;
-        private readonly HeadsUpDisplay _headsUpDisplay;
+        private readonly HeadsUpDisplayView _headsUpDisplayView;
 
         public ChooseTowerState(TowerPlacer towerPlacer)
         {
             _towerPlacer = towerPlacer;
-            _headsUpDisplay = GameFactory.UserInterfaceFactory.CreateHeadUpDisplay();
+            _headsUpDisplayView = GameFactory.UserInterfaceFactory.CreateHeadUpDisplay();
         }
 
         public event Action<IGameLoopStateMachineState> Entered;
@@ -31,13 +32,13 @@ namespace Infrastructure.GameLoopStateMachines.States
         public void Enter()
         {
             Entered?.Invoke(this);
-            _headsUpDisplay.ChooseTowerPanel.gameObject.SetActive(true);
+            _headsUpDisplayView.ChooseTowerPanelView.gameObject.SetActive(true);
 
             int roundNumber = CurrentDataService.FieldModel.RoundNumber;
             WallSettingsPerRound[] towerIndexes = StaticDataService.Get<WallPlacerConfig>().WallSettingsPerRounds.ToArray();
             List<Vector2Int> wallsCoordinates = towerIndexes[roundNumber - 1].PlaceList;
 
-            _headsUpDisplay.ChooseTowerPanel.OnChooseTowerStateEntered(wallsCoordinates);
+            _headsUpDisplayView.ChooseTowerPanelView.OnChooseTowerStateEntered(wallsCoordinates);
         }
 
         public void Exit()

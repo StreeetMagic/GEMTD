@@ -9,6 +9,7 @@ using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices.Factories;
 using UnityEngine;
 using UserInterface;
+using UserInterface.HeadsUpDisplays;
 using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticDataService;
 
 namespace Infrastructure.Services.GameFactoryServices
@@ -72,7 +73,7 @@ namespace Infrastructure.Services.GameFactoryServices
             _assetProvider = assetProvider;
         }
 
-        public HeadsUpDisplay CreateHeadUpDisplay() =>
-            _assetProvider.Instantiate<HeadsUpDisplay>(Constants.AssetsPath.Prefabs.HeadsUpDisplay);
+        public HeadsUpDisplayView CreateHeadUpDisplay() =>
+            _assetProvider.Instantiate<HeadsUpDisplayView>(Constants.AssetsPath.Prefabs.HeadsUpDisplay);
     }
 }

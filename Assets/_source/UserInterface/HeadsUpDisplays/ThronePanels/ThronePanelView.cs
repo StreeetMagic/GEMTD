@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UserInterface
 {
-    public class ThronePanel : MonoBehaviour
+    public class ThronePanelView : MonoBehaviour
     {
         [field: SerializeField] public TextMeshProUGUI HealthText { get; private set; }
 
