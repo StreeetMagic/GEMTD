@@ -42,36 +42,23 @@ namespace UserInterface
             for (int i = 0; i < PlacedTowerButtons.Count; i++)
                 InitButton(PlacedTowerButtons[i], CurrentDataService.FieldModel.CellsContainerModel.GetCellModelByCoordinates(wallsCoordinates[i]));
 
-            FindMerges(wallsCoordinates);
+            CheckTowers(wallsCoordinates);
         }
 
-        private void FindMerges(List<Vector2Int> wallsCoordinates)
+        private void CheckTowers(List<Vector2Int> wallsCoordinates)
         {
-            CellModel[] cells = new CellModel[wallsCoordinates.Count];
-            Dictionary<TowerType, int> towerTypes = new Dictionary<TowerType, int>();
+            GetCellModels(wallsCoordinates, out CellModel[] cells, out Dictionary<TowerType, int> towerTypes);
 
-            for (int i = 0; i < wallsCoordinates.Count; i++)
-            {
-                Vector2Int vector = wallsCoordinates[i];
-                cells[i] = CurrentDataService.FieldModel.CellsContainerModel.GetCellModelByCoordinates(vector);
+            CheckDowngrades(wallsCoordinates, towerTypes);
 
-                TowerType towerType = cells[i].TowerModel.Type;
-
-                if (towerTypes.ContainsKey(towerType))
-                {
-                    towerTypes[towerType]++;
-                }
-                else
-                {
-                    towerTypes.Add(towerType, 1);
-                }
-            }
-
-            if (towerTypes.Count == wallsCoordinates.Count)
-            {
+            if (CheckSimilar(wallsCoordinates, towerTypes))
                 return;
-            }
 
+            CheckMerges(towerTypes, cells);
+        }
+
+        private void CheckMerges(Dictionary<TowerType, int> towerTypes, CellModel[] cells)
+        {
             foreach (KeyValuePair<TowerType, int> pair in towerTypes)
             {
                 if (pair.Value > 1)
@@ -134,6 +121,37 @@ namespace UserInterface
                         GameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cell, () => GameLoopStateMachine.Enter<EnemyMoveState>());
                         gameObject.SetActive(false);
                     });
+                }
+            }
+        }
+
+        private void CheckDowngrades(List<Vector2Int> wallsCoordinates, Dictionary<TowerType, int> towerTypes)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool CheckSimilar(List<Vector2Int> wallsCoordinates, Dictionary<TowerType, int> towerTypes) =>
+            towerTypes.Count == wallsCoordinates.Count;
+
+        private void GetCellModels(List<Vector2Int> wallsCoordinates, out CellModel[] cells, out Dictionary<TowerType, int> towerTypes)
+        {
+            cells = new CellModel[wallsCoordinates.Count];
+            towerTypes = new Dictionary<TowerType, int>();
+
+            for (int i = 0; i < wallsCoordinates.Count; i++)
+            {
+                Vector2Int vector = wallsCoordinates[i];
+                cells[i] = CurrentDataService.FieldModel.CellsContainerModel.GetCellModelByCoordinates(vector);
+
+                TowerType towerType = cells[i].TowerModel.Type;
+
+                if (towerTypes.ContainsKey(towerType))
+                {
+                    towerTypes[towerType]++;
+                }
+                else
+                {
+                    towerTypes.Add(towerType, 1);
                 }
             }
         }
