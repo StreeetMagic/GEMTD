@@ -6,6 +6,7 @@ using Gameplay.Fields.Towers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
 using InfastuctureCore.Services.StaticDataServices;
+using InfastuctureCore.Utilities;
 using Infrastructure.GameLoopStateMachines;
 using Infrastructure.GameLoopStateMachines.States;
 using Infrastructure.Services.CurrentDataServices;
@@ -31,7 +32,7 @@ namespace UserInterface
             DowngradeButtons = GetComponentInChildren<DowngradeButtonsView>().GetComponentsInChildren<Button>().ToList();
             PlacedTowerButtons = GetComponentInChildren<PlacedButtonsView>().GetComponentsInChildren<Button>().ToList();
             SingleMergeTowerButtons = GetComponentInChildren<SingleMergeButtonsView>().GetComponentsInChildren<Button>().ToList();
-            DoubleMergeTowerButtons = GetComponentInChildren<DowngradeButtonsView>().GetComponentsInChildren<Button>().ToList();
+            DoubleMergeTowerButtons = GetComponentInChildren<DoubleMergeButtonsView>().GetComponentsInChildren<Button>().ToList();
         }
 
         public void OnChooseTowerStateEntered(List<Vector2Int> wallsCoordinates)
@@ -63,30 +64,23 @@ namespace UserInterface
             {
                 if (pair.Value > 1)
                 {
-                    TowerType towerType = pair.Key;
-
                     for (int i = 0; i < cells.Length; i++)
                     {
-                        CellModel cell = cells[i];
-
-                        if (cell.TowerModel.Type != towerType)
+                        if (cells[i].TowerModel.Type != pair.Key)
                             continue;
 
-                        TowerType singleMergeType = StaticDataService.Get<TowersConfig>().GetTowerValues(towerType).SingleMergeType;
-
-                        if (singleMergeType == TowerType.None)
+                        if (StaticDataService.Get<TowersConfig>().GetTowerValues(pair.Key).SingleMergeType == TowerType.None)
                             continue;
 
                         Button singleMergeTowerButton = SingleMergeTowerButtons[i];
                         singleMergeTowerButton.gameObject.SetActive(true);
-                        singleMergeTowerButton.GetComponentInChildren<TextMeshProUGUI>().text = singleMergeType.ToString();
-
+                        singleMergeTowerButton.GetComponentInChildren<TextMeshProUGUI>().text = StaticDataService.Get<TowersConfig>().GetTowerValues(pair.Key).SingleMergeType.ToString();
                         singleMergeTowerButton.onClick.RemoveAllListeners();
+
                         singleMergeTowerButton.onClick.AddListener(() =>
                         {
-                            int singleUpgradeLevel = cell.TowerModel.Level + 1;
-                            cell.Upgrade(singleMergeType, singleUpgradeLevel);
-                            GameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cell, () => GameLoopStateMachine.Enter<EnemyMoveState>());
+                            cells[i].Upgrade(StaticDataService.Get<TowersConfig>().GetTowerValues(pair.Key).SingleMergeType, cells[i].TowerModel.Level + 1);
+                            GameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cells[i], () => GameLoopStateMachine.Enter<EnemyMoveState>());
                             gameObject.SetActive(false);
                         });
                     }
@@ -95,30 +89,23 @@ namespace UserInterface
                 if (pair.Value <= 3)
                     continue;
 
-                TowerType towerType2 = pair.Key;
-
                 for (int i = 0; i < cells.Length; i++)
                 {
-                    CellModel cell = cells[i];
-
-                    if (cell.TowerModel.Type != towerType2)
+                    if (cells[i].TowerModel.Type != pair.Key)
                         continue;
 
-                    TowerType doubleMergeType = StaticDataService.Get<TowersConfig>().GetTowerValues(cell.TowerModel.Type).DoubleMergeType;
-
-                    if (doubleMergeType == TowerType.None)
+                    if (StaticDataService.Get<TowersConfig>().GetTowerValues(cells[i].TowerModel.Type).DoubleMergeType == TowerType.None)
                         continue;
 
                     Button doubleMergeTowerButton = DoubleMergeTowerButtons[i];
                     doubleMergeTowerButton.gameObject.SetActive(true);
-                    doubleMergeTowerButton.GetComponentInChildren<TextMeshProUGUI>().text = doubleMergeType.ToString();
-
+                    doubleMergeTowerButton.GetComponentInChildren<TextMeshProUGUI>().text = StaticDataService.Get<TowersConfig>().GetTowerValues(cells[i].TowerModel.Type).DoubleMergeType.ToString();
                     doubleMergeTowerButton.onClick.RemoveAllListeners();
+
                     doubleMergeTowerButton.onClick.AddListener(() =>
                     {
-                        int doubleUpgradeLevel = cell.TowerModel.Level + 2;
-                        cell.Upgrade(doubleMergeType, doubleUpgradeLevel);
-                        GameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cell, () => GameLoopStateMachine.Enter<EnemyMoveState>());
+                        cells[i].Upgrade(StaticDataService.Get<TowersConfig>().GetTowerValues(cells[i].TowerModel.Type).DoubleMergeType, cells[i].TowerModel.Level + 2);
+                        GameLoopStateMachine.Get<ChooseTowerState>().ConfirmTower(cells[i], () => GameLoopStateMachine.Enter<EnemyMoveState>());
                         gameObject.SetActive(false);
                     });
                 }
@@ -127,7 +114,7 @@ namespace UserInterface
 
         private void CheckDowngrades(List<Vector2Int> wallsCoordinates, Dictionary<TowerType, int> towerTypes)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private bool CheckSimilar(List<Vector2Int> wallsCoordinates, Dictionary<TowerType, int> towerTypes) =>
