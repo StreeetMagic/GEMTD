@@ -5,9 +5,15 @@ using UnityEngine;
 
 namespace Gameplay.Fields.Checkpoints
 {
+    public class CheckpointValues
+    {
+        public int Number;
+        public Vector2Int Coordinates;
+    }
+
     public class CheckpointsConfig : IStaticData
     {
-        private List<CheckpointValues> _checkpointValues;
+        private readonly List<CheckpointValues> _checkpointValues;
 
         public IReadOnlyList<CheckpointValues> CheckpointValues => _checkpointValues;
 
@@ -44,11 +50,5 @@ namespace Gameplay.Fields.Checkpoints
                     .With(e => e.Coordinates = new Vector2Int(14, 2))
             };
         }
-    }
-
-    public class CheckpointValues
-    {
-        public int Number;
-        public Vector2Int Coordinates;
     }
 }

@@ -1,7 +1,10 @@
 using Debugs.Debug_HeadsUpDisplays;
+using Gameplay.Players;
+using Games;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.AssetProviderServices;
 using InfastuctureCore.Services.StateMachineServices;
+using InfastuctureCore.Services.StaticDataServices;
 using Infrastructure.GameLoopStateMachines;
 using Infrastructure.GameLoopStateMachines.States;
 using Infrastructure.Services.CurrentDataServices;
@@ -17,10 +20,12 @@ namespace Infrastructure.GameStateMachines.States
         private IGameFactoryService GameFactoryService => ServiceLocator.Instance.Get<IGameFactoryService>();
         private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
         private IAssetProviderService AssetProviderService => ServiceLocator.Instance.Get<IAssetProviderService>();
+        private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
 
         public void Enter()
         {
-            CurrentDataService.FieldModel = GameFactoryService.FieldFactory.CreateFieldModel();
+            CurrentDataService.PlayerModel = new PlayerModel();
+            CurrentDataService.FieldModel = GameFactoryService.FieldFactory.CreateFieldModel(StaticDataService.Get<GameConfig>());
             CurrentDataService.ThroneModel = GameFactoryService.FieldFactory.CreateThroneModel();
             GameFactoryService.FieldFactory.CreateFieldView(CurrentDataService.FieldModel);
             GameFactoryService.FieldFactory.CreateCheckpointsModels();

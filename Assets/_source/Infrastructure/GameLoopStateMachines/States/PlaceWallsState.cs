@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Gameplay.Fields.Towers;
 using Gameplay.Fields.Walls.WallPlacers;
 using InfastuctureCore.ServiceLocators;
 using InfastuctureCore.Services.StateMachineServices;
@@ -28,16 +30,16 @@ namespace Infrastructure.GameLoopStateMachines.States
             CurrentDataService.FieldModel.RoundNumber++;
             Entered?.Invoke(this);
 
-            await PlaceWalls();
+            await PlaceTowers(CurrentDataService.PlayerModel.TowerTypes(out List<int> towerTypes), towerTypes);
         }
 
         public void Exit()
         {
         }
 
-        private async UniTask PlaceWalls()
+        private async UniTask PlaceTowers(List<TowerType> towerTypes, List<int> levels)
         {
-            await _towerPlacer.PlaceTowers();
+            await _towerPlacer.PlaceTowers(towerTypes, levels);
             _gameLoopStateMachine.Enter<ChooseTowerState>();
         }
     }

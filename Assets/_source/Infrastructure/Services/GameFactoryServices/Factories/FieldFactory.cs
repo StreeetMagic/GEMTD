@@ -34,11 +34,11 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
             _currentDataService = currentDataService;
         }
 
-        public FieldModel CreateFieldModel() =>
-            new(CreateCellModels(_staticDataService.Get<FieldConfig>().FieldSize), CreateEnemySpawnerModel());
+        public FieldModel CreateFieldModel(GameConfig gameConfig) =>
+            new(CreateCellModels(_staticDataService.Get<FieldConfig>().FieldSize), CreateEnemySpawnerModel(gameConfig));
 
-        private EnemySpawnerModel CreateEnemySpawnerModel() =>
-            new(CreateEnemyContainerModel());
+        private EnemySpawnerModel CreateEnemySpawnerModel(GameConfig gameConfig) =>
+            new(CreateEnemyContainerModel(), gameConfig.SpawnCooldown, gameConfig.WaveMobCount);
 
         private EnemyContainerModel CreateEnemyContainerModel() =>
             new();

@@ -15,43 +15,17 @@ namespace Gameplay.Fields.Walls.WallPlacers
     public class TowerPlacer
     {
         private readonly int _wallPlacementDelay = 100;
-        private readonly TowerType[] _towerTypes;
-        private readonly int[] _levels;
 
         private WallPlacerConfig WallPlacerConfig => ServiceLocator.Instance.Get<IStaticDataService>().Get<WallPlacerConfig>();
         private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
         private IGameFactoryService GameFactory => ServiceLocator.Instance.Get<IGameFactoryService>();
 
-        public TowerPlacer()
-        {
-            _towerTypes = new[]
-            {
-                TowerType.B1,
-                TowerType.D1,
-                // TowerType.E1,
-                // TowerType.P1,
-                // TowerType.Q1,
-                // TowerType.R1,
-                // TowerType.Y1,
-                // TowerType.G1,
-            };
-
-            _levels = new[]
-            {
-                1,
-                1,
-                1,
-                1,
-                1,
-            };
-        }
-
-        public async UniTask PlaceTowers()
+        public async UniTask PlaceTowers(List<TowerType> towerTypes, List<int> levels)
         {
             List<Vector2Int> wallsCoordinates = GetWallCoordinates();
             RemovePlacedWalls(CurrentDataService.FieldModel.RoundNumber - 1);
 
-            await SetTowers(wallsCoordinates, _towerTypes, _levels);
+            await SetTowers(wallsCoordinates, towerTypes, levels);
         }
 
         public async UniTask ConfirmTower(CellModel cellModel)
@@ -68,7 +42,7 @@ namespace Gameplay.Fields.Walls.WallPlacers
         private List<Vector2Int> GetWallCoordinates() =>
             CurrentDataService.FieldModel.RoundNumber <= WallPlacerConfig.WallSettingsPerRounds.Count
                 ? WallPlacerConfig.WallSettingsPerRounds[CurrentDataService.FieldModel.RoundNumber - 1].PlaceList
-                : CurrentDataService.FieldModel.GetCentralWalls(WallPlacerConfig.towerPerRound).ToList();
+                : CurrentDataService.FieldModel.GetCentralWalls(WallPlacerConfig.TowerPerRound).ToList();
 
         private void RemovePlacedWalls(int roundIndex)
         {
@@ -82,14 +56,14 @@ namespace Gameplay.Fields.Walls.WallPlacers
                 CurrentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinates).RemoveWallModel();
         }
 
-        private async UniTask SetTowers(List<Vector2Int> wallsCoordinates, TowerType[] towerTypes, int[] levels)
+        private async UniTask SetTowers(List<Vector2Int> wallsCoordinates,  List<TowerType> towerTypes, List<int> levels)
         {
             for (int i = 0; i < wallsCoordinates.ToList().Count; i++)
             {
                 Vector2Int vector2Int = wallsCoordinates.ToList()[i];
 
-                TowerType randomTowerType = towerTypes[Random.Range(0, towerTypes.Length)];
-                int randomLevel = levels[Random.Range(0, levels.Length)];
+                TowerType randomTowerType = towerTypes[Random.Range(0, towerTypes.Count)];
+                int randomLevel = levels[Random.Range(0, levels.Count)];
 
                 SetTower(vector2Int, randomTowerType, randomLevel);
                 await UniTask.Delay(_wallPlacementDelay);

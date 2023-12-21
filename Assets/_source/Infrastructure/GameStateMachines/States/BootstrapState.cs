@@ -65,8 +65,8 @@ namespace Infrastructure.GameStateMachines.States
             StaticDataService.Register(new TowersConfig());
             StaticDataService.Register(new FieldConfig());
             StaticDataService.Register(new StartingLabyrinthConfig());
-            StaticDataService.Register<EnemiesConfig>();
-            StaticDataService.Register<WallPlacerConfig>();
+            StaticDataService.Register(new EnemiesConfig());
+            StaticDataService.Register(new WallPlacerConfig());
         }
 
         private void EnterNextState() =>
