@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Gameplay.Fields;
 using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Cells;
@@ -80,11 +81,11 @@ namespace Infrastructure.Services.GameFactoryServices.Factories
 
         public void CreateCheckpointsModels()
         {
-            CheckpointValues[] configs = _staticDataService.Get<CheckpointsConfig>().CheckPointSettings;
+            IReadOnlyList<CheckpointValues> configs = _staticDataService.Get<CheckpointsConfig>().CheckpointValues;
 
-            CheckPointModel[] checkpointDatas = new CheckPointModel[configs.Length];
+            var checkpointDatas = new CheckPointModel[configs.Count];
 
-            for (int i = 0; i < configs.Length; i++)
+            for (int i = 0; i < configs.Count; i++)
             {
                 CellModel cell = _currentDataService.FieldModel.CellsContainerModel.GetCellModelByCoordinates(configs[i].Coordinates);
                 checkpointDatas[i] = CreateCheckPointModel(configs[i].Number, cell);

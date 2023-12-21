@@ -62,10 +62,11 @@ namespace Infrastructure.GameStateMachines.States
         {
             StaticDataService.RegisterScriptable<GameConfig>();
             StaticDataService.RegisterScriptable<FieldConfig>();
-            StaticDataService.RegisterScriptable<CheckpointsConfig>();
             StaticDataService.RegisterScriptable<StartingLabyrinthConfig>();
             StaticDataService.RegisterScriptable<WallPlacerConfig>();
             StaticDataService.RegisterScriptable<EnemiesConfig>();
+
+            StaticDataService.RegisterScript(new CheckpointsConfig());
             StaticDataService.RegisterScript(new TowersConfig());
         }
 

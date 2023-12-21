@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Checkpoints;
 using Gameplay.Fields.Enemies;
@@ -41,19 +42,8 @@ namespace Gameplay.Fields.EnemySpawners
             _spawningCoroutine.Start(onComplete);
         }
 
-        private Vector2Int[] GetCheckPoints()
-        {
-            CheckpointValues[] checkPointValues = StaticDataService.Get<CheckpointsConfig>().CheckPointSettings;
-
-            List<Vector2Int> checkPoints = new();
-
-            foreach (CheckpointValues checkPointModel in checkPointValues)
-            {
-                checkPoints.Add(checkPointModel.Coordinates);
-            }
-
-            return checkPoints.ToArray();
-        }
+        private Vector2Int[] GetCheckPoints() =>
+            StaticDataService.Get<CheckpointsConfig>().CheckpointValues.Select(checkPointModel => checkPointModel.Coordinates).ToArray();
 
         private IEnumerator Spawning(Action onComplete)
         {
@@ -62,7 +52,7 @@ namespace Gameplay.Fields.EnemySpawners
             WaitForSeconds wait = new(0.5f);
             int count = 10;
 
-            Vector2Int coordinates = StaticDataService.Get<CheckpointsConfig>().CheckPointSettings[0].Coordinates;
+            Vector2Int coordinates = StaticDataService.Get<CheckpointsConfig>().CheckpointValues[0].Coordinates;
             Vector3 startingPosition = new(coordinates.x, 0, coordinates.y);
             EnemiesConfig enemiesConfig = StaticDataService.Get<EnemiesConfig>();
             int roundNumber = CurrentDataService.FieldModel.RoundNumber;
