@@ -11,10 +11,10 @@ namespace InfastuctureCore.Services.StaticDataServices
         public StaticDataService(IAssetProviderService assetProviderService) =>
             _assetProviderService = assetProviderService;
 
-        public void RegisterScriptable<TStaticData>() where TStaticData : Object, IStaticData =>
+        public void Register<TStaticData>() where TStaticData : Object, IStaticData =>
             Implementation<TStaticData>.Instance = _assetProviderService.Get<TStaticData>();
 
-        public void RegisterScript<TStaticData>(TStaticData staticData) where TStaticData : IStaticData =>
+        public void Register<TStaticData>(TStaticData staticData) where TStaticData : IStaticData =>
             Implementation<TStaticData>.Instance = staticData;
 
         public TStaticData Get<TStaticData>() where TStaticData : IStaticData =>

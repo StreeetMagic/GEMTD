@@ -3,9 +3,8 @@ using UnityEngine;
 
 namespace Games
 {
-    [CreateAssetMenu(menuName = "Configs/Game Config", fileName = "GameConfigSO")]
-    public class GameConfig : ScriptableObject, IStaticData
+    public class GameConfig : IStaticData
     {
-        [field: SerializeField] public int ThroneHealth { get; private set; }
+        public int ThroneHealth { get; private set; } = 100;
     }
 }

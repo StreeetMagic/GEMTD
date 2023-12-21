@@ -1,18 +1,13 @@
+using System;
 using System.Linq;
 using InfastuctureCore.Services.StaticDataServices;
 using UnityEngine;
 
 namespace Gameplay.Fields.Labytinths
 {
-    [CreateAssetMenu(menuName = "Configs/Starting Labyrinth Config", fileName = "StartingLabyrinthConfig")]
-    public class StartingLabyrinthConfig : ScriptableObject, IStaticData
+    public class StartingLabyrinthConfig : IStaticData
     {
-        public Vector2Int[] _coordinates;
-
-        public void SetCoordinates(Vector2Int[] coordinates)
-        {
-            _coordinates = coordinates;
-        }
+        private Vector2Int[] _coordinates = Array.Empty<Vector2Int>();
 
         public Vector2Int[] Coordinates => _coordinates.ToArray();
     }
