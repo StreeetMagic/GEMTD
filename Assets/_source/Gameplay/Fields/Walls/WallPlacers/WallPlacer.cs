@@ -56,14 +56,15 @@ namespace Gameplay.Fields.Walls.WallPlacers
                 CurrentDataService.FieldModel.CellsContainerModel.GetCellModel(coordinates).RemoveWallModel();
         }
 
-        private async UniTask SetTowers(List<Vector2Int> wallsCoordinates,  List<TowerType> towerTypes, List<int> levels)
+        private async UniTask SetTowers(List<Vector2Int> wallsCoordinates, List<TowerType> towerTypes, List<int> levels)
         {
             for (int i = 0; i < wallsCoordinates.ToList().Count; i++)
             {
                 Vector2Int vector2Int = wallsCoordinates.ToList()[i];
 
-                TowerType randomTowerType = towerTypes[Random.Range(0, towerTypes.Count)];
-                int randomLevel = levels[Random.Range(0, levels.Count)];
+                int randomIndex = Random.Range(0, towerTypes.Count);
+                TowerType randomTowerType = towerTypes[randomIndex];
+                int randomLevel = levels[randomIndex];
 
                 SetTower(vector2Int, randomTowerType, randomLevel);
                 await UniTask.Delay(_wallPlacementDelay);

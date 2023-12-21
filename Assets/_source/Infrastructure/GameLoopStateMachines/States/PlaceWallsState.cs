@@ -30,7 +30,7 @@ namespace Infrastructure.GameLoopStateMachines.States
             CurrentDataService.FieldModel.RoundNumber++;
             Entered?.Invoke(this);
 
-            await PlaceTowers(CurrentDataService.PlayerModel.TowerTypes(out List<int> towerTypes), towerTypes);
+            await PlaceTowers(CurrentDataService.PlayerModel.TowerTypes(out List<int> levels), levels);
         }
 
         public void Exit()
