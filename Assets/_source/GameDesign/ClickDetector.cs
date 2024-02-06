@@ -6,6 +6,7 @@ using Infrastructure.Services.InputServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Zenject;
 
 namespace GameDesign
 {
@@ -17,7 +18,13 @@ namespace GameDesign
         private CellView _highlightedCellView;
         private Material _highlightedMaterial;
 
-        private IInputService InputService => ServiceLocator.Instance.Get<IInputService>();
+        private IInputService _inputService;
+    
+        [Inject]
+        public void Construct(IInputService inputService)
+        {
+            _inputService = inputService;
+        }
 
         private void Awake()
         {
@@ -56,7 +63,7 @@ namespace GameDesign
 
         private void HighlightCellViewByCursor()
         {
-            Ray ray = _camera.ScreenPointToRay(InputService.MousePosition);
+            Ray ray = _camera.ScreenPointToRay(_inputService.MousePosition);
             // ReSharper disable once Unity.PreferNonAllocApi
             RaycastHit[] results = Physics.RaycastAll(ray);
 

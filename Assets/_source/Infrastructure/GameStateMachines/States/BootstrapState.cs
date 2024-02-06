@@ -19,58 +19,56 @@ using StaticDataService = Infrastructure.Services.StaticDataServices.StaticDataS
 
 namespace Infrastructure.GameStateMachines.States
 {
-    public class BootstrapState : IGameStateMachineState
+  public class BootstrapState : IGameStateMachineState
+  {
+    private readonly IStateMachineService _gameStateMachine;
+    private readonly MonoBehaviour _coroutineRunner;
+
+    public BootstrapState(IStateMachineService gameStateMachine, MonoBehaviour coroutineRunner)
     {
-        private readonly IStateMachineService<GameStateMachineModel> _gameStateMachine;
-        private readonly MonoBehaviour _coroutineRunner;
-
-        public BootstrapState(IStateMachineService<GameStateMachineModel> gameStateMachine, MonoBehaviour coroutineRunner)
-        {
-            _gameStateMachine = gameStateMachine;
-            _coroutineRunner = coroutineRunner;
-        }
-
-        private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
-
-        public void Enter()
-        {
-            RegisterServices(_coroutineRunner);
-            RegisterConfigs();
-            EnterNextState();
-        }
-
-        public void Exit()
-        {
-        }
-
-        private void RegisterServices(MonoBehaviour coroutineRunner)
-        {
-            var loc = ServiceLocator.Instance;
-
-            var assetProvider = loc.Register<IAssetProviderService>(new AssetProviderService());
-            var currentData = loc.Register<ICurrentDataService>(new CurrentDataService());
-            var staticData = loc.Register<IStaticDataService>(new StaticDataService(assetProvider));
-            loc.Register(_gameStateMachine);
-            loc.Register<ICoroutineRunnerService>(new CoroutineRunnerService(coroutineRunner));
-            loc.Register<IInputService>(new InputService());
-            loc.Register<IPoolRepositoryService>(new PoolRepositoryService());
-            loc.Register<IGameFactoryService>(new GameFactoryService(assetProvider, staticData, currentData));
-        }
-
-        private void RegisterConfigs()
-        {
-            StaticDataService.Register(new GameConfig());
-            StaticDataService.Register(new CheckpointsConfig());
-            StaticDataService.Register(new TowersConfig());
-            StaticDataService.Register(new FieldConfig());
-            StaticDataService.Register(new StartingLabyrinthConfig());
-            StaticDataService.Register(new EnemiesConfig());
-            StaticDataService.Register(new WallPlacerConfig());
-        }
-
-        private void EnterNextState() =>
-            _gameStateMachine.Enter<LoadLevelState, string>(SceneManager.GetActiveScene().name == Constants.Scenes.InitialScene
-                ? Constants.Scenes.Gameloop
-                : SceneManager.GetActiveScene().name);
+      _gameStateMachine = gameStateMachine;
+      _coroutineRunner = coroutineRunner;
     }
+
+    private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
+
+    public void Enter()
+    {
+      RegisterServices(_coroutineRunner);
+      RegisterConfigs();
+      EnterNextState();
+    }
+
+    public void Exit()
+    {
+    }
+
+    private void RegisterServices(MonoBehaviour coroutineRunner)
+    {
+      var loc = ServiceLocator.Instance;
+
+      var assetProvider = loc.Register<IAssetProviderService>(new AssetProviderService());
+      var currentData = loc.Register<ICurrentDataService>(new CurrentDataService());
+      var staticData = loc.Register<IStaticDataService>(new StaticDataService(assetProvider));
+      loc.Register(_gameStateMachine);
+      loc.Register<ICoroutineRunnerService>(new CoroutineRunnerService(coroutineRunner));
+      loc.Register<IGameFactoryService>(new GameFactoryService(assetProvider, staticData, currentData));
+    }
+
+    private void RegisterConfigs()
+    {
+      StaticDataService.Register(new GameConfig());
+      StaticDataService.Register(new CheckpointsConfig());
+      StaticDataService.Register(new TowersConfig());
+      StaticDataService.Register(new FieldConfig());
+      StaticDataService.Register(new StartingLabyrinthConfig());
+      StaticDataService.Register(new EnemiesConfig());
+      StaticDataService.Register(new WallPlacerConfig());
+    }
+
+    private void EnterNextState() =>
+      _gameStateMachine.Enter<LoadLevelState, string>(SceneManager.GetActiveScene().name == Constants.Scenes.InitialScene
+        ? Constants.Scenes.Gameloop
+        : SceneManager.GetActiveScene().name);
+  }
 }

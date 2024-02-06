@@ -5,14 +5,15 @@ using UnityEngine;
 
 namespace Games
 {
-    public class Game
+  public class Game
+  {
+    private readonly IStateMachineService _gameStateMachine;
+
+    public Game(MonoBehaviour coroutineRunner, string initialSceneName)
     {
-        public Game(MonoBehaviour coroutineRunner, string initialSceneName)
-        {
-            var gameStateMachineData = new GameStateMachineModel(initialSceneName);
-            var stateMachineService = new StateMachineService<GameStateMachineModel>(gameStateMachineData);
-            gameStateMachineData.RegisterStates(stateMachineService, coroutineRunner);
-            stateMachineService.Enter<BootstrapState>();
-        }
+      _gameStateMachine = new StateMachineService();
+      
+      _gameStateMachine.Enter<BootstrapState>();
     }
+  }
 }

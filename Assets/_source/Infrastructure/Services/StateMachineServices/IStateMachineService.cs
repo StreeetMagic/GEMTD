@@ -2,9 +2,8 @@ using Infrastructure.Services.StateMachineServices.States;
 
 namespace Infrastructure.Services.StateMachineServices
 {
-    public interface IStateMachineService<TData> : IService where TData : class
+    public interface IStateMachineService : IService
     {
-        TData Data { get; }
         IExitableState ActiveState { get; }
 
         void Enter<TState>() where TState : class, IState;

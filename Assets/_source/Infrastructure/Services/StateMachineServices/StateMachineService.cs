@@ -3,16 +3,9 @@ using Infrastructure.Utilities;
 
 namespace Infrastructure.Services.StateMachineServices
 {
-    public class StateMachineService<TData> : IStateMachineService<TData> where TData : class
+    public class StateMachineService : IStateMachineService
     {
         public IExitableState ActiveState { get; private set; }
-
-        public StateMachineService(TData data)
-        {
-            Data = data;
-        }
-
-        public TData Data { get; }
 
         public void Enter<TState>() where TState : class, IState
         {
