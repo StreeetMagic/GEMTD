@@ -1,5 +1,4 @@
-﻿using InfastuctureCore.Services;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Infrastructure.Services.InputServices

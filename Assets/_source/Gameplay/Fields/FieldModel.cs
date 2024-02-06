@@ -2,8 +2,8 @@
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.CellsContainers;
 using Gameplay.Fields.EnemySpawners;
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.StaticDataServices;
+using Infrastructure;
+using Infrastructure.Services.StaticDataServices;
 using UnityEngine;
 
 namespace Gameplay.Fields

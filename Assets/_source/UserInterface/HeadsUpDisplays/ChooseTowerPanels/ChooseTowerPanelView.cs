@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Towers;
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.StateMachineServices;
-using InfastuctureCore.Services.StaticDataServices;
-using InfastuctureCore.Utilities;
+using Infrastructure;
 using Infrastructure.GameLoopStateMachines;
 using Infrastructure.GameLoopStateMachines.States;
 using Infrastructure.Services.CurrentDataServices;
+using Infrastructure.Services.StateMachineServices;
+using Infrastructure.Services.StaticDataServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UserInterface.HeadsUpDisplays.ChooseTowerPanels.ButtonPanels;
 
-namespace UserInterface
+namespace UserInterface.HeadsUpDisplays.ChooseTowerPanels
 {
     public class ChooseTowerPanelView : MonoBehaviour
     {

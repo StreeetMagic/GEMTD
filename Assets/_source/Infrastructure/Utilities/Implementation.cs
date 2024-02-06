@@ -1,4 +1,4 @@
-namespace InfastuctureCore.Utilities
+namespace Infrastructure.Utilities
 {
     public class Implementation<T>
     {

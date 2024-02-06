@@ -1,4 +1,4 @@
-namespace InfastuctureCore.Services
+namespace Infrastructure.Services
 {
     public interface IService
     {

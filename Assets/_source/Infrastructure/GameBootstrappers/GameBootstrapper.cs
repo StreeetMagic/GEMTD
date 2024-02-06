@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace InfastuctureCore.GameBootstrappers
+namespace Infrastructure.GameBootstrappers
 {
     /// <summary>
     /// <para>Main game bootstrapper</para> 

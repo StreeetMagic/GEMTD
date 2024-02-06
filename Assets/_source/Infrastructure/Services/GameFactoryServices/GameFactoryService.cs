@@ -2,15 +2,14 @@
 using Gameplay.Fields.Thrones;
 using Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles;
 using Games;
-using InfastuctureCore.Services;
-using InfastuctureCore.Services.AssetProviderServices;
-using InfastuctureCore.Utilities;
+using Infrastructure.Services.AssetProviderServices;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices.Factories;
+using Infrastructure.Utilities;
 using UnityEngine;
 using UserInterface;
 using UserInterface.HeadsUpDisplays;
-using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticDataService;
+using IStaticDataService = Infrastructure.Services.StaticDataServices.IStaticDataService;
 
 namespace Infrastructure.Services.GameFactoryServices
 {

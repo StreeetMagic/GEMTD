@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Gameplay.Fields.Towers;
 using Gameplay.Fields.Walls.WallPlacers;
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.StateMachineServices;
-using InfastuctureCore.Services.StateMachineServices.States;
 using Infrastructure.Services.CurrentDataServices;
+using Infrastructure.Services.StateMachineServices;
+using Infrastructure.Services.StateMachineServices.States;
 
 namespace Infrastructure.GameLoopStateMachines.States
 {

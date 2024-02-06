@@ -1,7 +1,7 @@
 using System.Linq;
 using Gameplay.Fields.CellsContainers;
 using Gameplay.Fields.EnemySpawners;
-using InfastuctureCore.ServiceLocators;
+using Infrastructure;
 using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using InfastuctureCore.Services.StaticDataServices;
-using InfastuctureCore.Utilities;
+using Infrastructure.Services.StaticDataServices;
+using Infrastructure.Utilities;
 using UnityEngine;
 
 namespace Gameplay.Fields.Checkpoints

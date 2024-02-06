@@ -1,4 +1,6 @@
 using UnityEngine;
+using UserInterface.HeadsUpDisplays.ChooseTowerPanels;
+using UserInterface.HeadsUpDisplays.ThronePanels;
 
 namespace UserInterface.HeadsUpDisplays
 {

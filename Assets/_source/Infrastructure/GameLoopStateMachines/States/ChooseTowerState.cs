@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Walls.WallPlacers;
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.StaticDataServices;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
+using Infrastructure.Services.StaticDataServices;
 using UnityEngine;
 using UserInterface;
 using UserInterface.HeadsUpDisplays;

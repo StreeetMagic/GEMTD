@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace InfastuctureCore.Utilities
+namespace Infrastructure.Utilities
 {
     public class CoroutineDecorator
     {

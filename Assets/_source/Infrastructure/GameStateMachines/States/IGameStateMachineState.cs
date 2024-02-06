@@ -1,4 +1,4 @@
-﻿using InfastuctureCore.Services.StateMachineServices.States;
+﻿using Infrastructure.Services.StateMachineServices.States;
 
 namespace Infrastructure.GameStateMachines.States
 {

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace InfastuctureCore.Services.PoolServices.Interfaces
+namespace Infrastructure.Services.PoolServices.Interfaces
 {
     public interface IPool
     {

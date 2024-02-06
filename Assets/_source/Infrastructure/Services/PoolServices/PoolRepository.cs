@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using InfastuctureCore.Services.PoolServices.Interfaces;
+using Infrastructure.Services.PoolServices.Interfaces;
 using UnityEngine;
 
-namespace InfastuctureCore.Services.PoolServices
+namespace Infrastructure.Services.PoolServices
 {
     public class PoolRepositoryService : IPoolRepositoryService
     {

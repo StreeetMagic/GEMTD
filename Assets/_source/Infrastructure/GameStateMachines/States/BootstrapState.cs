@@ -5,18 +5,17 @@ using Gameplay.Fields.Labytinths;
 using Gameplay.Fields.Towers;
 using Gameplay.Fields.Walls.WallPlacers;
 using Games;
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.AssetProviderServices;
-using InfastuctureCore.Services.CoroutineRunnerServices;
-using InfastuctureCore.Services.PoolServices;
-using InfastuctureCore.Services.StateMachineServices;
+using Infrastructure.Services.AssetProviderServices;
+using Infrastructure.Services.CoroutineRunnerServices;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
 using Infrastructure.Services.InputServices;
+using Infrastructure.Services.PoolServices;
+using Infrastructure.Services.StateMachineServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using IStaticDataService = InfastuctureCore.Services.StaticDataServices.IStaticDataService;
-using StaticDataService = InfastuctureCore.Services.StaticDataServices.StaticDataService;
+using IStaticDataService = Infrastructure.Services.StaticDataServices.IStaticDataService;
+using StaticDataService = Infrastructure.Services.StaticDataServices.StaticDataService;
 
 namespace Infrastructure.GameStateMachines.States
 {

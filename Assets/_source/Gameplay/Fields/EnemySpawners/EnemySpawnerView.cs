@@ -1,6 +1,6 @@
 ﻿using Gameplay.Fields.Enemies;
 using Gameplay.Fields.EnemyContainers;
-using InfastuctureCore.ServiceLocators;
+using Infrastructure;
 using Infrastructure.Services.GameFactoryServices;
 using UnityEngine;
 

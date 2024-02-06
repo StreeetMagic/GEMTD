@@ -1,7 +1,7 @@
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Walls.WallPlacers;
 using Games;
-using InfastuctureCore.ServiceLocators;
+using Infrastructure;
 using Infrastructure.Services.InputServices;
 using UnityEngine;
 using UnityEngine.EventSystems;

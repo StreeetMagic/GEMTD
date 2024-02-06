@@ -1,5 +1,4 @@
-﻿using InfastuctureCore.ServiceLocators;
-using Infrastructure.Services.CurrentDataServices;
+﻿using Infrastructure.Services.CurrentDataServices;
 
 namespace Infrastructure.GameLoopStateMachines.States
 {

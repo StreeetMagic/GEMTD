@@ -1,4 +1,4 @@
-﻿using InfastuctureCore.Utilities;
+﻿using Infrastructure.Utilities;
 
 namespace Gameplay.Fields.Thrones
 {

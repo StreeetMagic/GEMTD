@@ -1,4 +1,4 @@
-namespace InfastuctureCore.Services.StateMachineServices.States
+namespace Infrastructure.Services.StateMachineServices.States
 {
     public interface IPayloadedState<TPayload> : IExitableState
     {

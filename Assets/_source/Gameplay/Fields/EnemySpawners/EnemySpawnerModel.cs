@@ -7,12 +7,12 @@ using Gameplay.Fields.Checkpoints;
 using Gameplay.Fields.Enemies;
 using Gameplay.Fields.EnemyContainers;
 using Gameplay.Fields.PathFinders;
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.CoroutineRunnerServices;
-using InfastuctureCore.Services.StaticDataServices;
-using InfastuctureCore.Utilities;
+using Infrastructure;
+using Infrastructure.Services.CoroutineRunnerServices;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
+using Infrastructure.Services.StaticDataServices;
+using Infrastructure.Utilities;
 using UnityEngine;
 
 namespace Gameplay.Fields.EnemySpawners

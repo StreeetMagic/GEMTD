@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections;
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.CoroutineRunnerServices;
+using Infrastructure.Services.CoroutineRunnerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace InfastuctureCore.SceneLoaders
+namespace Infrastructure.SceneLoaders
 {
     public class SceneLoader
     {

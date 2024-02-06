@@ -1,6 +1,6 @@
-using InfastuctureCore.Services.StateMachineServices;
 using Infrastructure.GameStateMachines;
 using Infrastructure.GameStateMachines.States;
+using Infrastructure.Services.StateMachineServices;
 using UnityEngine;
 
 namespace Games

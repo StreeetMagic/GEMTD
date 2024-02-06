@@ -1,6 +1,6 @@
 ﻿using Gameplay.Fields.Walls.WallPlacers;
-using InfastuctureCore.Services.StateMachineServices;
 using Infrastructure.GameLoopStateMachines.States;
+using Infrastructure.Services.StateMachineServices;
 
 namespace Infrastructure.GameLoopStateMachines
 {

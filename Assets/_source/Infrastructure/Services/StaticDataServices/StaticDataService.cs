@@ -1,8 +1,8 @@
-using InfastuctureCore.Services.AssetProviderServices;
-using InfastuctureCore.Utilities;
+using Infrastructure.Services.AssetProviderServices;
+using Infrastructure.Utilities;
 using UnityEngine;
 
-namespace InfastuctureCore.Services.StaticDataServices
+namespace Infrastructure.Services.StaticDataServices
 {
     public class StaticDataService : IStaticDataService
     {

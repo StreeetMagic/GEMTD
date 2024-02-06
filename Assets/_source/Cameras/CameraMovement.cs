@@ -1,4 +1,4 @@
-﻿using InfastuctureCore.ServiceLocators;
+﻿using Infrastructure;
 using Infrastructure.Services.InputServices;
 using UnityEngine;
 

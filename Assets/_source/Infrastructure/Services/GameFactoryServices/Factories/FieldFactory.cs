@@ -13,10 +13,10 @@ using Gameplay.Fields.Towers.Shooters;
 using Gameplay.Fields.Towers.TargetDetectors;
 using Gameplay.Fields.Walls;
 using Games;
-using InfastuctureCore.Services.AssetProviderServices;
-using InfastuctureCore.Services.StaticDataServices;
-using InfastuctureCore.Utilities;
+using Infrastructure.Services.AssetProviderServices;
 using Infrastructure.Services.CurrentDataServices;
+using Infrastructure.Services.StaticDataServices;
+using Infrastructure.Utilities;
 using UnityEngine;
 
 namespace Infrastructure.Services.GameFactoryServices.Factories

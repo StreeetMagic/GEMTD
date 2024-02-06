@@ -1,11 +1,11 @@
 ﻿using Games;
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.StaticDataServices;
+using Infrastructure;
 using Infrastructure.Services.CurrentDataServices;
+using Infrastructure.Services.StaticDataServices;
 using TMPro;
 using UnityEngine;
 
-namespace UserInterface
+namespace UserInterface.HeadsUpDisplays.ThronePanels
 {
     public class ThronePanelView : MonoBehaviour
     {

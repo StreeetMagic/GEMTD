@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InfastuctureCore.Utilities
+namespace Infrastructure.Utilities
 {
     public interface IReactiveProperty<T>
     {

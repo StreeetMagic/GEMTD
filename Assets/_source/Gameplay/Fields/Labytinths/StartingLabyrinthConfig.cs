@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using InfastuctureCore.Services.StaticDataServices;
+using Infrastructure.Services.StaticDataServices;
 using UnityEngine;
 
 namespace Gameplay.Fields.Labytinths

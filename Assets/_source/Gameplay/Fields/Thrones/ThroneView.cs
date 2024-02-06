@@ -1,5 +1,5 @@
 using Gameplay.Fields.Enemies;
-using InfastuctureCore.ServiceLocators;
+using Infrastructure;
 using Infrastructure.Services.CurrentDataServices;
 using UnityEngine;
 

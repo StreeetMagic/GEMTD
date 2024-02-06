@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Gameplay.Fields.Enemies.Movers;
-using InfastuctureCore.Utilities;
+using Infrastructure.Utilities;
 using UnityEngine;
 
 namespace Gameplay.Fields.Enemies

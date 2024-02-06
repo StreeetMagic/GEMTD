@@ -1,7 +1,7 @@
-﻿using InfastuctureCore.GameBootstrappers;
+﻿using Infrastructure.GameBootstrappers;
 using UnityEngine;
 
-namespace InfastuctureCore.GameRunners
+namespace Infrastructure.GameRunners
 {
     /// <summary>
     /// <para>Should be placed on scenes manually</para>

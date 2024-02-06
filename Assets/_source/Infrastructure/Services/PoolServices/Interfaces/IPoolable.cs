@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace InfastuctureCore.Services.PoolServices.Interfaces
+namespace Infrastructure.Services.PoolServices.Interfaces
 {
     public interface IPoolable<T> where T : MonoBehaviour, IPoolable<T>
     {

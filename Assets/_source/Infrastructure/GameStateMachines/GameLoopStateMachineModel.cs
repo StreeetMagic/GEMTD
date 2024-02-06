@@ -1,6 +1,6 @@
-using InfastuctureCore.SceneLoaders;
-using InfastuctureCore.Services.StateMachineServices;
 using Infrastructure.GameStateMachines.States;
+using Infrastructure.SceneLoaders;
+using Infrastructure.Services.StateMachineServices;
 using UnityEngine;
 
 namespace Infrastructure.GameStateMachines

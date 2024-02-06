@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Gameplay.Fields.Enemies;
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.StateMachineServices;
+using Infrastructure;
 using Infrastructure.GameLoopStateMachines;
 using Infrastructure.GameLoopStateMachines.States;
+using Infrastructure.Services.StateMachineServices;
 
 namespace Gameplay.Fields.EnemyContainers
 {

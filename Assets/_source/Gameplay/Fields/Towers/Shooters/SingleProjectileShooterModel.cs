@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Gameplay.Fields.Enemies;
 using Gameplay.Fields.Towers.Shooters.Projectiles.ProjectileContainers;
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.CoroutineRunnerServices;
-using InfastuctureCore.Utilities;
+using Infrastructure;
+using Infrastructure.Services.CoroutineRunnerServices;
 using Infrastructure.Services.GameFactoryServices;
+using Infrastructure.Utilities;
 using UnityEngine;
 
 namespace Gameplay.Fields.Towers.Shooters

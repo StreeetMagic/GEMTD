@@ -3,10 +3,10 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Towers;
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.StaticDataServices;
+using Infrastructure;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
+using Infrastructure.Services.StaticDataServices;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

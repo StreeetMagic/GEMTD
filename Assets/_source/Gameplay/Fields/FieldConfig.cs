@@ -1,4 +1,4 @@
-﻿using InfastuctureCore.Services.StaticDataServices;
+﻿using Infrastructure.Services.StaticDataServices;
 
 namespace Gameplay.Fields
 {

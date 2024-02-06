@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace InfastuctureCore.Services.CoroutineRunnerServices
+namespace Infrastructure.Services.CoroutineRunnerServices
 {
     public class CoroutineRunnerService : ICoroutineRunnerService
     {

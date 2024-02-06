@@ -1,4 +1,4 @@
-﻿namespace InfastuctureCore.Services.StaticDataServices
+﻿namespace Infrastructure.Services.StaticDataServices
 {
     public interface IStaticData
     {

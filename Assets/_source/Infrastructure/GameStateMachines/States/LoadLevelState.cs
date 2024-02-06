@@ -1,7 +1,7 @@
 using Games;
-using InfastuctureCore.SceneLoaders;
-using InfastuctureCore.Services.StateMachineServices;
-using InfastuctureCore.Services.StateMachineServices.States;
+using Infrastructure.SceneLoaders;
+using Infrastructure.Services.StateMachineServices;
+using Infrastructure.Services.StateMachineServices.States;
 
 namespace Infrastructure.GameStateMachines.States
 {

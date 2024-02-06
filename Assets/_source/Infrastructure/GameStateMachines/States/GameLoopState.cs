@@ -1,14 +1,13 @@
 using Debugs.Debug_HeadsUpDisplays;
 using Gameplay.Players;
 using Games;
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.AssetProviderServices;
-using InfastuctureCore.Services.StateMachineServices;
-using InfastuctureCore.Services.StaticDataServices;
 using Infrastructure.GameLoopStateMachines;
 using Infrastructure.GameLoopStateMachines.States;
+using Infrastructure.Services.AssetProviderServices;
 using Infrastructure.Services.CurrentDataServices;
 using Infrastructure.Services.GameFactoryServices;
+using Infrastructure.Services.StateMachineServices;
+using Infrastructure.Services.StaticDataServices;
 using UnityEngine;
 
 namespace Infrastructure.GameStateMachines.States

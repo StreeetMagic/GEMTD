@@ -1,8 +1,8 @@
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.StateMachineServices;
-using InfastuctureCore.Services.StateMachineServices.States;
+using Infrastructure;
 using Infrastructure.GameLoopStateMachines;
 using Infrastructure.GameLoopStateMachines.States;
+using Infrastructure.Services.StateMachineServices;
+using Infrastructure.Services.StateMachineServices.States;
 using TMPro;
 using UnityEngine;
 

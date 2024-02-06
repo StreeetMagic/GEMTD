@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using InfastuctureCore.Services.AssetProviderServices;
-using InfastuctureCore.Services.PoolServices.Interfaces;
+using Infrastructure.Services.AssetProviderServices;
+using Infrastructure.Services.PoolServices.Interfaces;
 using UnityEngine;
 
-namespace InfastuctureCore.Services.PoolServices
+namespace Infrastructure.Services.PoolServices
 {
     public class ExpandablePool<T> : IPool<T> where T : MonoBehaviour, IPoolable<T>
     {

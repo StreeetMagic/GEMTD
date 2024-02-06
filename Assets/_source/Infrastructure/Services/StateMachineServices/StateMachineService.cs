@@ -1,7 +1,7 @@
-﻿using InfastuctureCore.Services.StateMachineServices.States;
-using InfastuctureCore.Utilities;
+﻿using Infrastructure.Services.StateMachineServices.States;
+using Infrastructure.Utilities;
 
-namespace InfastuctureCore.Services.StateMachineServices
+namespace Infrastructure.Services.StateMachineServices
 {
     public class StateMachineService<TData> : IStateMachineService<TData> where TData : class
     {

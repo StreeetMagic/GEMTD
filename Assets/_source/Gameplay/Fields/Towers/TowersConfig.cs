@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Games;
-using InfastuctureCore.ServiceLocators;
-using InfastuctureCore.Services.AssetProviderServices;
-using InfastuctureCore.Services.StaticDataServices;
-using InfastuctureCore.Utilities;
+using Infrastructure;
+using Infrastructure.Services.AssetProviderServices;
+using Infrastructure.Services.StaticDataServices;
+using Infrastructure.Utilities;
 using UnityEngine;
 
 namespace Gameplay.Fields.Towers

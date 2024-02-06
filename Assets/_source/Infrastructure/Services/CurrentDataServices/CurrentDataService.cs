@@ -1,7 +1,6 @@
 ﻿using Gameplay.Fields;
 using Gameplay.Fields.Thrones;
 using Gameplay.Players;
-using InfastuctureCore.Services;
 
 namespace Infrastructure.Services.CurrentDataServices
 {
