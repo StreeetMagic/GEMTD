@@ -1,8 +1,9 @@
+using System;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Walls.WallPlacers;
 using Games;
 using Infrastructure;
-using Infrastructure.Services.InputServices;
+using Infrastructure.Services.Inputs;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -24,6 +25,9 @@ namespace GameDesign
         public void Construct(IInputService inputService)
         {
             _inputService = inputService;
+            
+            if (_inputService == null)
+                throw new NullReferenceException(nameof(_inputService));
         }
 
         private void Awake()

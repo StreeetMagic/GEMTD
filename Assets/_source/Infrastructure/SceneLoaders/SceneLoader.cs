@@ -1,52 +1,52 @@
 ﻿using System;
 using System.Collections;
-using Infrastructure.Services.CoroutineRunnerServices;
+using Infrastructure.Services.CoroutineRunners;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Infrastructure.SceneLoaders
 {
-    public class SceneLoader
+  public class SceneLoader
+  {
+    private readonly string _initialSceneName;
+    private ICoroutineRunner _coroutineRunner;
+
+    public SceneLoader(string initialSceneName, ICoroutineRunner coroutineRunner)
     {
-        private readonly string _initialSceneName;
-
-        public SceneLoader(string initialSceneName)
-        {
-            _initialSceneName = initialSceneName;
-        }
-
-        public event Action<string> SceneLoaded;
-
-        private MonoBehaviour CoroutineRunner => ServiceLocator.Instance.Get<ICoroutineRunnerService>().Instance;
-
-        public void Load(string name, Action<string> onLoaded = null)
-        {
-            //DOTween.KillAll();
-            CoroutineRunner.StartCoroutine(LoadScene(name, onLoaded));
-        }
-
-        public void Load(Action<string> onLoaded = null)
-        {
-            CoroutineRunner.StartCoroutine(LoadScene(_initialSceneName, onLoaded));
-        }
-
-        private IEnumerator LoadScene(string nextScene, Action<string> onLoaded)
-        {
-            // if (SceneManager.GetActiveScene().name == nextScene)
-            // {
-            //     onLoaded?.Invoke(nextScene);
-            //     SceneLoaded?.Invoke(nextScene);
-            //     yield break;
-            // }
-
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(nextScene);
-            asyncOperation.allowSceneActivation = true;
-
-            while (!asyncOperation.isDone)
-                yield return null;
-
-            onLoaded?.Invoke(nextScene);
-            SceneLoaded?.Invoke(nextScene);
-        }
+      _initialSceneName = initialSceneName;
+      _coroutineRunner = coroutineRunner;
     }
+
+    public event Action<string> SceneLoaded;
+
+    public void Load(string name, Action<string> onLoaded = null)
+    {
+      //DOTween.KillAll();
+      _coroutineRunner.StartCoroutine(LoadScene(name, onLoaded));
+    }
+
+    public void Load(Action<string> onLoaded = null)
+    {
+      _coroutineRunner.StartCoroutine(LoadScene(_initialSceneName, onLoaded));
+    }
+
+    private IEnumerator LoadScene(string nextScene, Action<string> onLoaded)
+    {
+      // if (SceneManager.GetActiveScene().name == nextScene)
+      // {
+      //     onLoaded?.Invoke(nextScene);
+      //     SceneLoaded?.Invoke(nextScene);
+      //     yield break;
+      // }
+
+      AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(nextScene);
+      asyncOperation.allowSceneActivation = true;
+
+      while (asyncOperation.isDone == false)
+        yield return null;
+
+      onLoaded?.Invoke(nextScene);
+      SceneLoaded?.Invoke(nextScene);
+    }
+  }
 }

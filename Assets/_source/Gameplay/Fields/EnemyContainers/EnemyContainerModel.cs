@@ -1,17 +1,21 @@
 ﻿using System.Collections.Generic;
 using Gameplay.Fields.Enemies;
-using Infrastructure;
-using Infrastructure.GameLoopStateMachines;
-using Infrastructure.GameLoopStateMachines.States;
-using Infrastructure.Services.StateMachineServices;
+using Infrastructure.Services.StateMachines;
+using Infrastructure.Services.StateMachines.GameLoopStateMachines;
+using Infrastructure.Services.StateMachines.GameLoopStateMachines.States;
 
 namespace Gameplay.Fields.EnemyContainers
 {
     public class EnemyContainerModel
     {
         private List<EnemyModel> Enemies { get; } = new List<EnemyModel>();
-        
-        private IStateMachineService<GameLoopStateMachineData> GameLoopStateMachine => ServiceLocator.Instance.Get<IStateMachineService<GameLoopStateMachineData>>();
+
+        private IStateMachine<IGameLoopState> _gameLoopStateMachine;
+
+        public EnemyContainerModel(IStateMachine<IGameLoopState> gameLoopStateMachine)
+        {
+            _gameLoopStateMachine = gameLoopStateMachine;
+        }
 
         public void AddEnemy(EnemyModel enemy)
         {
@@ -26,7 +30,7 @@ namespace Gameplay.Fields.EnemyContainers
 
             if (Enemies.Count == 0)
             {
-                GameLoopStateMachine.Enter<PlaceWallsState>();
+                _gameLoopStateMachine.Enter<PlaceWallsState>();
             }
         }
     }

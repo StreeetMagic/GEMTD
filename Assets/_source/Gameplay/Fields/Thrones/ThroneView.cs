@@ -1,20 +1,27 @@
 using Gameplay.Fields.Enemies;
 using Infrastructure;
-using Infrastructure.Services.CurrentDataServices;
+using Infrastructure.Services.CurrentDatas;
 using UnityEngine;
+using Zenject;
 
 namespace Gameplay.Fields.Thrones
 {
-    public class ThroneView : MonoBehaviour
+  public class ThroneView : MonoBehaviour
+  {
+    private ICurrentDataService _currentDataService;
+    
+    [Inject]
+    public void Construct(ICurrentDataService currentDataService)
     {
-        private ThroneModel Model => ServiceLocator.Instance.Get<ICurrentDataService>().ThroneModel;
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.TryGetComponent(out EnemyView _))
-            {
-                Model.Health.Value -= 5;
-            }
-        }
+      _currentDataService = currentDataService;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+      if (other.TryGetComponent(out EnemyView _))
+      {
+        _currentDataService.ThroneModel.Health.Value -= 5;
+      }
+    }
+  }
 }

@@ -1,9 +1,10 @@
 ﻿using Games;
 using Infrastructure;
-using Infrastructure.Services.CurrentDataServices;
+using Infrastructure.Services.CurrentDatas;
 using Infrastructure.Services.StaticDataServices;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace UserInterface.HeadsUpDisplays.ThronePanels
 {
@@ -13,23 +14,30 @@ namespace UserInterface.HeadsUpDisplays.ThronePanels
 
         private int _maxHealth;
 
-        private ICurrentDataService CurrentDataService => ServiceLocator.Instance.Get<ICurrentDataService>();
-        private IStaticDataService StaticDataService => ServiceLocator.Instance.Get<IStaticDataService>();
+        private ICurrentDataService _currentDataService;
+        private IStaticDataService _staticDataService;
+        
+        [Inject]
+        public void Construct(ICurrentDataService currentDataService, IStaticDataService staticDataService)
+        {
+            _currentDataService = currentDataService;
+            _staticDataService = staticDataService;
+        }
 
         private void Awake()
         {
-            _maxHealth = StaticDataService.Get<GameConfig>().ThroneHealth;
+            _maxHealth = _staticDataService.GameConfig.ThroneHealth;
         }
 
         private void OnEnable()
         {
-            HealthText.text = GetHealthText(CurrentDataService.ThroneModel.Health.Value, _maxHealth);
-            CurrentDataService.ThroneModel.Health.ValueChanged += OnHealthChanged;
+            HealthText.text = GetHealthText(_currentDataService.ThroneModel.Health.Value, _maxHealth);
+            _currentDataService.ThroneModel.Health.ValueChanged += OnHealthChanged;
         }
         
         private void OnDisable()
         {
-            CurrentDataService.ThroneModel.Health.ValueChanged -= OnHealthChanged;
+            _currentDataService.ThroneModel.Health.ValueChanged -= OnHealthChanged;
         }
 
         private void OnHealthChanged(int health)

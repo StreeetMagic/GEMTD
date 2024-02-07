@@ -1,23 +1,26 @@
-﻿using Games;
+﻿using System.Collections;
+using System.ComponentModel;
+using Games;
+using Infrastructure.DIC;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace Infrastructure.GameBootstrappers
 {
-    /// <summary>
-    /// <para>Main game bootstrapper</para> 
-    /// <para>Do not place it on scenes manually</para> 
-    /// <para>It is instantiated by GameRunner</para> 
-    /// </summary>
-    public class GameBootstrapper : MonoBehaviour
-    {
-        private void Awake()
-        {
-            DontDestroyOnLoad(this);
+  public class GameBootstrapper : MonoBehaviour
+  {
+    private IGodFactory _godFactory;
 
-            string initialSceneName = SceneManager.GetActiveScene().name;
-            // ReSharper disable once UnusedVariable
-            var game = new Game(this, initialSceneName);
-        }
+    [Inject]
+    public void Construct(IGodFactory godFactory)
+    {
+      _godFactory = godFactory;
     }
+
+    private void Awake()
+    {
+      Game game = _godFactory.Create<Game>();
+      game.Start();
+    }
+  }
 }
