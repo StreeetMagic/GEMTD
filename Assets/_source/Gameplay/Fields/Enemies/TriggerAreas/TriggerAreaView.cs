@@ -2,18 +2,18 @@
 
 namespace Gameplay.Fields.Enemies.TriggerAreas
 {
-    public class TriggerAreaView : MonoBehaviour
+  public class TriggerAreaView : MonoBehaviour
+  {
+    public TriggerAreaModel TriggerAreaModel { get; set; }
+
+    public void Init(EnemyModel enemyModel)
     {
-        public TriggerAreaModel TriggerAreaModel { get; set; }
-
-        public void Init(EnemyModel enemyModel)
-        {
-            TriggerAreaModel = new TriggerAreaModel(enemyModel);
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            TriggerAreaModel.OnTriggerEnter(other);
-        }
+      TriggerAreaModel = new TriggerAreaModel(enemyModel);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+      TriggerAreaModel.OnTriggerEnter(other);
+    }
+  }
 }

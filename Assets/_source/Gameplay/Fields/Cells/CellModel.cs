@@ -3,7 +3,6 @@ using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Checkpoints;
 using Gameplay.Fields.Towers;
 using Gameplay.Fields.Walls;
-using Infrastructure;
 using Infrastructure.Services.GameFactories;
 using UnityEngine;
 
@@ -20,13 +19,6 @@ namespace Gameplay.Fields.Cells
       BlockModel = blockModel;
     }
 
-    public event Action ChekpointModelSet;
-    public event Action WallModelSet;
-    public event Action WallModelRemoved;
-    public event Action TowerModelSet;
-    public event Action TowerModelRemoved;
-    public event Action TowerModelConfirmed;
-
     public Vector2Int Coordinates { get; }
     public CheckPointModel CheckPointModel { get; private set; }
     public WallModel WallModel { get; private set; }
@@ -39,6 +31,13 @@ namespace Gameplay.Fields.Cells
     public bool HasWall => WallModel != null;
     public bool CanBeReplacedWithTower => WallModel != null && TowerModel == null && CheckPointModel == null && TowerIsConfirmed == false;
     public bool HasCheckPoint => CheckPointModel != null;
+
+    public event Action ChekpointModelSet;
+    public event Action WallModelSet;
+    public event Action WallModelRemoved;
+    public event Action TowerModelSet;
+    public event Action TowerModelRemoved;
+    public event Action TowerModelConfirmed;
 
     public void SetCheckpointModel(CheckPointModel checkPointModel)
     {

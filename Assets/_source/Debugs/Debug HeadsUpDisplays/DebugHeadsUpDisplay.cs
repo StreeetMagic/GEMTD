@@ -1,6 +1,4 @@
-using Infrastructure;
 using Infrastructure.Services.StateMachines;
-using Infrastructure.Services.StateMachines.GameLoopStateMachines;
 using Infrastructure.Services.StateMachines.GameLoopStateMachines.States;
 using Infrastructure.Services.StateMachines.States;
 using TMPro;
@@ -11,11 +9,10 @@ namespace Debugs.Debug_HeadsUpDisplays
 {
   public class DebugHeadsUpDisplay : MonoBehaviour
   {
+    private IStateMachine<IGameLoopState> _gameLoopStateMachine;
     [SerializeField] private TextMeshProUGUI _gameLoopStateMachineActiveState;
 
     private PlaceWallsState _placeWallsState;
-
-    private IStateMachine<IGameLoopState> _gameLoopStateMachine;
 
     [Inject]
     public void Construct(IStateMachine<IGameLoopState> stateMachine)

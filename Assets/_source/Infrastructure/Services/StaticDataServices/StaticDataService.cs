@@ -27,7 +27,7 @@ namespace Infrastructure.Services.StaticDataServices
       FieldConfig = _godFactory.Create<FieldConfig>();
       StartingLabyrinthConfig = _godFactory.Create<StartingLabyrinthConfig>();
       WallPlacerConfig = _godFactory.Create<WallPlacerConfig>();
-      
+
       TowersConfig.SetValues();
     }
 

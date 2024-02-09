@@ -6,9 +6,7 @@ using Infrastructure.Services.CurrentDatas;
 using Infrastructure.Services.GameFactories;
 using Infrastructure.Services.Inputs;
 using Infrastructure.Services.StateMachines;
-using Infrastructure.Services.StateMachines.GameLoopStateMachines;
 using Infrastructure.Services.StateMachines.GameLoopStateMachines.States;
-using Infrastructure.Services.StateMachines.GameStateMachines;
 using Infrastructure.Services.StateMachines.GameStateMachines.States;
 using Infrastructure.Services.StateMachines.StateFactories;
 using Infrastructure.Services.StaticDataServices;
@@ -40,7 +38,7 @@ namespace Infrastructure.DIC
       BindStaticDataService();
       BindGameFactoryService();
     }
-    
+
     private void BindZenjectFactory() =>
       Container
         .Bind<IZenjectFactory>()

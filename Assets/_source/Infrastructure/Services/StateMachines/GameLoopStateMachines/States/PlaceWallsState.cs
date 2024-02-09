@@ -10,9 +10,9 @@ namespace Infrastructure.Services.StateMachines.GameLoopStateMachines.States
 {
   public class PlaceWallsState : IGameLoopState
   {
-    private readonly TowerPlacer _towerPlacer;
-    private readonly IStateMachine<IGameLoopState> _gameLoopStateMachine;
     private readonly ICurrentDataService _currentDataService;
+    private readonly IStateMachine<IGameLoopState> _gameLoopStateMachine;
+    private readonly TowerPlacer _towerPlacer;
 
     public PlaceWallsState(IStateMachine<IGameLoopState> gameLoopStateMachine, TowerPlacer towerPlacer, ICurrentDataService currentDataService)
     {
@@ -20,8 +20,6 @@ namespace Infrastructure.Services.StateMachines.GameLoopStateMachines.States
       _towerPlacer = towerPlacer;
       _currentDataService = currentDataService;
     }
-
-    public event Action<IState> Entered;
 
     public async void Enter()
     {
@@ -34,6 +32,8 @@ namespace Infrastructure.Services.StateMachines.GameLoopStateMachines.States
     public void Exit()
     {
     }
+
+    public event Action<IState> Entered;
 
     private async UniTask PlaceTowers(List<TowerType> towerTypes, List<int> levels)
     {

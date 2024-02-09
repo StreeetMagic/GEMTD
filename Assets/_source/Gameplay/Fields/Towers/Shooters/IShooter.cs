@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace Gameplay.Fields.Towers.Shooters
 {
-    public interface IShooter
-    {
-        Transform ShootingPoint { get; set; }
-        ProjectileContainerModel ProjectileContainerModel { get; set; }
-        List<EnemyModel> Targets { get; set; }
+  public interface IShooter
+  {
+    Transform ShootingPoint { get; set; }
+    ProjectileContainerModel ProjectileContainerModel { get; set; }
+    List<EnemyModel> Targets { get; set; }
 
-        void Shoot();
-        void AddTarget(EnemyModel target);
-        void RemoveTarget(EnemyModel target);
-    }
+    void Shoot();
+    void AddTarget(EnemyModel target);
+    void RemoveTarget(EnemyModel target);
+  }
 }

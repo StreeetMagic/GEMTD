@@ -2,13 +2,13 @@
 
 namespace Gameplay.Fields.Thrones
 {
-    public class ThroneModel
+  public class ThroneModel
+  {
+    public ThroneModel(int health)
     {
-        public ThroneModel(int health)
-        {
-            Health = new ReactiveProperty<int>(health); 
-        }
-
-        public ReactiveProperty<int> Health { get; private set; }
+      Health = new ReactiveProperty<int>(health);
     }
+
+    public ReactiveProperty<int> Health { get; private set; }
+  }
 }

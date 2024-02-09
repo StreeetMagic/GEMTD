@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Gameplay.Fields.CellsContainers
 {
-    public class CellsContainerView : MonoBehaviour
-    {
-    }
+  public class CellsContainerView : MonoBehaviour
+  {
+  }
 }

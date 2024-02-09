@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using Infrastructure.Services.ZenjectFactory;
-using UnityEngine;
 using Zenject;
 
-public class GameLoopSceneInstaller : MonoInstaller
+namespace Infrastructure.DIC.GameLoopSceneContext
 {
-  public override void InstallBindings()
+  public class GameLoopSceneInstaller : MonoInstaller
   {
-     
+    public override void InstallBindings()
+    {
+    }
   }
 }

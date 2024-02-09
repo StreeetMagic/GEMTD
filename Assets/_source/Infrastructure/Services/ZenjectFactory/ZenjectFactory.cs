@@ -1,3 +1,4 @@
+using System;
 using Infrastructure.Services.AssetProviders;
 using UnityEngine;
 using Zenject;
@@ -6,19 +7,21 @@ namespace Infrastructure.Services.ZenjectFactory
 {
   public class ZenjectFactory : IZenjectFactory
   {
-    private readonly DiContainer _container;
     private readonly IAssetProvider _assetProvider;
+    private readonly DiContainer _container;
 
     public ZenjectFactory(DiContainer container, IAssetProvider assetProvider)
     {
       if (container == null)
       {
-        throw new System.ArgumentNullException(nameof(container));
+        throw new ArgumentNullException(nameof(container));
       }
 
       _container = container;
       _assetProvider = assetProvider;
     }
+
+    #region IZenjectFactory Members
 
     public GameObject Instantiate(GameObject gameObject) =>
       _container
@@ -38,9 +41,9 @@ namespace Infrastructure.Services.ZenjectFactory
       var monoBehaviour = _container
         .InstantiatePrefab(_assetProvider.Get<TMono>(), parent)
         .GetComponent<TMono>();
-      
+
       monoBehaviour.transform.parent = parent;
-      
+
       return monoBehaviour;
     }
 
@@ -73,5 +76,7 @@ namespace Infrastructure.Services.ZenjectFactory
       _container
         .InstantiatePrefab(behaviour, position, quaternion, parent)
         .GetComponent<TMono>();
+
+    #endregion
   }
 }

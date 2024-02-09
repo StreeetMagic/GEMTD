@@ -2,10 +2,8 @@
 using System.Linq;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Towers;
-using Infrastructure;
 using Infrastructure.Services.CurrentDatas;
 using Infrastructure.Services.StateMachines;
-using Infrastructure.Services.StateMachines.GameLoopStateMachines;
 using Infrastructure.Services.StateMachines.GameLoopStateMachines.States;
 using Infrastructure.Services.StaticDataServices;
 using TMPro;
@@ -18,14 +16,14 @@ namespace UserInterface.HeadsUpDisplays.ChooseTowerPanels
 {
   public class ChooseTowerPanelView : MonoBehaviour
   {
+    private ICurrentDataService _currentDataService;
+
+    private IStateMachine<IGameLoopState> _gameLoopStateMachine;
+    private IStaticDataService _staticDataService;
     public List<Button> DowngradeButtons { get; private set; }
     public List<Button> PlacedTowerButtons { get; private set; }
     public List<Button> SingleMergeTowerButtons { get; private set; }
     public List<Button> DoubleMergeTowerButtons { get; private set; }
-
-    private IStateMachine<IGameLoopState> _gameLoopStateMachine;
-    private ICurrentDataService _currentDataService;
-    private IStaticDataService _staticDataService;
 
     [Inject]
     public void Construct(IStateMachine<IGameLoopState> gameLoopStateMachine, ICurrentDataService currentDataService, IStaticDataService staticDataService)
@@ -63,7 +61,7 @@ namespace UserInterface.HeadsUpDisplays.ChooseTowerPanels
       DisableMergeButtons();
       gameObject.SetActive(true);
 
-      for (int i = 0; i < PlacedTowerButtons.Count; i++)
+      for (var i = 0; i < PlacedTowerButtons.Count; i++)
         InitButton(PlacedTowerButtons[i], _currentDataService.FieldModel.CellsContainerModel.GetCellModelByCoordinates(wallsCoordinates[i]));
 
       CheckTowers(wallsCoordinates);
@@ -87,7 +85,7 @@ namespace UserInterface.HeadsUpDisplays.ChooseTowerPanels
       {
         if (pair.Value > 1)
         {
-          for (int i = 0; i < cells.Length; i++)
+          for (var i = 0; i < cells.Length; i++)
           {
             if (cells[i].TowerModel.Type != pair.Key)
               continue;
@@ -112,7 +110,7 @@ namespace UserInterface.HeadsUpDisplays.ChooseTowerPanels
         if (pair.Value <= 3)
           continue;
 
-        for (int i = 0; i < cells.Length; i++)
+        for (var i = 0; i < cells.Length; i++)
         {
           if (cells[i].TowerModel.Type != pair.Key)
             continue;
@@ -148,7 +146,7 @@ namespace UserInterface.HeadsUpDisplays.ChooseTowerPanels
       cells = new CellModel[wallsCoordinates.Count];
       towerTypes = new Dictionary<TowerType, int>();
 
-      for (int i = 0; i < wallsCoordinates.Count; i++)
+      for (var i = 0; i < wallsCoordinates.Count; i++)
       {
         Vector2Int vector = wallsCoordinates[i];
         cells[i] = _currentDataService.FieldModel.CellsContainerModel.GetCellModelByCoordinates(vector);
@@ -180,7 +178,7 @@ namespace UserInterface.HeadsUpDisplays.ChooseTowerPanels
 
     private void DisableMergeButtons()
     {
-      for (int i = 0; i < SingleMergeTowerButtons.Count; i++)
+      for (var i = 0; i < SingleMergeTowerButtons.Count; i++)
       {
         DowngradeButtons[i].gameObject.SetActive(false);
         SingleMergeTowerButtons[i].gameObject.SetActive(false);

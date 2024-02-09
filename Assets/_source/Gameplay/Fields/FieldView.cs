@@ -1,7 +1,6 @@
 using System.Linq;
 using Gameplay.Fields.CellsContainers;
 using Gameplay.Fields.EnemySpawners;
-using Infrastructure;
 using Infrastructure.Services.GameFactories;
 using UnityEngine;
 using Zenject;
@@ -10,8 +9,8 @@ namespace Gameplay.Fields
 {
   public class FieldView : MonoBehaviour
   {
-    private IGameFactoryService _gameFactoryService;
     private FieldModel _fieldModel;
+    private IGameFactoryService _gameFactoryService;
 
     private CellsContainerView CellsContainerView { get; set; }
     private EnemySpawnerView EnemySpawnerView { get; set; }

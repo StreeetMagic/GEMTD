@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Gameplay.Fields.Labytinths
 {
-    public class StartingLabyrinthConfig : IStaticData
-    {
-        private Vector2Int[] _coordinates = Array.Empty<Vector2Int>();
+  public class StartingLabyrinthConfig : IStaticData
+  {
+    private readonly Vector2Int[] _coordinates = Array.Empty<Vector2Int>();
 
-        public Vector2Int[] Coordinates => _coordinates.ToArray();
-    }
+    public Vector2Int[] Coordinates => _coordinates.ToArray();
+  }
 }

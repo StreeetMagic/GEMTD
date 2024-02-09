@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.Walls.WallPlacers;
-using Infrastructure.DIC;
 using Infrastructure.Services.CurrentDatas;
 using Infrastructure.Services.GameFactories;
 using Infrastructure.Services.StaticDataServices;
@@ -14,9 +13,9 @@ namespace Infrastructure.Services.StateMachines.GameLoopStateMachines.States
 {
   public class ChooseTowerState : IGameLoopState
   {
-    private readonly TowerPlacer _towerPlacer;
     private readonly ICurrentDataService _currentDataService;
     private readonly IStaticDataService _staticDataService;
+    private readonly TowerPlacer _towerPlacer;
     private readonly IZenjectFactory _zenjectFactory;
 
     private HeadsUpDisplayView _headsUpDisplayView;
@@ -29,8 +28,6 @@ namespace Infrastructure.Services.StateMachines.GameLoopStateMachines.States
       _staticDataService = staticDataService;
       _zenjectFactory = zenjectFactory;
     }
-
-    public event Action<IGameLoopState> Entered;
 
     public void Enter()
     {
@@ -50,6 +47,8 @@ namespace Infrastructure.Services.StateMachines.GameLoopStateMachines.States
     public void Exit()
     {
     }
+
+    public event Action<IGameLoopState> Entered;
 
     public async void ConfirmTower(CellModel cellModel, Action onComplete = null)
     {

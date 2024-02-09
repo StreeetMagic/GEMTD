@@ -2,8 +2,8 @@
 
 namespace Gameplay.Fields.Towers.Shooters.Projectiles.ProjectileContainers
 {
-    public class ProjectileContainerModel
-    {
-        public List<IProjectileModel> Projectiles { get; set; } = new();
-    }
+  public class ProjectileContainerModel
+  {
+    public List<IProjectileModel> Projectiles { get; set; } = new();
+  }
 }

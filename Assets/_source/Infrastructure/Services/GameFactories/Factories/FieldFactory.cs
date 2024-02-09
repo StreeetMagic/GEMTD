@@ -12,11 +12,9 @@ using Gameplay.Fields.Towers.Shooters;
 using Gameplay.Fields.Towers.TargetDetectors;
 using Gameplay.Fields.Walls;
 using Games;
-using Infrastructure.DIC;
 using Infrastructure.Services.CoroutineRunners;
 using Infrastructure.Services.CurrentDatas;
 using Infrastructure.Services.StateMachines;
-using Infrastructure.Services.StateMachines.GameLoopStateMachines;
 using Infrastructure.Services.StateMachines.GameLoopStateMachines.States;
 using Infrastructure.Services.StaticDataServices;
 using Infrastructure.Services.ZenjectFactory;
@@ -27,15 +25,15 @@ namespace Infrastructure.Services.GameFactories.Factories
 {
   public class FieldFactory
   {
-    private readonly IZenjectFactory _zenjectFactory;
-    private readonly IStaticDataService _staticDataService;
+    private readonly ICoroutineRunner _coroutineRunner;
     private readonly ICurrentDataService _currentDataService;
     private readonly IGameFactoryService _gameFactoryService;
     private readonly IStateMachine<IGameLoopState> _gameLoopStateMachine;
-    private readonly ICoroutineRunner _coroutineRunner;
+    private readonly IStaticDataService _staticDataService;
+    private readonly IZenjectFactory _zenjectFactory;
 
-    public FieldFactory(IZenjectFactory zenjectFactory, IStaticDataService staticDataService, 
-      ICurrentDataService currentDataService, IGameFactoryService gameFactoryService, IGodFactory godFactory,
+    public FieldFactory(IZenjectFactory zenjectFactory, IStaticDataService staticDataService,
+      ICurrentDataService currentDataService, IGameFactoryService gameFactoryService,
       IStateMachine<IGameLoopState> gameLoopStateMachine, ICoroutineRunner coroutineRunner)
     {
       _zenjectFactory = zenjectFactory;
@@ -47,14 +45,14 @@ namespace Infrastructure.Services.GameFactories.Factories
     }
 
     public FieldModel CreateFieldModel(GameConfig gameConfig) =>
-      new FieldModel(CreateCellModels(_staticDataService.FieldConfig.FieldSize), CreateEnemySpawnerModel(gameConfig), _staticDataService);
+      new(CreateCellModels(_staticDataService.FieldConfig.FieldSize), CreateEnemySpawnerModel(gameConfig), _staticDataService);
 
     private EnemySpawnerModel CreateEnemySpawnerModel(GameConfig gameConfig) =>
-      new EnemySpawnerModel(CreateEnemyContainerModel(), gameConfig.SpawnCooldown, gameConfig.WaveMobCount, _coroutineRunner, _staticDataService,
+      new(CreateEnemyContainerModel(), gameConfig.SpawnCooldown, gameConfig.WaveMobCount, _coroutineRunner, _staticDataService,
         _gameFactoryService, _currentDataService);
 
     private EnemyContainerModel CreateEnemyContainerModel() =>
-      new EnemyContainerModel(_gameLoopStateMachine);
+      new(_gameLoopStateMachine);
 
     public BlockView CreateBlockView(BlockModel blockModel, Transform parent) =>
       _zenjectFactory.Instantiate<BlockView>()
@@ -98,7 +96,7 @@ namespace Infrastructure.Services.GameFactories.Factories
 
       var checkpointDatas = new CheckPointModel[configs.Count];
 
-      for (int i = 0; i < configs.Count; i++)
+      for (var i = 0; i < configs.Count; i++)
       {
         CellModel cell = _currentDataService.FieldModel.CellsContainerModel.GetCellModelByCoordinates(configs[i].Coordinates);
         checkpointDatas[i] = CreateCheckPointModel(configs[i].Number, cell);
@@ -107,7 +105,7 @@ namespace Infrastructure.Services.GameFactories.Factories
     }
 
     public WallModel CreateWallModel() =>
-      new WallModel();
+      new();
 
     public TowerModel CreateTowerModel(TowerType towerType, int level)
     {
@@ -120,7 +118,7 @@ namespace Infrastructure.Services.GameFactories.Factories
         .SetWallModel(CreateWallModel()));
 
     private CheckPointModel CreateCheckPointModel(int number, CellModel cell) =>
-      new CheckPointModel(number, cell);
+      new(number, cell);
 
     private CellModel[] CreateCellModels(int size) =>
       Enumerable.Range(0, size)

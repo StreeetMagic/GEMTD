@@ -9,7 +9,7 @@ namespace Infrastructure.SceneLoaders
   public class SceneLoader
   {
     private readonly string _initialSceneName;
-    private ICoroutineRunner _coroutineRunner;
+    private readonly ICoroutineRunner _coroutineRunner;
 
     public SceneLoader(string initialSceneName, ICoroutineRunner coroutineRunner)
     {
@@ -43,7 +43,9 @@ namespace Infrastructure.SceneLoaders
       asyncOperation.allowSceneActivation = true;
 
       while (asyncOperation.isDone == false)
+      {
         yield return null;
+      }
 
       onLoaded?.Invoke(nextScene);
       SceneLoaded?.Invoke(nextScene);

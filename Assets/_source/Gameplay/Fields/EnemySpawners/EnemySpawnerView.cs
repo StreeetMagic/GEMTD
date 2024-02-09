@@ -1,6 +1,5 @@
 ﻿using Gameplay.Fields.Enemies;
 using Gameplay.Fields.EnemyContainers;
-using Infrastructure;
 using Infrastructure.Services.GameFactories;
 using UnityEngine;
 using Zenject;
@@ -9,10 +8,9 @@ namespace Gameplay.Fields.EnemySpawners
 {
   public class EnemySpawnerView : MonoBehaviour
   {
+    private IGameFactoryService _gameFactoryService;
     public EnemyContainerView EnemyContainerView { get; set; }
     public EnemySpawnerModel EnemySpawnerModel { get; set; }
-
-    private IGameFactoryService _gameFactoryService;
 
     [Inject]
     public void Construct(IGameFactoryService gameFactoryService)

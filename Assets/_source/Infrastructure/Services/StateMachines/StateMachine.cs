@@ -5,6 +5,8 @@ namespace Infrastructure.Services.StateMachines
 {
   public class StateMachine<TMainState> : IStateMachine<TMainState> where TMainState : class, IState
   {
+    #region IStateMachine<TMainState> Members
+
     public IExitableState ActiveState { get; private set; }
 
     public void Enter<TState>() where TState : class, TMainState
@@ -30,10 +32,10 @@ namespace Infrastructure.Services.StateMachines
       return Implementation<TState>.Instance = implementation;
     }
 
-    public TState Get<TState>() where TState : class, TMainState
-    {
-      return Implementation<TState>.Instance;
-    }
+    public TState Get<TState>() where TState : class, TMainState =>
+      Implementation<TState>.Instance;
+
+    #endregion
 
     private TState ChangeState<TState>() where TState : class, TMainState, IExitableState
     {

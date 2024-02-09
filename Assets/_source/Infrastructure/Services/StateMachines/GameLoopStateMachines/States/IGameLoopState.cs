@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Services.StateMachines.GameLoopStateMachines.States
 {
-    public interface IGameLoopState : IState
-    {
-    }
+  public interface IGameLoopState : IState
+  {
+  }
 }

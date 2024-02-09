@@ -1,6 +1,6 @@
 ﻿namespace Gameplay.Fields.Walls
 {
-    public class WallModel
-    {
-    }
+  public class WallModel
+  {
+  }
 }

@@ -1,8 +1,6 @@
 using Games;
 using Infrastructure.SceneLoaders;
 using Infrastructure.Services.CoroutineRunners;
-using Infrastructure.Services.StateMachines.GameLoopStateMachines;
-using Infrastructure.Services.StateMachines.GameLoopStateMachines.States;
 using Infrastructure.Services.StateMachines.States;
 using Zenject;
 
@@ -13,16 +11,11 @@ namespace Infrastructure.Services.StateMachines.GameStateMachines.States
     private readonly IStateMachine<IGameState> _gameStateMachine;
     private readonly SceneLoader _sceneLoader;
 
-    public LoadLevelState(IStateMachine<IGameState>  gameStateMachine, [Inject(Id = Constants.Ids.InitialSceneName)] string initialSceneName,
+    public LoadLevelState(IStateMachine<IGameState> gameStateMachine, [Inject(Id = Constants.Ids.InitialSceneName)] string initialSceneName,
       ICoroutineRunner coroutineRunner)
     {
       _gameStateMachine = gameStateMachine;
       _sceneLoader = new SceneLoader(initialSceneName, coroutineRunner);
-    }
-
-    public void Enter(string sceneName)
-    {
-      _sceneLoader.Load(sceneName, OnSceneLoaded);
     }
 
     public void Enter()
@@ -32,6 +25,11 @@ namespace Infrastructure.Services.StateMachines.GameStateMachines.States
 
     public void Exit()
     {
+    }
+
+    public void Enter(string sceneName)
+    {
+      _sceneLoader.Load(sceneName, OnSceneLoaded);
     }
 
     private void OnSceneLoaded(string name)

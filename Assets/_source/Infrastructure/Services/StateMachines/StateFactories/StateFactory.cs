@@ -5,13 +5,19 @@ namespace Infrastructure.Services.StateMachines.StateFactories
 {
   public class StateFactory : IStateFactory
   {
-    private IInstantiator _instantiator;
+    private readonly IInstantiator _instantiator;
 
-    public StateFactory(IInstantiator instantiator) =>
+    public StateFactory(IInstantiator instantiator)
+    {
       _instantiator = instantiator;
+    }
+
+    #region IStateFactory Members
 
     public TState Create<TState>() where TState : IExitableState =>
       _instantiator.Instantiate<TState>();
+
+    #endregion
   }
 
   public interface IStateFactory : IService

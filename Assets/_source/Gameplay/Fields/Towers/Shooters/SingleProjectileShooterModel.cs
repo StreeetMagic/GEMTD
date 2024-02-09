@@ -9,25 +9,27 @@ using UnityEngine;
 
 namespace Gameplay.Fields.Towers.Shooters
 {
-  class SingleProjectileShooterModel : IShooter
+  internal class SingleProjectileShooterModel : IShooter
   {
-    private IGameFactoryService _gameFactoryService;
-    private EnemyModel _currentTarget;
-    private readonly CoroutineDecorator _coroutine;
     private readonly float _cooldown = .5f;
+    private readonly CoroutineDecorator _coroutine;
 
-    public Transform ShootingPoint { get; set; }
-    public ProjectileContainerModel ProjectileContainerModel { get; set; }
-    public List<EnemyModel> Targets { get; set; } = new();
-
-    private MonoBehaviour CoroutineRunner;
+    private MonoBehaviour _coroutineRunner;
+    private EnemyModel _currentTarget;
+    private readonly IGameFactoryService _gameFactoryService;
 
     public SingleProjectileShooterModel(IGameFactoryService gameFactoryService)
     {
       _gameFactoryService = gameFactoryService;
-      _coroutine = new CoroutineDecorator(CoroutineRunner, Shooting);
+      _coroutine = new CoroutineDecorator(_coroutineRunner, Shooting);
       ProjectileContainerModel = new ProjectileContainerModel();
     }
+
+    #region IShooter Members
+
+    public Transform ShootingPoint { get; set; }
+    public ProjectileContainerModel ProjectileContainerModel { get; set; }
+    public List<EnemyModel> Targets { get; set; } = new();
 
     public void Shoot()
     {
@@ -72,6 +74,8 @@ namespace Gameplay.Fields.Towers.Shooters
         target.Died -= OnTargetDied;
       }
     }
+
+    #endregion
 
     private IEnumerator Shooting(Action onComplete)
     {

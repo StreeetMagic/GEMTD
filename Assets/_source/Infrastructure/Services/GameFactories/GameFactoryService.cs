@@ -1,13 +1,11 @@
 ﻿using Gameplay.Fields.Enemies;
 using Gameplay.Fields.Thrones;
 using Gameplay.Fields.Towers.Shooters.Projectiles.DefaultProjectiles;
-using Games;
 using Infrastructure.DIC;
 using Infrastructure.Services.CoroutineRunners;
 using Infrastructure.Services.CurrentDatas;
 using Infrastructure.Services.GameFactories.Factories;
 using Infrastructure.Services.StateMachines;
-using Infrastructure.Services.StateMachines.GameLoopStateMachines;
 using Infrastructure.Services.StateMachines.GameLoopStateMachines.States;
 using Infrastructure.Services.ZenjectFactory;
 using Infrastructure.Utilities;
@@ -27,7 +25,7 @@ namespace Infrastructure.Services.GameFactories
     {
       _iZenjectFactory = iZenjectFactory;
 
-      FieldFactory = new FieldFactory(_iZenjectFactory, staticData, currentData, this, godFactory, gameLoopStateMachine, coroutineRunner);
+      FieldFactory = new FieldFactory(_iZenjectFactory, staticData, currentData, this, gameLoopStateMachine, coroutineRunner);
       UserInterfaceFactory = new UserInterfaceFactory(_iZenjectFactory);
     }
 
@@ -39,7 +37,7 @@ namespace Infrastructure.Services.GameFactories
         .With(e => e.Init(new DefaultProjectileModel(target)));
 
     public EnemyModel CreateEnemyModel(Vector3 at, Vector2Int[] points, EnemyValues values, EnemiesConfig config) =>
-      new EnemyModel(at, points, values, config);
+      new(at, points, values, config);
 
     public void CreateThrone(Vector3 position)
     {

@@ -2,8 +2,8 @@
 
 namespace Games
 {
-    [Serializable]
-    public class GameProgress
-    {
-    }
+  [Serializable]
+  public class GameProgress
+  {
+  }
 }

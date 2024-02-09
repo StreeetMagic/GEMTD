@@ -2,7 +2,6 @@ using Gameplay.Fields.Blocks;
 using Gameplay.Fields.Checkpoints;
 using Gameplay.Fields.Towers;
 using Gameplay.Fields.Walls;
-using Infrastructure;
 using Infrastructure.Services.GameFactories;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,6 +20,15 @@ namespace Gameplay.Fields.Cells
     public TowerView TowerView { get; private set; }
 
     public bool IsPainted { get; set; }
+
+    #region IPointerDownHandler Members
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+      Debug.Log(name);
+    }
+
+    #endregion
 
     [Inject]
     public void Construct(IGameFactoryService gameFactoryService)
@@ -78,11 +86,6 @@ namespace Gameplay.Fields.Cells
     private void OnCheckpointModelSet()
     {
       CheckpointView = _gameFactoryService.FieldFactory.CreateCheckpointView(CellModel.CheckPointModel, transform);
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-      Debug.Log(name);
     }
 
     public void UnHighlight()

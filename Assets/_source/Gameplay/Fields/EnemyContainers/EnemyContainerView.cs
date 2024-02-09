@@ -2,7 +2,7 @@
 
 namespace Gameplay.Fields.EnemyContainers
 {
-    public class EnemyContainerView : MonoBehaviour
-    {
-    }
+  public class EnemyContainerView : MonoBehaviour
+  {
+  }
 }

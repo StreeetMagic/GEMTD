@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Services.StateMachines.GameStateMachines.States
 {
-    public interface IGameState : IState
-    {
-    }
+  public interface IGameState : IState
+  {
+  }
 }

@@ -6,8 +6,8 @@ using Zenject;
 namespace Infrastructure.GameRunners
 {
   /// <summary>
-  /// <para>Should be placed on scenes manually</para>
-  /// <para>1 GameRunner on each scene</para>
+  ///   <para>Should be placed on scenes manually</para>
+  ///   <para>1 GameRunner on each scene</para>
   /// </summary>
   public class GameRunner : MonoBehaviour
   {

@@ -1,5 +1,4 @@
-﻿using Infrastructure;
-using Infrastructure.Services.Inputs;
+﻿using Infrastructure.Services.Inputs;
 using UnityEngine;
 using Zenject;
 
@@ -7,18 +6,17 @@ namespace Cameras
 {
   public class CameraMovement : MonoBehaviour
   {
+    private IInputService _inputService;
     [SerializeField] private float _movementSpeed = 50f;
     [SerializeField] private float _scrollPower = 1;
 
-    private IInputService _inputService;
-    
     [Inject]
     public void Construct(IInputService inputService)
     {
       _inputService = inputService;
     }
-    
-    void Update()
+
+    private void Update()
     {
       MoveXZ();
       MoveY();

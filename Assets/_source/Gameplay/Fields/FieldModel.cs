@@ -2,7 +2,6 @@
 using Gameplay.Fields.Cells;
 using Gameplay.Fields.CellsContainers;
 using Gameplay.Fields.EnemySpawners;
-using Infrastructure;
 using Infrastructure.Services.StaticDataServices;
 using UnityEngine;
 
@@ -27,11 +26,11 @@ namespace Gameplay.Fields
     {
       int size = _staticDataService.FieldConfig.FieldSize;
       int centralCoordinate = size / 2 + 1;
-      List<Vector2Int> coordinates = new List<Vector2Int>();
+      var coordinates = new List<Vector2Int>();
 
       while (coordinates.Count < towerPerRound)
       {
-        for (int i = 0; i < centralCoordinate; i++)
+        for (var i = 0; i < centralCoordinate; i++)
         {
           FindValidCoordinates(centralCoordinate, i, coordinates, towerPerRound);
 
@@ -75,7 +74,7 @@ namespace Gameplay.Fields
 
     private bool HasSameCoordinates(Vector2Int[] coordinates)
     {
-      for (int i = 0; i < coordinates.Length; i++)
+      for (var i = 0; i < coordinates.Length; i++)
       {
         for (int j = i + 1; j < coordinates.Length; j++)
         {

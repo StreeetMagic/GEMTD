@@ -1,4 +1,4 @@
-using Infrastructure.Services.ZenjectFactory;
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,14 +10,14 @@ namespace Infrastructure.Services.AssetProviders
     {
       if (Resources.Load(typeof(T).Name) == null)
       {
-        throw new System.Exception("Asset not found: " + typeof(T).Name);
+        throw new Exception("Asset not found: " + typeof(T).Name);
       }
 
       var load = Resources.Load(typeof(T).Name).GetComponent<T>();
 
       if (load == null)
       {
-        throw new System.Exception("Asset not found: " + typeof(T).Name);
+        throw new Exception("Asset not found: " + typeof(T).Name);
       }
 
       return load;
@@ -29,15 +29,13 @@ namespace Infrastructure.Services.AssetProviders
 
       if (load == null)
       {
-        throw new System.Exception("Asset not found: " + path);
+        throw new Exception("Asset not found: " + path);
       }
 
       return load;
     }
 
-    public Material GetMaterial(string path)
-    {
-      return Resources.Load<Material>(path);
-    }
+    public Material GetMaterial(string path) =>
+      Resources.Load<Material>(path);
   }
 }

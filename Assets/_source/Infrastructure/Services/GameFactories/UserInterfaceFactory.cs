@@ -1,13 +1,11 @@
-﻿using Games;
-using Infrastructure.Services.AssetProviders;
-using Infrastructure.Services.ZenjectFactory;
+﻿using Infrastructure.Services.ZenjectFactory;
 using UserInterface.HeadsUpDisplays;
 
 namespace Infrastructure.Services.GameFactories
 {
   public class UserInterfaceFactory
   {
-    private IZenjectFactory _zenjectFactory;
+    private readonly IZenjectFactory _zenjectFactory;
 
     public UserInterfaceFactory(IZenjectFactory zenjectFactory)
     {

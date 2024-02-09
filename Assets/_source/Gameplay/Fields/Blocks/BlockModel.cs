@@ -2,23 +2,22 @@
 
 namespace Gameplay.Fields.Blocks
 {
-    public class BlockModel
+  public class BlockModel
+  {
+    public bool IsPainted { get; set; }
+    public event Action Painted;
+    public event Action UnPainted;
+
+    public void Paint()
     {
-        public event Action Painted;
-        public event Action UnPainted;
-        
-        public bool IsPainted { get; set; }
-
-        public void Paint()
-        {
-            IsPainted = true;
-            Painted?.Invoke();
-        }
-
-        public void UnPaint()
-        {
-            IsPainted = false;
-            UnPainted?.Invoke();
-        }
+      IsPainted = true;
+      Painted?.Invoke();
     }
+
+    public void UnPaint()
+    {
+      IsPainted = false;
+      UnPainted?.Invoke();
+    }
+  }
 }

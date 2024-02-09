@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Gameplay.Fields.PathFinders
 {
-    public interface IPathFinder
-    {
-        void FindPath(CellModel[] field, Vector2Int startCoordinatesValues, Vector2Int finishCoordinates, List<Vector2Int> path);
-    }
+  public interface IPathFinder
+  {
+    void FindPath(CellModel[] field, Vector2Int startCoordinatesValues, Vector2Int finishCoordinates, List<Vector2Int> path);
+  }
 }

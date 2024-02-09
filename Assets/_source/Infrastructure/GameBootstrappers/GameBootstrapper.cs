@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.ComponentModel;
-using Games;
+﻿using Games;
 using Infrastructure.DIC;
 using UnityEngine;
 using Zenject;
@@ -19,7 +17,7 @@ namespace Infrastructure.GameBootstrappers
 
     private void Awake()
     {
-      Game game = _godFactory.Create<Game>();
+      var game = _godFactory.Create<Game>();
       game.Start();
     }
   }

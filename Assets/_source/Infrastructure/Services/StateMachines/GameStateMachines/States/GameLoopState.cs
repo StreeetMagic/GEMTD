@@ -1,11 +1,7 @@
 using Debugs.Debug_HeadsUpDisplays;
-using Gameplay.Fields.Walls.WallPlacers;
 using Gameplay.Players;
-using Games;
-using Infrastructure.Services.AssetProviders;
 using Infrastructure.Services.CurrentDatas;
 using Infrastructure.Services.GameFactories;
-using Infrastructure.Services.StateMachines.GameLoopStateMachines;
 using Infrastructure.Services.StateMachines.GameLoopStateMachines.States;
 using Infrastructure.Services.StaticDataServices;
 using Infrastructure.Services.ZenjectFactory;
@@ -15,11 +11,11 @@ namespace Infrastructure.Services.StateMachines.GameStateMachines.States
 {
   public class GameLoopState : IGameState
   {
-    private readonly IStateMachine<IGameLoopState> _gameLoopStateMachine;
-    private readonly IGameFactoryService _gameFactoryService;
     private readonly ICurrentDataService _currentDataService;
-    private readonly IZenjectFactory _zenjectFactory;
+    private readonly IGameFactoryService _gameFactoryService;
+    private readonly IStateMachine<IGameLoopState> _gameLoopStateMachine;
     private readonly IStaticDataService _staticDataService;
+    private readonly IZenjectFactory _zenjectFactory;
 
     public GameLoopState(IStateMachine<IGameLoopState> gameLoopStateMachine, IGameFactoryService gameFactoryService,
       ICurrentDataService currentDataService, IZenjectFactory zenjectFactory, IStaticDataService staticDataService)

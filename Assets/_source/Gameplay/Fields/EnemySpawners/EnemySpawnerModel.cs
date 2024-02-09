@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Fields.Cells;
-using Gameplay.Fields.Checkpoints;
 using Gameplay.Fields.Enemies;
 using Gameplay.Fields.EnemyContainers;
 using Gameplay.Fields.PathFinders;
@@ -18,13 +17,13 @@ namespace Gameplay.Fields.EnemySpawners
 {
   public class EnemySpawnerModel
   {
-    private readonly CoroutineDecorator _spawningCoroutine;
+    private readonly int _count;
+    private readonly ICurrentDataService _currentDataService;
+    private readonly IGameFactoryService _gameFactoryService;
     private readonly IPathFinder _pathFinder = new BreadthFirstPathFinder();
     private readonly float _seconds;
-    private readonly int _count;
+    private readonly CoroutineDecorator _spawningCoroutine;
     private readonly IStaticDataService _staticDataService;
-    private readonly IGameFactoryService _gameFactoryService;
-    private readonly ICurrentDataService _currentDataService;
 
     public EnemySpawnerModel(EnemyContainerModel containerModel, float seconds, int count, ICoroutineRunner coroutineRunner, IStaticDataService staticDataService, IGameFactoryService gameFactoryService, ICurrentDataService currentDataService)
     {
@@ -37,9 +36,9 @@ namespace Gameplay.Fields.EnemySpawners
       _spawningCoroutine = new CoroutineDecorator(coroutineRunner as MonoBehaviour, Spawning);
     }
 
-    public event Action<EnemyModel> EnemySpawned;
-
     private EnemyContainerModel ContainerModel { get; }
+
+    public event Action<EnemyModel> EnemySpawned;
 
     public void Spawn(Action onComplete = null)
     {
@@ -57,10 +56,10 @@ namespace Gameplay.Fields.EnemySpawners
 
       Vector2Int coordinates = _staticDataService.CheckpointsConfig.CheckpointValues[0].Coordinates;
       Vector3 startingPosition = new(coordinates.x, 0, coordinates.y);
-      var enemiesConfig = _staticDataService.EnemiesConfig;
+      EnemiesConfig enemiesConfig = _staticDataService.EnemiesConfig;
       int roundNumber = _currentDataService.FieldModel.RoundNumber;
 
-      for (int i = 0; i < _count; i++)
+      for (var i = 0; i < _count; i++)
       {
         EnemyModel enemy = _gameFactoryService.CreateEnemyModel(startingPosition, points, enemiesConfig.Enemies[roundNumber], enemiesConfig);
         ContainerModel.AddEnemy(enemy);
@@ -79,7 +78,7 @@ namespace Gameplay.Fields.EnemySpawners
 
       CellModel[] cells = _currentDataService.FieldModel.CellsContainerModel.CellModels;
 
-      for (int i = 0; i < checkPoints.Length - 1; i++)
+      for (var i = 0; i < checkPoints.Length - 1; i++)
       {
         _pathFinder.FindPath(cells, checkPoints[i], checkPoints[i + 1], foundPoints);
       }

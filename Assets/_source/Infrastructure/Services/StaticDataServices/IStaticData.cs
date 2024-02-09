@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Services.StaticDataServices
 {
-    public interface IStaticData
-    {
-    }
+  public interface IStaticData
+  {
+  }
 }

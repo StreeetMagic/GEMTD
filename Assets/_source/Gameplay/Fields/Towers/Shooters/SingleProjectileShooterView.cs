@@ -4,28 +4,27 @@ using UnityEngine;
 
 namespace Gameplay.Fields.Towers.Shooters
 {
-    public class SingleProjectileShooterView : MonoBehaviour
+  public class SingleProjectileShooterView : MonoBehaviour
+  {
+    private IShooter _shooter;
+    public ShootingPointView ShootingPoint { get; set; }
+    public ProjectileContainerView ProjectileContainerView { get; set; }
+
+    public void Init(IShooter shooter)
     {
-        public ShootingPointView ShootingPoint { get; set; }
-        public ProjectileContainerView ProjectileContainerView { get; set; }
-
-        private IShooter _shooter;
-
-        public void Init(IShooter shooter)
-        {
-            _shooter = shooter;
-            _shooter.ShootingPoint = ShootingPoint.transform;
-        }
-
-        private void Awake()
-        {
-            ShootingPoint = GetComponentInChildren<ShootingPointView>();
-            ProjectileContainerView = GetComponentInChildren<ProjectileContainerView>();
-        }
-
-        private void Update()
-        {
-            _shooter?.Shoot();
-        }
+      _shooter = shooter;
+      _shooter.ShootingPoint = ShootingPoint.transform;
     }
+
+    private void Awake()
+    {
+      ShootingPoint = GetComponentInChildren<ShootingPointView>();
+      ProjectileContainerView = GetComponentInChildren<ProjectileContainerView>();
+    }
+
+    private void Update()
+    {
+      _shooter?.Shoot();
+    }
+  }
 }

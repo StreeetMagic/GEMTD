@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Games;
-using Infrastructure;
 using Infrastructure.Services.AssetProviders;
 using Infrastructure.Services.StaticDataServices;
 using Infrastructure.Utilities;
@@ -20,18 +19,18 @@ namespace Gameplay.Fields.Towers
 
   public class TowersConfig : IStaticData
   {
-    private readonly List<TowerValues> _towerValues = new List<TowerValues>();
+    private readonly List<TowerValues> _towerValues = new();
+
+    private readonly IAssetProvider _assetProvider;
 
     private Material _bMaterial;
     private Material _dMaterial;
-    private Material _yMaterial;
     private Material _eMaterial;
     private Material _gMaterial;
+    private Material _pMaterial;
     private Material _qMaterial;
     private Material _rMaterial;
-    private Material _pMaterial;
-
-    private IAssetProvider _assetProvider;
+    private Material _yMaterial;
 
     public TowersConfig(IAssetProvider assetProvider)
     {
@@ -456,7 +455,7 @@ namespace Gameplay.Fields.Towers
       _towerValues.Find(x => x.Type == towerModelType).Material;
 
     public Vector3 GetScale(int level) =>
-      new(0.8f, 1 + (0.4f * (level - 1)), 0.8f);
+      new(0.8f, 1 + 0.4f * (level - 1), 0.8f);
 
     public TowerValues GetTowerValues(TowerType towerModelType) =>
       _towerValues.Find(x => x.Type == towerModelType);
